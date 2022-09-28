@@ -1,3 +1,5 @@
+import 'package:edu2gether_mobile/screens/login/create_account.dart';
+import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: true,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: CreateAccount(),
     );
   }
 }
