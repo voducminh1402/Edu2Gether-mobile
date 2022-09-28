@@ -157,7 +157,7 @@ class Login extends StatelessWidget {
             Center(
                 child: RichText(
                 text: new TextSpan( text: "Don't have an account?",
-                style: TextStyle(fontFamily: 'Urbanist'),
+                style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
                 children: <TextSpan>[
                   new TextSpan(
                     text: ' Sign up',
