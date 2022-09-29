@@ -28,7 +28,7 @@ class Login extends StatelessWidget {
             Container(
               width: 200,
               height: 200,
-              child: Center(child: Image.asset('images/circle.png'),),
+              child: Center(child: Image.asset('assets/images/circle.png'),),
             ),
             SizedBox(
               height: 16,
