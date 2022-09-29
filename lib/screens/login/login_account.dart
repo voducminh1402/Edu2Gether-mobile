@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
@@ -8,14 +9,14 @@ import 'package:flutter/material.dart';
 import '../../utilities/colors.dart';
 import '../../widgets/big_text.dart';
 
-class CreateAccount extends StatefulWidget {
-  const CreateAccount({Key? key}) : super(key: key);
+class LoginAccount extends StatefulWidget {
+  const LoginAccount({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccount> createState() => _CreateAccountState();
+  State<LoginAccount> createState() => _LoginAccountState();
 }
 
-class _CreateAccountState extends State<CreateAccount> {
+class _LoginAccountState extends State<LoginAccount> {
   bool _passwordVisible = false;
   bool _rememberAccount = false;
 
@@ -62,7 +63,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     fontSize: Dimension.font24,
                     fontFamily: 'Urbanist',
                     fontWeight: FontWeight.bold),
-                "Create your Account",
+                "Login to your Account",
               ),
               SizedBox(
                 height: Dimension.height20,
@@ -138,9 +139,9 @@ class _CreateAccountState extends State<CreateAccount> {
                     },
                   ),
                   Text('Remembered me', style: TextStyle(
-                    fontSize: Dimension.font8,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Urbanist')),
+                      fontSize: Dimension.font8,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Urbanist')),
                 ],
               ),
               SizedBox(
@@ -161,7 +162,15 @@ class _CreateAccountState extends State<CreateAccount> {
                     )),
               ),
               SizedBox(
-                height: Dimension.height20,
+                height: Dimension.height10,
+              ),
+              Text('Forgot the password?', style: TextStyle(
+                  fontSize: Dimension.font8,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.mainColor,
+                  fontFamily: 'Urbanist')),
+              SizedBox(
+                height: Dimension.height10,
               ),
               Container(
                 child: Row(
@@ -191,8 +200,8 @@ class _CreateAccountState extends State<CreateAccount> {
                     padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
                     child: Icon(Icons.facebook_outlined, color: AppColors.mainColor,),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(color: AppColors.inputColor)
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: AppColors.inputColor)
                     ),
                   ),
                   Container(
@@ -220,21 +229,22 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               Center(
                   child: RichText(
-                    text: new TextSpan( text: "Already have an account?",
+                    text: new TextSpan(
+                      text: "Don't have an account?",
                       style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
                       children: <TextSpan>[
                         new TextSpan(
                           text: ' Sign in',
                           style: new TextStyle(
-                              color: AppColors.mainColor,
-                              fontFamily: 'Urbanist'
-                          ),
-                          recognizer: new TapGestureRecognizer()..onTap = () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const Login()),
-                            );
-                          },
+                              color: AppColors.mainColor, fontFamily: 'Urbanist'),
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const CreateAccount()),
+                              );
+                            },
                         ),
                       ],
                     ),

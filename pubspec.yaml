@@ -40,7 +40,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  get: ^4.1.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -79,7 +78,9 @@ flutter:
     - family: Urbanist
       fonts:
         - asset: assets/fonts/Urbanist-Regular.ttf
-        - asset: assets/fonts/Urbanist-Italic.ttf
+        - asset: assets/fonts/Urbanist-Bold.ttf
+        - asset: assets/fonts/Urbanist-SemiBold.ttf
+        - asset: assets/fonts/Urbanist-Medium.ttf
           style: italic
   #   - family: Trajan Pro
   #     fonts:
