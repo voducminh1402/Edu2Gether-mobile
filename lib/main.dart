@@ -1,6 +1,9 @@
+import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
+import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
+import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: TransactionPage(),
+      home: MostPopularCourse(),
     );
   }
 }

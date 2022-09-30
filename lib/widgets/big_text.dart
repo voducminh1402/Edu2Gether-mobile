@@ -5,11 +5,13 @@ class BigText extends StatelessWidget {
   Color? color;
   final String text;
   double size;
+  FontWeight? fontweight;
   TextOverflow overflow;
   BigText({Key? key, this.color = Colors.blueAccent,
     required this.text,
-    this.overflow=TextOverflow.ellipsis,
-    this.size=20
+    this.overflow = TextOverflow.ellipsis,
+    this.size = 18,
+    this.fontweight,
   }) : super(key: key);
 
   @override
@@ -21,8 +23,9 @@ class BigText extends StatelessWidget {
       style: TextStyle(
         color: color,
         fontFamily: 'Urbanist',
-        fontWeight: FontWeight.w400,
-        fontSize: size
+        fontWeight: fontweight,
+        fontSize: size,
+        fontStyle: FontStyle.normal
       ),
     );
   }

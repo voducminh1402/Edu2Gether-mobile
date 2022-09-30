@@ -29,7 +29,7 @@ class _TransactionPageState extends State<TransactionPage> {
                 children: [
                   Column(
                     children: [
-                      BigText(text: "Transaction", color: Colors.blueAccent, size: 30,)
+                      BigText(text: "Transaction", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
                     ],
                   ),
                   Row(
@@ -37,12 +37,12 @@ class _TransactionPageState extends State<TransactionPage> {
                       Container(
                         width: 40,
                         height: 40,
-                        child: Icon(Icons.search, color: Colors.blueAccent, size: 30,),
+                        child: Icon(Icons.search, color: Colors.black, size: 30,),
                       ),
                       Container(
                           width: 40,
                           height: 40,
-                          child: Icon(Icons.more_horiz_outlined, color: Colors.blue, size: 30,)
+                          child: Icon(Icons.more_horiz_outlined, color: Colors.black, size: 30,)
                       ),
                     ],
                   )
@@ -71,7 +71,7 @@ class _TransactionPageState extends State<TransactionPage> {
                           height: 30,
                           child: Icon(Icons.home, color: Colors.blueAccent, size: 30,),
                         ),
-                        DefinationBottomNavText(text: "Home")
+                        DefinationBottomNavText(text: "Home", color: Colors.black26,)
                       ],
                     ),
                     Column(
@@ -81,7 +81,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             height: 30,
                             child: Icon(Icons.view_list, color: Colors.blue, size: 30,)
                         ),
-                        DefinationBottomNavText(text: "My Course")
+                        DefinationBottomNavText(text: "My Course", color: Colors.black26,)
                       ],
                     ),
                     Column(
@@ -91,7 +91,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             height: 30,
                             child: Icon(Icons.chat, color: Colors.blue, size: 30,)
                         ),
-                        DefinationBottomNavText(text: "Chat")
+                        DefinationBottomNavText(text: "Chat", color: Colors.black26,)
                       ],
                     ),
                     Column(
@@ -101,7 +101,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             height: 30,
                             child: Icon(Icons.shopping_cart, color: Colors.blue, size: 30,)
                         ),
-                        DefinationBottomNavText(text: "Transaction")
+                        DefinationBottomNavText(text: "Transaction", color: Colors.black26,)
                       ],
                     ),
                     Column(
@@ -111,7 +111,7 @@ class _TransactionPageState extends State<TransactionPage> {
                             height: 30,
                             child: Icon(Icons.account_circle, color: Colors.blue, size: 30,)
                         ),
-                        DefinationBottomNavText(text: "Profile")
+                        DefinationBottomNavText(text: "Profile", color: Colors.black26,)
                       ],
                     ),
 
