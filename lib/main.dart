@@ -1,6 +1,7 @@
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
+import 'package:edu2gether_mobile/screens/userProfile/profile_payment.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Profile(),
+      home: ProfilePayment(),
     );
   }
 }

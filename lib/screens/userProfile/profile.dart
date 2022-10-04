@@ -1,5 +1,4 @@
-import 'package:edu2gether_mobile/utilities/size_utils.dart';
-import 'package:edu2gether_mobile/widgets/big_text.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
