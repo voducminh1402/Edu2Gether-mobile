@@ -6,10 +6,12 @@ class SmallText extends StatelessWidget {
   final String text;
   double size;
   double height;
+  FontWeight? fontweight;
   SmallText({Key? key, this.color = Colors.black26,
     required this.text,
     this.size=12,
-    this.height=1.2
+    this.height=1.2,
+    this.fontweight,
   }) : super(key: key);
 
   @override
@@ -17,10 +19,12 @@ class SmallText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
+          overflow: TextOverflow.ellipsis,
           color: color,
           fontFamily: 'Urbanist',
           fontSize: size,
-          height: height
+          height: height,
+          fontWeight: fontweight,
       ),
     );
   }
