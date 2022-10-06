@@ -1,10 +1,14 @@
+import 'package:edu2gether_mobile/routes/routes.dart';
+import 'package:edu2gether_mobile/screens/login/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
-import 'package:edu2gether_mobile/widgets/big_text.dart';
+import 'package:edu2gether_mobile/widgets/button_login.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import '../../utilities/dimensions.dart';
 
@@ -15,37 +19,36 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              //Navigator.pop(context);
+            },
+          ),
+          elevation: 0,
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Padding(
           padding: EdgeInsets.only(
-              left: Dimension.width16,
-              right: Dimension.width16,
-              top: Dimension.height16,
-              bottom: Dimension.height16),
+              left: Dimension.width10,
+              right: Dimension.width10,
+              top: Dimension.height10,
+              bottom: Dimension.height10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: Dimension.height10, bottom: Dimension.height10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(Icons.arrow_back))
-                  ],
-                ),
-              ),
               SizedBox(
                 height: Dimension.height20,
               ),
               Container(
-                width: Dimension.width100,
-                height: Dimension.height100,
+                width: Dimension.width50,
+                height: Dimension.height50,
                 child: Center(
                   child: Image.asset('assets/images/circle.png'),
                 ),
@@ -55,7 +58,7 @@ class Login extends StatelessWidget {
               ),
               Text(
                 style: TextStyle(
-                    fontSize: Dimension.font24,
+                    fontSize: Dimension.font16,
                     fontFamily: 'Urbanist',
                     fontWeight: FontWeight.bold),
                 "Let's you in",
@@ -63,112 +66,82 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: Dimension.height10,
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.facebook_outlined,
-                      color: Colors.blue,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SmallText(text: "Continue with Facebook"),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: Dimension.height5,
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.facebook_outlined,
-                      color: Colors.blue,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SmallText(text: "Continue with Facebook"),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: Dimension.height5,
-              ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.facebook_outlined,
-                      color: Colors.blue,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SmallText(text: "Continue with Facebook"),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: Dimension.height5,
-              ),
-              SizedBox(
-                height: Dimension.height5,
-              ),
-              SizedBox(
-                height: Dimension.height5,
-              ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LoginAccount()),
-                  );
+                  AuthService().signInWithGoogle();
                 },
                 child: Container(
-                  padding: EdgeInsets.only(
-                      top: Dimension.height10, bottom: Dimension.height10),
+                  padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Dimension.radius16),
-                    color: AppColors.mainColor,
+                    borderRadius: BorderRadius.circular(15),
+                    border: Border.all(
+                      color: Colors.black,
+                    ),
                   ),
-                  child: Center(
-                      child: SmallText(
-                    text: "Sign in with password",
-                    color: Colors.white,
-                    size: Dimension.font10,
-                  )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FaIcon(FontAwesomeIcons.google, color: Colors.red,),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      SmallText(text: "Continue with Google"),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(
-                height: Dimension.height20,
+                height: Dimension.height5,
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FaIcon(FontAwesomeIcons.facebook, color: Colors.blue,),
+
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SmallText(text: "Continue with Facebook"),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: Dimension.height5,
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FaIcon(FontAwesomeIcons.apple, color: Colors.black,),
+
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SmallText(text: "Continue with Apple"),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: Dimension.height10,
+              ),
+              ButtonLogin(route: RoutesClass.getLoginAccountRoute(), title: 'Sign in with password',),
+              SizedBox(
+                height: Dimension.height16,
               ),
               Container(
                 child: Row(
@@ -184,7 +157,7 @@ class Login extends StatelessWidget {
                     ),
                     SmallText(
                       text: 'or',
-                      size: Dimension.font8,
+                      size: 14,
                     ),
                     SizedBox(
                       width: Dimension.width10,
@@ -211,11 +184,12 @@ class Login extends StatelessWidget {
                           color: AppColors.mainColor, fontFamily: 'Urbanist'),
                       recognizer: new TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const CreateAccount()),
-                          );
+                        Get.toNamed(RoutesClass.getCreateAccountRoute());
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const CreateAccount()),
+                          // );
                         },
                     ),
                   ],
