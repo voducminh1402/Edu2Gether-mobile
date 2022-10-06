@@ -1,6 +1,5 @@
-
 import 'package:edu2gether_mobile/routes/routes.dart';
-import 'package:edu2gether_mobile/screens/login/login.dart';
+import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/gestures.dart';
@@ -10,14 +9,14 @@ import 'package:get/get.dart';
 import '../../utilities/colors.dart';
 import '../../widgets/button_login.dart';
 
-class CreateAccount extends StatefulWidget {
-  const CreateAccount({Key? key}) : super(key: key);
+class LoginAccount extends StatefulWidget {
+  const LoginAccount({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccount> createState() => _CreateAccountState();
+  State<LoginAccount> createState() => _LoginAccountState();
 }
 
-class _CreateAccountState extends State<CreateAccount> {
+class _LoginAccountState extends State<LoginAccount> {
   bool _passwordVisible = false;
   bool _rememberAccount = false;
 
@@ -40,7 +39,7 @@ class _CreateAccountState extends State<CreateAccount> {
             ),
             onPressed: () {
               Get.toNamed(RoutesClass.getLoginRoute());
-              // Navigator.pop(context);
+              //Navigator.pop(context);
             },
           ),
           elevation: 0,
@@ -61,7 +60,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     fontSize: Dimension.font16,
                     fontFamily: 'Urbanist',
                     fontWeight: FontWeight.bold),
-                "Create your Account",
+                "Login to your Account",
               ),
               SizedBox(
                 height: Dimension.height20,
@@ -143,9 +142,18 @@ class _CreateAccountState extends State<CreateAccount> {
               SizedBox(
                 height: Dimension.height5,
               ),
-              ButtonLogin(route: '', title: 'Sign up',),
+              ButtonLogin(route: '', title: 'Sign in',),
               SizedBox(
-                height: Dimension.height24,
+                height: Dimension.height10,
+              ),
+              Text('Forgot the password?',
+                  style: TextStyle(
+                      fontSize: Dimension.font6,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.mainColor,
+                      fontFamily: 'Urbanist')),
+              SizedBox(
+                height: Dimension.height10,
               ),
               Container(
                 child: Row(
@@ -154,8 +162,8 @@ class _CreateAccountState extends State<CreateAccount> {
                   children: [
                     Expanded(
                         child: Divider(
-                          color: AppColors.mainColor,
-                        )),
+                      color: AppColors.mainColor,
+                    )),
                     SizedBox(
                       width: Dimension.width10,
                     ),
@@ -168,8 +176,8 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                     Expanded(
                         child: Divider(
-                          color: AppColors.mainColor,
-                        )),
+                      color: AppColors.mainColor,
+                    )),
                   ],
                 ),
               ),
@@ -222,28 +230,28 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               Center(
                   child: RichText(
-                    text: new TextSpan(
-                      text: "Already have an account?",
-                      style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
-                      children: <TextSpan>[
-                        new TextSpan(
-                          text: ' Sign in',
-                          style: new TextStyle(
-                              color: AppColors.mainColor, fontFamily: 'Urbanist'),
-                          recognizer: new TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.toNamed(RoutesClass.getLoginRoute());
+                text: new TextSpan(
+                  text: "Don't have an account?",
+                  style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
+                  children: <TextSpan>[
+                    new TextSpan(
+                      text: ' Sign in',
+                      style: new TextStyle(
+                          color: AppColors.mainColor, fontFamily: 'Urbanist'),
+                      recognizer: new TapGestureRecognizer()
+                        ..onTap = () {
+                          Get.toNamed(RoutesClass.getCreateAccountRoute());
 
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => const Login()),
-                              // );
-                            },
-                        ),
-                      ],
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const CreateAccount()),
+                          // );
+                        },
                     ),
-                  ))
+                  ],
+                ),
+              ))
             ],
           ),
         ),

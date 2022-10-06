@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.edu2gether.edu2gether_mobile">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="edu2gether_mobile"
         android:name="${applicationName}"
