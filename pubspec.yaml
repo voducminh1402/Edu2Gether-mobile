@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.1 <3.0.0'
+  sdk: '>=2.18.0 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -51,6 +51,7 @@ dev_dependencies:
   getwidget:
   persistent_bottom_nav_bar:
 
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -73,6 +74,9 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/image/advancedjava.png
+    - assets/image/noti.png
+    - assets/image/noti2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -102,5 +106,11 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
-
+  fonts:
+    - family: Urbanist
+      fonts:
+        - asset: assets/font/Urbanist-Italic-VariableFont_wght.ttf
+          weight: 400
+        - asset: assets/font/Urbanist-VariableFont_wght.ttf
+          weight: 400
 
