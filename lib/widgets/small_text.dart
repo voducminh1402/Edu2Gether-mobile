@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class SmallText extends StatelessWidget {
@@ -6,12 +6,12 @@ class SmallText extends StatelessWidget {
   final String text;
   double size;
   double height;
-  FontWeight? fontweight;
-  SmallText({Key? key, this.color = Colors.black26,
+
+  SmallText({Key? key,
+    this.color = Colors.black,
     required this.text,
-    this.size=12,
-    this.height=1.2,
-    this.fontweight,
+    this.size = 0,
+    this.height = 1.2
   }) : super(key: key);
 
   @override
@@ -19,12 +19,10 @@ class SmallText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-          overflow: TextOverflow.ellipsis,
           color: color,
+          fontSize: size == 0 ? Dimension.font6 : size,
           fontFamily: 'Urbanist',
-          fontSize: size,
-          height: height,
-          fontWeight: fontweight,
+          height: height
       ),
     );
   }
