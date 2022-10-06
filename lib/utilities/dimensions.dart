@@ -1,8 +1,13 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+
 class Dimension {
-  static double screenHeight = window.physicalSize.height;
-  static double screenWidth = window.physicalSize.width;
+  // static double screenHeight = window.physicalSize.height;
+  // static double screenWidth = window.physicalSize.width;
+  static Size screenSize = WidgetsBinding.instance.window.physicalSize;
+  static double screenHeight = screenSize.height;
+  static double screenWidth = screenSize.width;
 
   // static double pageView = screenHeight / 2.64;
   // static double pageViewContainer = screenHeight / 3.84;
@@ -16,6 +21,7 @@ class Dimension {
   static double height20 = screenHeight / 44.1;
   static double height24 = screenHeight / 36.75;
   static double height28 = screenHeight / 31.5;
+  static double height50 = screenHeight / 17.64;
   static double height100 = screenHeight / 8.82;
   static double height200 = screenHeight / 4.41;
 
@@ -28,6 +34,8 @@ class Dimension {
   static double width100 = screenHeight / 8.82;
   static double width200 = screenHeight / 4.41;
 
+  static double font5 = screenHeight / 170;
+  static double font6 = screenHeight / 147.33;
   static double font8 = screenHeight / 110.25;
   static double font10 = screenHeight / 88.2;
   static double font12 = screenHeight / 73.5;

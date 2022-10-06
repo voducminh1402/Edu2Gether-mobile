@@ -1,13 +1,13 @@
+import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
-import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utilities/colors.dart';
-import '../../widgets/big_text.dart';
+import '../../widgets/button_login.dart';
 
 class LoginAccount extends StatefulWidget {
   const LoginAccount({Key? key}) : super(key: key);
@@ -30,37 +30,34 @@ class _LoginAccountState extends State<LoginAccount> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Get.toNamed(RoutesClass.getLoginRoute());
+              //Navigator.pop(context);
+            },
+          ),
+          elevation: 0,
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Padding(
           padding: EdgeInsets.only(
-              left: Dimension.width16,
-              right: Dimension.width16,
-              top: Dimension.height16,
-              bottom: Dimension.height16),
+              left: Dimension.width10,
+              right: Dimension.width10,
+              top: Dimension.height10,
+              bottom: Dimension.height10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    top: Dimension.height10, bottom: Dimension.height10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(Icons.arrow_back))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: Dimension.height20,
-              ),
               Text(
                 style: TextStyle(
-                    fontSize: Dimension.font24,
+                    fontSize: Dimension.font16,
                     fontFamily: 'Urbanist',
                     fontWeight: FontWeight.bold),
                 "Login to your Account",
@@ -88,9 +85,6 @@ class _LoginAccountState extends State<LoginAccount> {
               TextField(
                 keyboardType: TextInputType.text,
                 obscureText: !_passwordVisible,
-                style: TextStyle(
-                  fontSize: Dimension.font10,
-                ),
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.lock_clock_outlined),
                   suffixIcon: IconButton(
@@ -138,37 +132,26 @@ class _LoginAccountState extends State<LoginAccount> {
                       });
                     },
                   ),
-                  Text('Remembered me', style: TextStyle(
-                      fontSize: Dimension.font8,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Urbanist')),
+                  Text('Remembered me',
+                      style: TextStyle(
+                          fontSize: Dimension.font6,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Urbanist')),
                 ],
               ),
               SizedBox(
                 height: Dimension.height5,
               ),
-              Container(
-                padding: EdgeInsets.only(top: Dimension.height10, bottom: Dimension.height10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimension.radius16),
-                  color: AppColors.mainColor,
-
-                ),
-                child: Center(
-                    child: SmallText(
-                      text: "Sign up",
-                      color: Colors.white,
-                      size: Dimension.font10,
-                    )),
-              ),
+              ButtonLogin(route: '', title: 'Sign in',),
               SizedBox(
                 height: Dimension.height10,
               ),
-              Text('Forgot the password?', style: TextStyle(
-                  fontSize: Dimension.font8,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.mainColor,
-                  fontFamily: 'Urbanist')),
+              Text('Forgot the password?',
+                  style: TextStyle(
+                      fontSize: Dimension.font6,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.mainColor,
+                      fontFamily: 'Urbanist')),
               SizedBox(
                 height: Dimension.height10,
               ),
@@ -177,78 +160,98 @@ class _LoginAccountState extends State<LoginAccount> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(child: Divider(color: AppColors.mainColor,)),
+                    Expanded(
+                        child: Divider(
+                      color: AppColors.mainColor,
+                    )),
                     SizedBox(
                       width: Dimension.width10,
                     ),
-                    SmallText(text: 'or continue with', size: Dimension.font8,),
+                    SmallText(
+                      text: 'or continue with',
+                      size: 14,
+                    ),
                     SizedBox(
                       width: Dimension.width10,
                     ),
-                    Expanded(child: Divider(color: AppColors.mainColor,)),
+                    Expanded(
+                        child: Divider(
+                      color: AppColors.mainColor,
+                    )),
                   ],
                 ),
               ),
               SizedBox(
-                height: Dimension.height12,
+                height: Dimension.height10,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-                    child: Icon(Icons.facebook_outlined, color: AppColors.mainColor,),
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.only(
+                        left: 15, right: 15, top: 10, bottom: 10),
+                    child: Icon(
+                      Icons.facebook_outlined,
+                      color: AppColors.mainColor,
+                    ),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: AppColors.inputColor)
-                    ),
+                        border: Border.all(color: AppColors.inputColor)),
                   ),
                   Container(
-                    margin: EdgeInsets.all(15),
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-                    child: Icon(Icons.facebook_outlined, color: AppColors.mainColor,),
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.only(
+                        left: 15, right: 15, top: 10, bottom: 10),
+                    child: Icon(
+                      Icons.facebook_outlined,
+                      color: AppColors.mainColor,
+                    ),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: AppColors.inputColor)
-                    ),
+                        border: Border.all(color: AppColors.inputColor)),
                   ),
                   Container(
-                    margin: EdgeInsets.all(15),
-                    padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
-                    child: Icon(Icons.facebook_outlined, color: AppColors.mainColor,),
+                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.only(
+                        left: 15, right: 15, top: 10, bottom: 10),
+                    child: Icon(
+                      Icons.facebook_outlined,
+                      color: AppColors.mainColor,
+                    ),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: AppColors.inputColor)
-                    ),
+                        border: Border.all(color: AppColors.inputColor)),
                   ),
                 ],
               ),
               SizedBox(
-                height: Dimension.height18,
+                height: Dimension.height12,
               ),
               Center(
                   child: RichText(
-                    text: new TextSpan(
-                      text: "Don't have an account?",
-                      style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
-                      children: <TextSpan>[
-                        new TextSpan(
-                          text: ' Sign in',
-                          style: new TextStyle(
-                              color: AppColors.mainColor, fontFamily: 'Urbanist'),
-                          recognizer: new TapGestureRecognizer()
-                            ..onTap = () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const CreateAccount()),
-                              );
-                            },
-                        ),
-                      ],
+                text: new TextSpan(
+                  text: "Don't have an account?",
+                  style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
+                  children: <TextSpan>[
+                    new TextSpan(
+                      text: ' Sign in',
+                      style: new TextStyle(
+                          color: AppColors.mainColor, fontFamily: 'Urbanist'),
+                      recognizer: new TapGestureRecognizer()
+                        ..onTap = () {
+                          Get.toNamed(RoutesClass.getCreateAccountRoute());
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const CreateAccount()),
+                          // );
+                        },
                     ),
-                  ))
+                  ],
+                ),
+              ))
             ],
           ),
         ),
