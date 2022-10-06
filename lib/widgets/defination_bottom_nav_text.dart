@@ -1,17 +1,15 @@
-import 'package:edu2gether_mobile/utilities/dimensions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SmallText extends StatelessWidget {
+class DefinationBottomNavText extends StatelessWidget {
   Color? color;
   final String text;
   double size;
   double height;
-
-  SmallText({Key? key,
-    this.color = Colors.black,
+  DefinationBottomNavText({Key? key, this.color = Colors.blueAccent,
     required this.text,
-    this.size = 0,
-    this.height = 1.2
+    this.size=14,
+    this.height=1.2
   }) : super(key: key);
 
   @override
@@ -20,8 +18,8 @@ class SmallText extends StatelessWidget {
       text,
       style: TextStyle(
           color: color,
-          fontSize: size == 0 ? Dimension.font6 : size,
           fontFamily: 'Urbanist',
+          fontSize: size,
           height: height
       ),
     );
