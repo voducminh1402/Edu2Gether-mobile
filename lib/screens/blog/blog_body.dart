@@ -45,7 +45,9 @@ class BlogBody extends StatelessWidget {
                               child:
                               Container(
                                 margin: EdgeInsets.only(left: 30, top: 7),
-                                child: BigText(text: "Back-end", color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
+                                child: //BigText(text: "Back-end", color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
+                                  Text('Back-end', style: TextStyle(color: Colors.blueAccent, fontSize: 16, fontWeight: FontWeight.w600),)
+
                               )
                           )
                         ],
@@ -110,7 +112,9 @@ class BlogBody extends StatelessWidget {
                                           children: [
                                             Container(
                                               margin: EdgeInsets.only(bottom: 25),
-                                              child: BigText(text: "How to be a Dev?", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                              child: //BigText(text: "How to be a Dev?", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                              Text('How to be a Dev?', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),)
+
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(bottom: 35),

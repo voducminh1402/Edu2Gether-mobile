@@ -52,7 +52,9 @@ class TransactionBody extends StatelessWidget {
                                crossAxisAlignment: CrossAxisAlignment.start,
                                mainAxisAlignment: MainAxisAlignment.center,
                                children: [
-                                 BigText(text: "Java-Fullstack", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                 //BigText(text: "Java-Fullstack", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                 Text('Java-Fullstack', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),),
+
                                  SizedBox(height: 20,),
                                  SmallText(text: "Paid", color: Colors.blueAccent,),
                                ],

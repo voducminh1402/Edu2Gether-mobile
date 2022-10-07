@@ -6,12 +6,14 @@ class BigText extends StatelessWidget {
   final String text;
   double size;
   TextOverflow overflow;
+  FontWeight? fontweight;
 
   BigText(
       {Key? key,
         this.color = Colors.black,
         required this.text,
         this.size = 0,
+        this.fontweight = FontWeight.normal,
         this.overflow = TextOverflow.ellipsis})
       : super(key: key);
 
@@ -23,7 +25,7 @@ class BigText extends StatelessWidget {
       style: TextStyle(
           color: color,
           fontSize: size == 0 ? Dimension.font6 : size,
-          fontWeight: FontWeight.bold,
+          fontWeight: fontweight,
           fontFamily: 'Urbanist'),
     );
   }

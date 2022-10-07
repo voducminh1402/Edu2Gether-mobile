@@ -21,7 +21,9 @@ class BlogPostBody extends StatelessWidget {
               children: [
                 Container(
                   margin:EdgeInsets.only(left: 24, bottom: 20),
-                  child: BigText(text: "How to be a Dev?", size: 24, fontweight: FontWeight.w700, color: Colors.black,),
+                  child: //BigText(text: "How to be a Dev?", size: 24, fontweight: FontWeight.w700, color: Colors.black,),
+                  Text('How to be a Dev?', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+
                 ),
                 Container(
                   margin: EdgeInsets.only(left: 20),
@@ -33,14 +35,18 @@ class BlogPostBody extends StatelessWidget {
                       ),
                       Container(
                         margin:EdgeInsets.only(right: 30),
-                        child: SmallText(text: "Quang Quyen", color: Colors.black, size: 16, fontweight: FontWeight.w400,),
+                        child: //SmallText(text: "Quang Quyen", color: Colors.black, size: 16, fontweight: FontWeight.w400,),
+                        Text('Quang Quyen', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),)
+
                       ),
                       Container(
                         margin:EdgeInsets.only(right: 5),
                         child: Icon(Icons.date_range_outlined, color: Colors.blueAccent, size: 25,),
                       ),
                       Container(
-                        child: SmallText(text: "05/10/2022", color: Colors.black, size: 16, fontweight: FontWeight.w400,),
+                        child: //SmallText(text: "05/10/2022", color: Colors.black, size: 16, fontweight: FontWeight.w400,),
+                        Text('Q05/10/2022', style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),)
+
                       ),
                     ],
                   ),
