@@ -48,7 +48,9 @@ class TopMentorBody extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                BigText(text: "Jacob Kulikowsky", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                //BigText(text: "Jacob Kulikowsky", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                Text('Jacob Kulikowsky', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),),
+
                                 SizedBox(height: 4,),
                                 SmallText(text: "Marketng Analyst", color: Colors.black26,),
                               ],
