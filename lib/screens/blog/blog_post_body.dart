@@ -40,7 +40,7 @@ class BlogPostBody extends StatelessWidget {
                         child: Icon(Icons.date_range_outlined, color: Colors.blueAccent, size: 25,),
                       ),
                       Container(
-                        child: SmallText(text: "05/10/2022", color: Colors.black, size: 16, fontweight: FontWeight.w400,),
+                        child: SmallText(text: "05/10/2022 ", color: Colors.black, size: 16, fontweight: FontWeight.w400,),
                       ),
                     ],
                   ),

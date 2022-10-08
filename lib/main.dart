@@ -1,5 +1,6 @@
 import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/blog/blog_post.dart';
+import 'package:edu2gether_mobile/screens/homepage/home.dart';
 import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
 import 'package:edu2gether_mobile/screens/mybookmark/mybookmark.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: BlogPage(),
+      home: HomePage(),
     );
   }
 }

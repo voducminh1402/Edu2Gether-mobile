@@ -1,19 +1,18 @@
-import 'package:edu2gether_mobile/screens/transaction/transaction_body.dart';
-import 'package:edu2gether_mobile/widgets/big_text.dart';
-import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../widgets/big_text.dart';
 import '../../widgets/defination_bottom_nav_text.dart';
+import 'home_body.dart';
 
-class TransactionPage extends StatefulWidget {
-  const TransactionPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<TransactionPage> createState() => _TransactionPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _TransactionPageState extends State<TransactionPage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +28,25 @@ class _TransactionPageState extends State<TransactionPage> {
                 children: [
                   Column(
                     children: [
-                      BigText(text: "Transaction", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                      Row(
+                        children: [
+                          Container(
+                            width:32,
+                            height: 32,
+                            margin: EdgeInsets.only(right: 16),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color:Colors.white38,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/image/Logo-edu2-fix-02.png"
+                                    )
+                                )
+                            ),
+                          ),
+                          BigText(text: "Edu2Gether", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                        ],
+                      ),
                     ],
                   ),
                   Row(
@@ -37,12 +54,12 @@ class _TransactionPageState extends State<TransactionPage> {
                       Container(
                         width: 40,
                         height: 40,
-                        child: Icon(Icons.search, color: Colors.black, size: 30,),
+                        child: Icon(Icons.notifications_none, color: Colors.black, size: 30,),
                       ),
                       Container(
                           width: 40,
                           height: 40,
-                          child: Icon(Icons.more_horiz_outlined, color: Colors.black, size: 30,)
+                          child: Icon(Icons.bookmark_outline, color: Colors.black, size: 30,)
                       ),
                     ],
                   )
@@ -53,8 +70,8 @@ class _TransactionPageState extends State<TransactionPage> {
           ),
           //show body
           Expanded(child: SingleChildScrollView(
-            child: TransactionBody(),
-            )
+            child: HomePageBody(),
+          )
           ),
           //Bottom nav bar
           Container(
