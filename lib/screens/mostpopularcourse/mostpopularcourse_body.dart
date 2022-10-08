@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
 
-class MostPopularCourseBody extends StatelessWidget {
+class MostPopularCourseBody extends StatefulWidget {
   const MostPopularCourseBody({Key? key}) : super(key: key);
 
+  @override
+  State<MostPopularCourseBody> createState() => _MostPopularCourseBodyState();
+}
+
+class _MostPopularCourseBodyState extends State<MostPopularCourseBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,22 +35,22 @@ class MostPopularCourseBody extends StatelessWidget {
                       child: Row(
                         children: [
                           Container(
-                            width: 133,
-                            height: 38,
-                            decoration: BoxDecoration(
+                              width: 133,
+                              height: 38,
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
                                 border: Border.all(
-                                  color: Colors.blueAccent,
-                                  style: BorderStyle.solid,
-                                  width: 2.0
+                                    color: Colors.blueAccent,
+                                    style: BorderStyle.solid,
+                                    width: 2.0
                                 ),
                                 color:Colors.white,
-                            ),
-                            child:
-                            Container(
-                              margin: EdgeInsets.only(left: 30, top: 7),
-                              child: BigText(text: "3D Design", color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
-                            )
+                              ),
+                              child:
+                              Container(
+                                margin: EdgeInsets.only(left: 30, top: 7),
+                                child: BigText(text: "3D Design", color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
+                              )
                           )
                         ],
                       ),
