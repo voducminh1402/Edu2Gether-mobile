@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/blog/blog_post.dart';
 import 'package:edu2gether_mobile/screens/homepage/home.dart';
@@ -6,11 +7,23 @@ import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.da
 import 'package:edu2gether_mobile/screens/mybookmark/mybookmark.dart';
 import 'package:edu2gether_mobile/screens/nofitication/notification.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
+=======
+import 'package:edu2gether_mobile/routes/routes.dart';
+import 'package:edu2gether_mobile/screens/login/auth_service.dart';
+import 'package:edu2gether_mobile/screens/login/create_account.dart';
+import 'package:edu2gether_mobile/screens/login/login.dart';
+import 'package:edu2gether_mobile/screens/login/login_account.dart';
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
+>>>>>>> 3ab63ed65944c5ba54c70a424ff6d86b7af11a4d
 import 'package:flutter/material.dart';
-import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
-import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
+import 'package:edu2gether_mobile/screens/my_course/my_course.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -20,14 +33,81 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-
+        // This is the theme of your application.
+        //
+        // Try running your application with "flutter run". You'll see the
+        // application has a blue toolbar. Then, without quitting the app, try
+        // changing the primarySwatch below to Colors.green and then invoke
+        // "hot reload" (press "r" in the console where you ran "flutter run",
+        // or simply save your changes to "hot reload" in a Flutter IDE).
+        // Notice that the counter didn't reset back to zero; the application
+        // is not restarted.
         primarySwatch: Colors.blue,
       ),
+<<<<<<< HEAD
       home: HomePage(),
+=======
+      home: Login(),
+      getPages: RoutesClass.routes,
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  //String? user = FirebaseAuth.instance.currentUser!.email ?? FirebaseAuth.instance.currentUser!.displayName;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+
+            Text(
+              FirebaseAuth.instance.currentUser!.displayName!,
+              style: const TextStyle(
+                  fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black87),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              FirebaseAuth.instance.currentUser!.email!,
+              style: const TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            MaterialButton(
+              padding: const EdgeInsets.all(10),
+              color: Colors.green,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+              child: const Text(
+                'LOG OUT',
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              onPressed: () {
+                AuthService().signOut();
+              },
+            ),
+          ],
+        ),
+      ),
+
+>>>>>>> 3ab63ed65944c5ba54c70a424ff6d86b7af11a4d
     );
   }
 }

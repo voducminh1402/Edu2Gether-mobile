@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>261472646998-3qivcilclar8ld4374i01mp1kf5639fc.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.261472646998-3qivcilclar8ld4374i01mp1kf5639fc</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAuvk2QcLGoaZPLZ5zx27g06SeZHz_c22c</string>
+	<key>GCM_SENDER_ID</key>
+	<string>261472646998</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.edu2gether.edu2getherMobile</string>
+	<key>PROJECT_ID</key>
+	<string>edu2gether-67cc1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>edu2gether-67cc1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:261472646998:ios:4a225ad852596abff788f7</string>
+</dict>
+</plist>
