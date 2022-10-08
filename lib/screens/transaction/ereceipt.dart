@@ -37,7 +37,9 @@ class _EReceiptState extends State<EReceiptPage> {
                         child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
                       ),
                     ),
-                    BigText(text: "E-Receipt", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                    // BigText(text: "E-Receipt", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                    Text('E-Receipt', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+
                   ],
                 ),
                 Container(
