@@ -25,7 +25,7 @@ class SmallText extends StatelessWidget {
           fontSize: size == 0 ? Dimension.font6 : size,
           fontFamily: 'Urbanist',
           height: height,
-        fontWeight: fontweight
+          fontWeight: fontweight,
       ),
     );
   }

@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:edu2gether_mobile/widgets/small_text.dart';
 
 import '../../widgets/big_text.dart';
+import '../../widgets/small_text.dart';
 
-class EReceiptBody extends StatelessWidget {
+class EReceiptBody extends StatefulWidget {
   const EReceiptBody({Key? key}) : super(key: key);
 
+  @override
+  State<EReceiptBody> createState() => _EReceiptBodyState();
+}
+
+class _EReceiptBodyState extends State<EReceiptBody> {
   @override
   Widget build(BuildContext context) {
     return Column(

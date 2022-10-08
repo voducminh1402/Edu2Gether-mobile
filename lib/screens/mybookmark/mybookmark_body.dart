@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
 
-class MyBookmarkBody extends StatelessWidget {
+class MyBookmarkBody extends StatefulWidget {
   const MyBookmarkBody({Key? key}) : super(key: key);
 
+  @override
+  State<MyBookmarkBody> createState() => _MyBookmarkBodyState();
+}
+
+class _MyBookmarkBodyState extends State<MyBookmarkBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
