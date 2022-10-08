@@ -1,4 +1,5 @@
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
+import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class _MainPageState extends State<MainPage> {
     MyHomePage(),
     MyCourse(),
     MyHomePage(),
-    MyHomePage(),
+    TransactionPage(),
     MyHomePage(),
   ];
   int currentIndex = 0;

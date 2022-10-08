@@ -29,7 +29,9 @@ class _TransactionPageState extends State<TransactionPage> {
                 children: [
                   Column(
                     children: [
-                      BigText(text: "Transaction", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                      //BigText(text: "Transaction", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                      Text('Transaction', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+
                     ],
                   ),
                   Row(

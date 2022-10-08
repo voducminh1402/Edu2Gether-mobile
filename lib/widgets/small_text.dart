@@ -13,7 +13,7 @@ class SmallText extends StatelessWidget {
     required this.text,
     this.size = 0,
     this.height = 1.2,
-    this.fontweight = FontWeight.bold,
+    this.fontweight = FontWeight.normal
   }) : super(key: key);
 
   @override

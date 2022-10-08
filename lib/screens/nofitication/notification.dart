@@ -37,7 +37,9 @@ class _NofiticationPageState extends State<NofiticationPage> {
                         child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
                       ),
                     ),
-                    BigText(text: "Notification", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                    //BigText(text: "Notification", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                    Text('Notification', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+
                   ],
                 ),
                 Container(

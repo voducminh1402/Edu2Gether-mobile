@@ -72,7 +72,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/image/
+    - assets/images/
+    - assets/icons/
+    - assets/image/advancedjava.png
+    - assets/image/noti.png
+    - assets/image/noti2.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -101,4 +105,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-

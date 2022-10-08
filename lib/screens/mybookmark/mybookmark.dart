@@ -37,7 +37,9 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
                         child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
                       ),
                     ),
-                    BigText(text: "My Bookmark", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                    //BigText(text: "My Bookmark", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                    Text('My Bookmark', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+
                   ],
                 ),
                 Container(

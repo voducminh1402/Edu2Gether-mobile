@@ -1,13 +1,19 @@
-import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
-import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
-import 'package:edu2gether_mobile/widgets/big_text.dart';
-import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePageBody extends StatelessWidget {
+import '../../widgets/big_text.dart';
+import '../../widgets/small_text.dart';
+import '../mentor/top_mentor.dart';
+import '../mostpopularcourse/mostpopularcourse.dart';
+
+class HomePageBody extends StatefulWidget {
   const HomePageBody({Key? key}) : super(key: key);
 
+  @override
+  State<HomePageBody> createState() => _HomePageBodyState();
+}
+
+class _HomePageBodyState extends State<HomePageBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,8 +39,8 @@ class HomePageBody extends StatelessWidget {
                 height: 160,
                 margin: EdgeInsets.only(top: 20),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color:Colors.black12,
+                  borderRadius: BorderRadius.circular(25),
+                  color:Colors.black12,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
