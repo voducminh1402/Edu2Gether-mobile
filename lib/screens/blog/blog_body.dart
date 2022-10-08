@@ -1,13 +1,17 @@
-import 'package:edu2gether_mobile/screens/blog/blog_post.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
+import 'blog_post.dart';
 
-class BlogBody extends StatelessWidget {
+class BlogBody extends StatefulWidget {
   const BlogBody({Key? key}) : super(key: key);
 
+  @override
+  State<BlogBody> createState() => _BlogBodyState();
+}
+
+class _BlogBodyState extends State<BlogBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,8 +48,8 @@ class BlogBody extends StatelessWidget {
                               ),
                               child:
                               Container(
-                                margin: EdgeInsets.only(left: 30, top: 7),
-                                child: //BigText(text: "Back-end", color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
+                                  margin: EdgeInsets.only(left: 30, top: 7),
+                                  child: //BigText(text: "Back-end", color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
                                   Text('Back-end', style: TextStyle(color: Colors.blueAccent, fontSize: 16, fontWeight: FontWeight.w600),)
 
                               )
@@ -111,9 +115,9 @@ class BlogBody extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Container(
-                                              margin: EdgeInsets.only(bottom: 25),
-                                              child: //BigText(text: "How to be a Dev?", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
-                                              Text('How to be a Dev?', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),)
+                                                margin: EdgeInsets.only(bottom: 25),
+                                                child: //BigText(text: "How to be a Dev?", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                                Text('How to be a Dev?', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),)
 
                                             ),
                                             Container(

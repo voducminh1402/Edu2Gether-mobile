@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
 
-class NotificationBody extends StatelessWidget {
+class NotificationBody extends StatefulWidget {
   const NotificationBody({Key? key}) : super(key: key);
 
+  @override
+  State<NotificationBody> createState() => _NotificationBodyState();
+}
+
+class _NotificationBodyState extends State<NotificationBody> {
   @override
   Widget build(BuildContext context) {
     return Column(
