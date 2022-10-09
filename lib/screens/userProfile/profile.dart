@@ -1,4 +1,5 @@
 
+import 'package:edu2gether_mobile/screens/userProfile/profile_payment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -83,7 +84,7 @@ class _profileState extends State<Profile>{
                ],
              ),
             Padding(
-                padding:EdgeInsets.only(top: 24, left: 24, right: 24),
+                padding:EdgeInsets.only(top: 0, left: 24, right: 24),
                 child: Divider(
                   thickness: 1,
                   color: Colors.black,
@@ -111,7 +112,7 @@ class _profileState extends State<Profile>{
                 ],
               ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -135,7 +136,7 @@ class _profileState extends State<Profile>{
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -152,14 +153,17 @@ class _profileState extends State<Profile>{
                              fontWeight: FontWeight.w600,
                            ),
                          ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                         trailing: Icon(Icons.navigate_next, color: Colors.black,),
+                       onTap: (){
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePayment()));
+                       },
                      ),
                    )
                  ],
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -183,7 +187,7 @@ class _profileState extends State<Profile>{
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -207,7 +211,7 @@ class _profileState extends State<Profile>{
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -238,7 +242,7 @@ class _profileState extends State<Profile>{
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -262,7 +266,7 @@ class _profileState extends State<Profile>{
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -286,7 +290,7 @@ class _profileState extends State<Profile>{
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -310,7 +314,7 @@ class _profileState extends State<Profile>{
                ),
              ),
              Padding(
-               padding: EdgeInsets.only(top:20),
+               padding: EdgeInsets.only(top:10),
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
@@ -325,6 +329,7 @@ class _profileState extends State<Profile>{
                              fontFamily: 'Urbanist',
                              fontSize: 18,
                              fontWeight: FontWeight.w600,
+                             color: Colors.red,
                            ),
                          ),
                          trailing: Icon(Icons.navigate_next, color: Colors.black,)
