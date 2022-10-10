@@ -59,68 +59,68 @@ class _TransactionPageState extends State<TransactionPage> {
             )
           ),
           //Bottom nav bar
-          Container(
-            child: Container(
-                margin: EdgeInsets.only(top: 10,bottom: 15),
-                padding: EdgeInsets.only(left: 24, right: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      children: [
-                        Container(
-                          width: 30,
-                          height: 30,
-                          child: Icon(Icons.home, color: Colors.blueAccent, size: 30,),
-                        ),
-                        DefinationBottomNavText(text: "Home", color: Colors.black26,)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                            width: 30,
-                            height: 30,
-                            child: Icon(Icons.view_list, color: Colors.blue, size: 30,)
-                        ),
-                        DefinationBottomNavText(text: "My Course", color: Colors.black26,)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                            width: 30,
-                            height: 30,
-                            child: Icon(Icons.chat, color: Colors.blue, size: 30,)
-                        ),
-                        DefinationBottomNavText(text: "Chat", color: Colors.black26,)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                            width: 30,
-                            height: 30,
-                            child: Icon(Icons.shopping_cart, color: Colors.blue, size: 30,)
-                        ),
-                        DefinationBottomNavText(text: "Transaction", color: Colors.black26,)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Container(
-                            width: 30,
-                            height: 30,
-                            child: Icon(Icons.account_circle, color: Colors.blue, size: 30,)
-                        ),
-                        DefinationBottomNavText(text: "Profile", color: Colors.black26,)
-                      ],
-                    ),
-
-                  ],
-                )
-            ),
-          )
+          // Container(
+          //   child: Container(
+          //       margin: EdgeInsets.only(top: 10,bottom: 15),
+          //       padding: EdgeInsets.only(left: 24, right: 24),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: [
+          //           Column(
+          //             children: [
+          //               Container(
+          //                 width: 30,
+          //                 height: 30,
+          //                 child: Icon(Icons.home, color: Colors.blueAccent, size: 30,),
+          //               ),
+          //               DefinationBottomNavText(text: "Home", color: Colors.black26,)
+          //             ],
+          //           ),
+          //           Column(
+          //             children: [
+          //               Container(
+          //                   width: 30,
+          //                   height: 30,
+          //                   child: Icon(Icons.view_list, color: Colors.blue, size: 30,)
+          //               ),
+          //               DefinationBottomNavText(text: "My Course", color: Colors.black26,)
+          //             ],
+          //           ),
+          //           Column(
+          //             children: [
+          //               Container(
+          //                   width: 30,
+          //                   height: 30,
+          //                   child: Icon(Icons.chat, color: Colors.blue, size: 30,)
+          //               ),
+          //               DefinationBottomNavText(text: "Chat", color: Colors.black26,)
+          //             ],
+          //           ),
+          //           Column(
+          //             children: [
+          //               Container(
+          //                   width: 30,
+          //                   height: 30,
+          //                   child: Icon(Icons.shopping_cart, color: Colors.blue, size: 30,)
+          //               ),
+          //               DefinationBottomNavText(text: "Transaction", color: Colors.black26,)
+          //             ],
+          //           ),
+          //           Column(
+          //             children: [
+          //               Container(
+          //                   width: 30,
+          //                   height: 30,
+          //                   child: Icon(Icons.account_circle, color: Colors.blue, size: 30,)
+          //               ),
+          //               DefinationBottomNavText(text: "Profile", color: Colors.black26,)
+          //             ],
+          //           ),
+          //
+          //         ],
+          //       )
+          //   ),
+          // )
         ],
       ),
     );
