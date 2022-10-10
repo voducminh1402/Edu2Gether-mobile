@@ -1,5 +1,6 @@
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
+import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
     MyCourse(),
     MyHomePage(),
     TransactionPage(),
-    MyHomePage(),
+    Profile(),
   ];
   int currentIndex = 0;
   void onTap(int index) {
