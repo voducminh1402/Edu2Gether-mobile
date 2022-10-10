@@ -57,6 +57,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                       width: 380,
                       height: 70,
                       child: Card(
+                        elevation: 5,
                         child: ListTile(
                             leading: Padding(
                               padding: EdgeInsets.only(top:15,left: 24,right: 0,bottom: 24),
@@ -101,6 +102,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                         width: 380,
                         height: 70,
                         child: Card(
+                          elevation: 5,
                           child: ListTile(
                               leading: Padding(
                                 padding: EdgeInsets.only(top:15,left: 24,right: 0,bottom: 24),
@@ -111,6 +113,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                                 ),
                               ),
                               title: Text(
+
                                 'Apple Pay',
                                 style: TextStyle(
                                   fontFamily: 'Urbanist',
@@ -145,6 +148,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                         width: 380,
                         height: 70,
                         child: Card(
+                          elevation: 5,
                           child: ListTile(
                               leading: Padding(
                                 padding: EdgeInsets.only(top:15,left: 24,right: 0,bottom: 24),
@@ -155,6 +159,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                                 ),
                               ),
                               title: Text(
+
                                 'Visa Card',
                                 style: TextStyle(
                                   fontFamily: 'Urbanist',

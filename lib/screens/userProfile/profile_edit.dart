@@ -1,6 +1,9 @@
 import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
+import 'package:edu2gether_mobile/utilities/colors.dart';
+import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+
 
 class ProfileEdit extends StatefulWidget{
 
@@ -47,6 +50,37 @@ class _profileEditState extends State<ProfileEdit> {
         ),
         body: Column(
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(top:0),
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget> [
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Container(
+                        width: 380,
+                        height: 70,
+                        child: Container(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(Dimension.radius12)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.mainColor),
+                                  borderRadius: BorderRadius.circular(Dimension.radius12)),
+                              hintText: 'Hieu Trung',
+                              fillColor: AppColors.inputColor,
+                              filled: true,
+                            ),
+                          ),
+                        ),
+
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
           ],
         ),
