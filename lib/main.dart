@@ -6,7 +6,8 @@ import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
-import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
+import 'package:edu2gether_mobile/screens/userProfile/profile_edit.dart';
+import 'package:edu2gether_mobile/screens/userProfile/profile_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,8 +36,13 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
+<<<<<<< HEAD
       home: AuthService().handleAuthState(),
       //home: MainPage(),
+=======
+      // home: AuthService().handleAuthState(),
+      home: ProfileEdit(),
+>>>>>>> 56e81d17f659f21c1eb204769b3ea88170262f1e
       getPages: RoutesClass.routes,
     );
   }
