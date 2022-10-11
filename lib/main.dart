@@ -39,8 +39,9 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
-       //home: AuthService().handleAuthState(),
-      home: MenterProfile(),
+
+      // home: AuthService().handleAuthState(),
+      home: Profile(),
 
       getPages: RoutesClass.routes,
     );
