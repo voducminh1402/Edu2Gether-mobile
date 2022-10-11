@@ -4,6 +4,8 @@ import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
+import 'package:edu2gether_mobile/screens/mentor/menter_profile.dart';
+import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
 import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
@@ -37,8 +39,10 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
+
       // home: AuthService().handleAuthState(),
       home: Profile(),
+
       getPages: RoutesClass.routes,
     );
   }
