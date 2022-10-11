@@ -1,8 +1,13 @@
 
-import 'package:edu2gether_mobile/screens/userProfile/profile_edit.dart';
-import 'package:edu2gether_mobile/screens/userProfile/profile_payment.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_payment.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_payment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../routes/routes.dart';
 
 
 class Profile extends StatefulWidget {
@@ -97,7 +102,7 @@ class _profileState extends State<Profile>{
                   Expanded(
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEdit()));
+                          Get.toNamed(RoutesClass.getProfileEditRoute());
                         },
                         child: Container(
                           width: 380,
@@ -153,7 +158,7 @@ class _profileState extends State<Profile>{
                    Expanded(
                      child: GestureDetector(
                        onTap: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePayment()));
+                         Get.toNamed(RoutesClass.getProfilePaymentRoute());
                        },
                        child:  Container(
                          width: 380,

@@ -1,5 +1,8 @@
-import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../routes/routes.dart';
 
 class ProfilePayment extends StatefulWidget{
 
@@ -20,8 +23,7 @@ class _profilePaymentState extends State<ProfilePayment>{
           leading: BackButton(
             color: Colors.black,
             onPressed: (){
-              Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => Profile()));
+              Get.toNamed(RoutesClass.getProfileRoute());
             },
           ),
           backgroundColor: Colors.white,
