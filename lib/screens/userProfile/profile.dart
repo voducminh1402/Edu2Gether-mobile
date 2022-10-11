@@ -1,4 +1,5 @@
 
+import 'package:edu2gether_mobile/screens/userProfile/profile_edit.dart';
 import 'package:edu2gether_mobile/screens/userProfile/profile_payment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -93,22 +94,29 @@ class _profileState extends State<Profile>{
              Row(
                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget> [
-                  Container(
-                    width: 380,
-                    height: 28,
-                    child: ListTile(
-                      leading: Icon(Icons.person_outlined,color: Colors.black,),
-                      title: Text(
-                        'Edit Profile',
-                        style: TextStyle(
-                          fontFamily: 'Urbanist',
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600
+                  Expanded(
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileEdit()));
+                        },
+                        child: Container(
+                          width: 380,
+                          height: 28,
+                          child: ListTile(
+                              leading: Icon(Icons.person_outlined,color: Colors.black,),
+                              title: Text(
+                                'Edit Profile',
+                                style: TextStyle(
+                                    fontFamily: 'Urbanist',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                          ),
                         ),
                       ),
-                      trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                    ),
-                  )
+                  ),
                 ],
               ),
              Padding(
@@ -116,22 +124,55 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
-                         title: Text(
-                           'Notification',
-                           style: TextStyle(
+                   Expanded(
+                       child: Container(
+                         width: 380,
+                         height: 28,
+                         child: ListTile(
+                             leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
+                             title: Text(
+                               'Notification',
+                               style: TextStyle(
+                                 fontFamily: 'Urbanist',
+                                 fontSize: 18,
+                                 fontWeight: FontWeight.w600,
+                               ),
+                             ),
+                             trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                         ),
+                       ),
+                   ),
+                 ],
+               ),
+             ),
+             Padding(
+               padding: EdgeInsets.only(top:10),
+               child:  Row(
+                 mainAxisAlignment: MainAxisAlignment.start,
+                 children: <Widget> [
+                   Expanded(
+                     child: GestureDetector(
+                       onTap: (){
+                         Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePayment()));
+                       },
+                       child:  Container(
+                         width: 380,
+                         height: 28,
+                         child: ListTile(
+                           leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
+                           title: Text(
+                             'Payment',
+                             style: TextStyle(
                                fontFamily: 'Urbanist',
                                fontSize: 18,
                                fontWeight: FontWeight.w600,
+                             ),
                            ),
+                           trailing: Icon(Icons.navigate_next, color: Colors.black,),
                          ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                       ),
                      ),
-                   )
+                   ),
                  ],
                ),
              ),
@@ -140,25 +181,24 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
-                         title: Text(
-                           'Payment',
-                           style: TextStyle(
-                             fontFamily: 'Urbanist',
-                             fontSize: 18,
-                             fontWeight: FontWeight.w600,
-                           ),
-                         ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,),
-                       onTap: (){
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => ProfilePayment()));
-                       },
-                     ),
-                   )
+                  Expanded(
+                    child:  Container(
+                    width: 380,
+                    height: 28,
+                    child: ListTile(
+                        leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
+                        title: Text(
+                          'Security',
+                          style: TextStyle(
+                            fontFamily: 'Urbanist',
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                    ),
+                  ),
+                  ),
                  ],
                ),
              ),
@@ -167,22 +207,24 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
-                         title: Text(
-                           'Security',
-                           style: TextStyle(
-                             fontFamily: 'Urbanist',
-                             fontSize: 18,
-                             fontWeight: FontWeight.w600,
-                           ),
+                   Expanded(
+                       child: Container(
+                         width: 380,
+                         height: 28,
+                         child: ListTile(
+                             leading: Icon(Icons.language_sharp,color: Colors.black,),
+                             title: Text(
+                               'Language',
+                               style: TextStyle(
+                                 fontFamily: 'Urbanist',
+                                 fontSize: 18,
+                                 fontWeight: FontWeight.w600,
+                               ),
+                             ),
+                             trailing: Icon(Icons.navigate_next, color: Colors.black,)
                          ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                     ),
-                   )
+                       ),
+                   ),
                  ],
                ),
              ),
@@ -191,22 +233,31 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.language_sharp,color: Colors.black,),
-                         title: Text(
-                           'Language',
-                           style: TextStyle(
-                             fontFamily: 'Urbanist',
-                             fontSize: 18,
-                             fontWeight: FontWeight.w600,
-                           ),
+                   Expanded(
+                       child: Container(
+                         width: 380,
+                         height: 28,
+                         child: ListTile(
+                             leading: Icon(Icons.visibility_sharp,color: Colors.black,),
+                             title: Text(
+                               'Dark Mode',
+                               style: TextStyle(
+                                 fontFamily: 'Urbanist',
+                                 fontSize: 18,
+                                 fontWeight: FontWeight.w600,
+                               ),
+                             ),
+                             trailing:
+                             CupertinoSwitch(
+                                 value: true,
+                                 onChanged: (value){
+                                   setState(() {
+                                     _switchValue = false;
+                                   });
+                                 })
                          ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                     ),
-                   )
+                       ),
+                   ),
                  ],
                ),
              ),
@@ -215,38 +266,8 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.visibility_sharp,color: Colors.black,),
-                         title: Text(
-                           'Dark Mode',
-                           style: TextStyle(
-                             fontFamily: 'Urbanist',
-                             fontSize: 18,
-                             fontWeight: FontWeight.w600,
-                           ),
-                         ),
-                         trailing:
-                            CupertinoSwitch(
-                                value: true,
-                                onChanged: (value){
-                                  setState(() {
-                                    _switchValue = false;
-                                  });
-                                })
-                     ),
-                   )
-                 ],
-               ),
-             ),
-             Padding(
-               padding: EdgeInsets.only(top:10),
-               child:  Row(
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 children: <Widget> [
-                   Container(
+                   Expanded(
+                     child: Container(
                      width: 380,
                      height: 28,
                      child: ListTile(
@@ -261,7 +282,8 @@ class _profileState extends State<Profile>{
                          ),
                          trailing: Icon(Icons.navigate_next, color: Colors.black,)
                      ),
-                   )
+                   ),
+                   ),
                  ],
                ),
              ),
@@ -270,22 +292,24 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
-                         title: Text(
-                           'Help Center',
-                           style: TextStyle(
-                             fontFamily: 'Urbanist',
-                             fontSize: 18,
-                             fontWeight: FontWeight.w600,
-                           ),
+                   Expanded(
+                       child: Container(
+                         width: 380,
+                         height: 28,
+                         child: ListTile(
+                             leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
+                             title: Text(
+                               'Help Center',
+                               style: TextStyle(
+                                 fontFamily: 'Urbanist',
+                                 fontSize: 18,
+                                 fontWeight: FontWeight.w600,
+                               ),
+                             ),
+                             trailing: Icon(Icons.navigate_next, color: Colors.black,)
                          ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                     ),
-                   )
+                       ),
+                   ),
                  ],
                ),
              ),
@@ -294,22 +318,24 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
-                         title: Text(
-                           'Invite Friends',
-                           style: TextStyle(
-                             fontFamily: 'Urbanist',
-                             fontSize: 18,
-                             fontWeight: FontWeight.w600,
-                           ),
+                   Expanded(
+                       child: Container(
+                         width: 380,
+                         height: 28,
+                         child: ListTile(
+                             leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
+                             title: Text(
+                               'Invite Friends',
+                               style: TextStyle(
+                                 fontFamily: 'Urbanist',
+                                 fontSize: 18,
+                                 fontWeight: FontWeight.w600,
+                               ),
+                             ),
+                             trailing: Icon(Icons.navigate_next, color: Colors.black,)
                          ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                     ),
-                   )
+                       ),
+                   ),
                  ],
                ),
              ),
@@ -318,23 +344,25 @@ class _profileState extends State<Profile>{
                child:  Row(
                  mainAxisAlignment: MainAxisAlignment.start,
                  children: <Widget> [
-                   Container(
-                     width: 380,
-                     height: 28,
-                     child: ListTile(
-                         leading: Icon(Icons.person_outlined,color: Colors.black,),
-                         title: Text(
-                           'Logout',
-                           style: TextStyle(
-                             fontFamily: 'Urbanist',
-                             fontSize: 18,
-                             fontWeight: FontWeight.w600,
-                             color: Colors.red,
-                           ),
-                         ),
-                         trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                     ),
-                   )
+                  Expanded(
+                      child:  Container(
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: Icon(Icons.person_outlined,color: Colors.black,),
+                            title: Text(
+                              'Logout',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.red,
+                              ),
+                            ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                        ),
+                      ),
+                  ),
                  ],
                ),
              ),
