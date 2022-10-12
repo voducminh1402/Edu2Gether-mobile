@@ -4,9 +4,13 @@ import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
+import 'package:edu2gether_mobile/screens/mentor/menter_profile.dart';
+import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
 import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
+import 'package:edu2gether_mobile/screens/userProfile/profile_edit.dart';
+import 'package:edu2gether_mobile/screens/userProfile/profile_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,7 +39,9 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
-      home: AuthService().handleAuthState(),
+      //home: AuthService().handleAuthState(),
+      home: Login(),
+
       getPages: RoutesClass.routes,
     );
   }
@@ -67,7 +73,7 @@ class _HomePageState extends State<HomePage> {
               height: 10,
             ),
             Text(
-              FirebaseAuth.instance.currentUser!.email!,
+              FirebaseAuth.instance.currentUser!.uid!,
               style: const TextStyle(
                   fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
             ),
@@ -90,6 +96,40 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home page'),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(height: 100,),
+            Text(FirebaseAuth.instance.currentUser!.email!, style: TextStyle(fontSize: 30),),
+            SizedBox(height: 30,),
+            MaterialButton(
+              padding: const EdgeInsets.all(10),
+              color: Colors.green,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+              child: const Text(
+                'LOG OUT',
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+              onPressed: () {
+                AuthService().signOut();
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
