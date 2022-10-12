@@ -5,14 +5,14 @@ import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MenterProfile extends StatefulWidget {
-  const MenterProfile({Key? key}) : super(key: key);
+class MentorProfile extends StatefulWidget {
+  const MentorProfile({Key? key}) : super(key: key);
 
   @override
-  State<MenterProfile> createState() => _MenterProfileState();
+  State<MentorProfile> createState() => _MentorProfileState();
 }
 
-class _MenterProfileState extends State<MenterProfile> {
+class _MentorProfileState extends State<MentorProfile> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

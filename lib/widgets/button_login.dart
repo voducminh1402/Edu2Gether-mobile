@@ -27,11 +27,6 @@ class _ButtonLoginState extends State<ButtonLogin> {
       ),
       onPressed: () {
         Get.toNamed(widget.route);
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => const LoginAccount()),
-        // );
       },
       child: Text(
         widget.title,

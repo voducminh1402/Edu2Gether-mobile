@@ -50,7 +50,7 @@ class Login extends StatelessWidget {
                 width: Dimension.width50,
                 height: Dimension.height50,
                 child: Center(
-                  child: Image.asset('assets/images/circle.png'),
+                  child: Image.asset('assets/logos/Logo-edu2-fix-02.png'),
                 ),
               ),
               SizedBox(
@@ -69,6 +69,7 @@ class Login extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   AuthService().signInWithGoogle();
+                  AuthService().checkUserState();
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),
