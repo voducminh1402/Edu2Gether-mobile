@@ -28,6 +28,7 @@ class _profileEditState extends State<ProfileEdit> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: BackButton(

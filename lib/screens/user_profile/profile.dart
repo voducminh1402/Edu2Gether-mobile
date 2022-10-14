@@ -6,7 +6,6 @@ import 'package:edu2gether_mobile/screens/user_profile/profile_payment.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../routes/routes.dart';
 
 
