@@ -32,8 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl_phone_field: ^1.2.0
-#  youtube_player_flutter: ^8.0.0
-
+  video_player: ^2.4.7
 
 
 
@@ -81,6 +80,7 @@ flutter:
     - assets/image/noti.png
     - assets/image/noti2.png
     - assets/image/successful.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

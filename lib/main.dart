@@ -1,4 +1,4 @@
-import 'package:edu2gether_mobile/course_detail/course_details.dart';
+import 'package:edu2gether_mobile/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/login/auth_service.dart';
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
       // home: AuthService().handleAuthState(),
-      home: ReviewDetails(),
+      home: VideoCourseDetails(),
       getPages: RoutesClass.routes,
     );
   }
