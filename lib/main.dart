@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/course_detail/course_details.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/login/auth_service.dart';
@@ -5,6 +6,7 @@ import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
+import 'package:edu2gether_mobile/screens/mostpopularcourse/review_details.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/payment_enroll_course.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/pin_enroll_course.dart';
 import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
       // home: AuthService().handleAuthState(),
-      home: BookingSlot(),
+      home: ReviewDetails(),
       getPages: RoutesClass.routes,
     );
   }

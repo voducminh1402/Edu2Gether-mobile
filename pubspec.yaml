@@ -32,6 +32,8 @@ dependencies:
   flutter:
     sdk: flutter
   intl_phone_field: ^1.2.0
+#  youtube_player_flutter: ^8.0.0
+
 
 
 
