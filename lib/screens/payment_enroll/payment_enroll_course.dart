@@ -1,16 +1,20 @@
-import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
+import 'package:edu2gether_mobile/widgets/button_enroll_course.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class ProfilePayment extends StatefulWidget{
+import '../../routes/routes.dart';
 
-  const ProfilePayment({super.key});
+class PaymentEnrollCourse extends StatefulWidget{
+
+  const PaymentEnrollCourse({super.key});
 
   @override
-  State<ProfilePayment> createState() => _profilePaymentState();
+  State<PaymentEnrollCourse> createState() => _profilePaymentState();
 
 }
 
-class _profilePaymentState extends State<ProfilePayment>{
+class _profilePaymentState extends State<PaymentEnrollCourse>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,8 +24,7 @@ class _profilePaymentState extends State<ProfilePayment>{
           leading: BackButton(
             color: Colors.black,
             onPressed: (){
-              Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => Profile()));
+              Get.toNamed(RoutesClass.getProfileRoute());
             },
           ),
           backgroundColor: Colors.white,
@@ -52,40 +55,55 @@ class _profilePaymentState extends State<ProfilePayment>{
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget> [
                   Padding(
+                    padding: const EdgeInsets.only(top: 24,bottom: 24,left: 24,right: 24),
+                    child: Text(
+                      'Select the payment method you want to use',
+                      style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w500, fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top:0),
+              child:  Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget> [
+                  Padding(
                     padding: const EdgeInsets.all(3),
                     child: Container(
-                      width: 380,
-                      height: 70,
-                      child: Card(
-                        elevation: 5,
-                        child: ListTile(
-                            leading: Padding(
-                              padding: EdgeInsets.only(top:15,left: 24,right: 0,bottom: 24),
-                              child: SizedBox(
-                                height: 32,
-                                width: 32,
-                                child: Icon(Icons.paypal_sharp,color: Colors.black,),
+                        width: 380,
+                        height: 70,
+                        child: Card(
+                          elevation: 5,
+                          child: ListTile(
+                              leading: Padding(
+                                padding: EdgeInsets.only(top:15,left: 24,right: 0,bottom: 24),
+                                child: SizedBox(
+                                  height: 32,
+                                  width: 32,
+                                  child: Icon(Icons.paypal_sharp,color: Colors.black,),
+                                ),
                               ),
-                            ),
-                            title: Text(
-                              'Paypal',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                              title: Text(
+                                'Paypal',
+                                style: TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            trailing: Text(
-                              'Connected',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.blue,
-                              ),
-                            )
-                        ),
-                      )
+                              trailing: Text(
+                                'Connected',
+                                style: TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.blue,
+                                ),
+                              )
+                          ),
+                        )
                     ),
                   ),
                 ],
@@ -185,7 +203,7 @@ class _profilePaymentState extends State<ProfilePayment>{
             ),
             Expanded(
                 child: Align(
-                  alignment: FractionalOffset.bottomCenter,
+                  alignment: FractionalOffset.topCenter,
                   child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: SizedBox(
@@ -210,6 +228,14 @@ class _profilePaymentState extends State<ProfilePayment>{
                   ),
                 )
             ),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: ButtonEnrollCourse(route: RoutesClass.getProfilePaymentRoute(), title: 'Confirmation - 40'),
+                ),
+              ],
+            )
           ],
 
         ),

@@ -13,4 +13,5 @@ class AppColors {
   static final Color mainBlackColor = const Color(0xFF332d2b);
   static final Color yellowColor = const Color(0xFFffd279);
   static final Color greyScaleColor = const Color(0xD9D9D9);
+  static final Color blueBookingSelected = const Color(0x5378FD);
 }
