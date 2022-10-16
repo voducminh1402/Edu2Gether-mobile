@@ -43,14 +43,11 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
-<<<<<<< HEAD
+
 
       // home: AuthService().handleAuthState(),
-      home: VideoCourseDetails(),
-=======
-      //home: AuthService().handleAuthState(),
-      home: MainPage(),
->>>>>>> 75d6b38 ([AnhLH] fix login)
+      home: PinEnrollCourse(),
+
 
       getPages: RoutesClass.routes,
     );
