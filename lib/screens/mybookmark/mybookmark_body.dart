@@ -29,7 +29,7 @@ class _MyBookmarkBodyState extends State<MyBookmarkBody> {
                 child: ListView.builder(
                   itemCount: 10,
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
+                  itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.only(right: 11),
                       child: Row(
@@ -83,7 +83,7 @@ class _MyBookmarkBodyState extends State<MyBookmarkBody> {
                                       color:Colors.black38,
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              "assets/image/advancedjava.png"
+                                              "assets/images/advancedjava.png"
                                           )
                                       )
                                   ),

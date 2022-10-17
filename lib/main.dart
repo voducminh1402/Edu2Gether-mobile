@@ -1,6 +1,7 @@
 import 'package:edu2gether_mobile/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
+import 'package:edu2gether_mobile/screens/homepage/homepage.dart';
 import 'package:edu2gether_mobile/screens/login/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
@@ -8,6 +9,8 @@ import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 
 import 'package:edu2gether_mobile/screens/mostpopularcourse/review_details.dart';
+import 'package:edu2gether_mobile/screens/mybookmark/mybookmark.dart';
+import 'package:edu2gether_mobile/screens/nofitication/notification.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/payment_enroll_course.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/pin_enroll_course.dart';
 
@@ -20,6 +23,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_course.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +50,7 @@ class MyApp extends StatelessWidget {
 
 
       // home: AuthService().handleAuthState(),
-      home: PinEnrollCourse(),
+      home: MainHomePage(),
 
 
       getPages: RoutesClass.routes,
