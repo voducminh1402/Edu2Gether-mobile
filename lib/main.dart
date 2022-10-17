@@ -1,7 +1,8 @@
-import 'package:edu2gether_mobile/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
+import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/homepage/homepage.dart';
+
 import 'package:edu2gether_mobile/screens/login/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
