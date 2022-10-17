@@ -1,10 +1,11 @@
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
-import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../my_course/my_course.dart';
+import '../user_profile/profile.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
