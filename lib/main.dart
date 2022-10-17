@@ -1,11 +1,8 @@
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
-<<<<<<< HEAD
 import 'package:edu2gether_mobile/screens/homepage/homepage.dart';
-=======
-import 'package:edu2gether_mobile/screens/homepage/home_body.dart';
->>>>>>> c52b63f ([AnhLH] refactor code)
+
 import 'package:edu2gether_mobile/screens/login/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
@@ -54,11 +51,7 @@ class MyApp extends StatelessWidget {
 
 
       // home: AuthService().handleAuthState(),
-<<<<<<< HEAD
       home: MainHomePage(),
-=======
-      home: HomePage(),
->>>>>>> c52b63f ([AnhLH] refactor code)
 
 
       getPages: RoutesClass.routes,
