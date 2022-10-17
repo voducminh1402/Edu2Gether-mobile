@@ -83,7 +83,7 @@ class _MostPopularCourseBodyState extends State<MostPopularCourseBody> {
                                       color:Colors.black38,
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              "assets/image/advancedjava.png"
+                                              "assets/images/advancedjava.png"
                                           )
                                       )
                                   ),
