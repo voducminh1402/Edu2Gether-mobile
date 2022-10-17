@@ -28,7 +28,15 @@ class _TransactionBodyState extends State<TransactionBody> {
                 margin: EdgeInsets.only(left: 24, right: 24, bottom: 20),
                 child: Row(
                   children: [
-                    Container(
+                    GestureDetector(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const EReceiptPage()),
+                      );
+                    },
+                    child:
+                        Container(
                       width: 360,
                       height: 120,
                       decoration: BoxDecoration(
@@ -65,14 +73,7 @@ class _TransactionBodyState extends State<TransactionBody> {
                               ],
                             ),
                           ),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const EReceiptPage()),
-                              );
-                            },
-                            child: Container(
+                          Container(
                               margin: EdgeInsets.only(left: 20),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -87,9 +88,9 @@ class _TransactionBodyState extends State<TransactionBody> {
                                 ],
                               ),
                             ),
-                          ),
                         ],
                       ),
+                    )
                     )
                   ],
                 ),
