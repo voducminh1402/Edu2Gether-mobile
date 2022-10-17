@@ -46,7 +46,7 @@ class _TransactionBodyState extends State<TransactionBody> {
                                 color:Colors.white38,
                                 image: DecorationImage(
                                     image: AssetImage(
-                                        "assets/image/advancedjava.png"
+                                        "assets/images/advancedjava.png"
                                     )
                                 )
                             ),

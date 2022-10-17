@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
       //home: AuthService().handleAuthState(),
-      home: Login(),
+      home: MainPage(),
 
       getPages: RoutesClass.routes,
     );
