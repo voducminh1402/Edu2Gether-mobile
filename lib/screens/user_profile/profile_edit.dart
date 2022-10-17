@@ -66,35 +66,35 @@ class _profileEditState extends State<ProfileEdit> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget> [
                   Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 24, right: 24),
+                      child: Container(
+                        width: 380,
+                        height: 56,
                         child: Container(
-                          width: 380,
-                          height: 56,
-                          child: Container(
-                            child: TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(12)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: AppColors.mainColor),
-                                    borderRadius: BorderRadius.circular(12)),
-                                hintText: 'Hieu Trung',
-                                fillColor: AppColors.inputColor,
-                                filled: true,
-                              ),
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Urbanist',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(12)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.mainColor),
+                                  borderRadius: BorderRadius.circular(12)),
+                              hintText: 'Hieu Trung',
+                              fillColor: AppColors.inputColor,
+                              filled: true,
+                            ),
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Urbanist',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-
                         ),
+
                       ),
+                    ),
                   ),
                 ],
               ),
@@ -219,16 +219,16 @@ class _profileEditState extends State<ProfileEdit> {
                       child: Container(
                         child: TextField(
                           decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.mainColor),
-                                borderRadius: BorderRadius.circular(12)),
-                            hintText: 'VietNam',
-                            fillColor: AppColors.inputColor,
-                            filled: true,
-                            suffixIcon: Icon(Icons.keyboard_arrow_down)
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(12)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: AppColors.mainColor),
+                                  borderRadius: BorderRadius.circular(12)),
+                              hintText: 'VietNam',
+                              fillColor: AppColors.inputColor,
+                              filled: true,
+                              suffixIcon: Icon(Icons.keyboard_arrow_down)
                           ),
                           style: TextStyle(
                             fontFamily: 'Urbanist',
@@ -253,18 +253,18 @@ class _profileEditState extends State<ProfileEdit> {
                       width: 380,
                       height: 56,
                       child: Container(
-                        child: IntlPhoneField(
-                          decoration: InputDecoration(
-                            labelText: 'Phone Number',
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(),
+                          child: IntlPhoneField(
+                            decoration: InputDecoration(
+                              labelText: 'Phone Number',
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(),
+                              ),
                             ),
-                          ),
-                          initialCountryCode: 'NP',
-                          onChanged: (phone) {
-                            print(phone.completeNumber);
-                          },
-                        )
+                            initialCountryCode: 'NP',
+                            onChanged: (phone) {
+                              print(phone.completeNumber);
+                            },
+                          )
                       ),
 
                     ),
