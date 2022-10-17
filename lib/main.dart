@@ -1,16 +1,20 @@
+import 'package:edu2gether_mobile/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
+import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/login/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
-import 'package:edu2gether_mobile/screens/mentor/menter_profile.dart';
-import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
+
+import 'package:edu2gether_mobile/screens/mostpopularcourse/review_details.dart';
+import 'package:edu2gether_mobile/screens/payment_enroll/payment_enroll_course.dart';
+import 'package:edu2gether_mobile/screens/payment_enroll/pin_enroll_course.dart';
+
 import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
-import 'package:edu2gether_mobile/screens/userProfile/profile.dart';
-import 'package:edu2gether_mobile/screens/userProfile/profile_edit.dart';
-import 'package:edu2gether_mobile/screens/userProfile/profile_payment.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,8 +43,11 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
-      //home: AuthService().handleAuthState(),
-      home: Login(),
+
+
+      // home: AuthService().handleAuthState(),
+      home: PinEnrollCourse(),
+
 
       getPages: RoutesClass.routes,
     );

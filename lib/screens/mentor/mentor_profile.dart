@@ -53,7 +53,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   child: Center(
                     child: CircleAvatar(
                       backgroundImage:
-                          const ExactAssetImage("assets/image/mentor.png"),
+                          const ExactAssetImage("assets/images/mentor.png"),
                       foregroundColor: Colors.white,
                       radius: Dimension.width24,
                     ),
@@ -340,7 +340,7 @@ class _MentorProfileState extends State<MentorProfile> {
                               subtitle: SmallText(text: "Students", size: Dimension.font5, color: Colors.black38,),
                               leading: CircleAvatar(
                                 backgroundImage:
-                                const ExactAssetImage("assets/image/mentor.png"),
+                                const ExactAssetImage("assets/images/mentor.png"),
                                 radius: Dimension.width10,
                               ),
                               trailing: Icon(Icons.label, size: Dimension.font10, color: AppColors.mainColor,)
@@ -361,7 +361,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                       children: [
                                         CircleAvatar(
                                           backgroundImage:
-                                          const ExactAssetImage("assets/image/mentor.png"),
+                                          const ExactAssetImage("assets/images/mentor.png"),
                                           radius: Dimension.height8,
                                         ),
                                         SizedBox(width: Dimension.width5,),

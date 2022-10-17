@@ -31,7 +31,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  intl_phone_field: ^1.2.0
+  video_player: ^2.4.7
 
 
 
@@ -39,6 +40,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  firebase_storage: ^10.3.11
 
 dev_dependencies:
   flutter_test:
@@ -74,7 +76,9 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/image/
     - assets/logos/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -101,5 +105,5 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
-  # For details regarding fonts from package dependencies,
+  # For details regarding fonts from package dependecies,
   # see https://flutter.dev/custom-fonts/#from-packages
