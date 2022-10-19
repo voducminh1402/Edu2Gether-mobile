@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../routes/routes.dart';
+import '../../utilities/dimensions.dart';
+import 'package:get/get.dart';
 
 
 class Profile extends StatefulWidget {
@@ -27,29 +29,33 @@ class _profileState extends State<Profile>{
        home: Scaffold(
          backgroundColor: Colors.white,
          appBar: AppBar(
-           leading: BackButton(
+         backgroundColor: Colors.white,
+         leading: IconButton(
+           icon: Icon(
+             Icons.arrow_back,
              color: Colors.black,
            ),
-           backgroundColor: Colors.white,
-           elevation: 0,
-           titleTextStyle: TextStyle(
-             color: Colors.black,
-             fontFamily: 'Urbanist',
-             fontSize: 20,
-             fontWeight: FontWeight.bold,
-           ) ,
-           title: const Text(
-               'Profile',
-           ),
-          actions: [
-            IconButton(
-                onPressed: (){},
-                icon: Icon(
-                  Icons.more_horiz_rounded,
-                  color: Colors.black,
-            ))
-          ],
+           onPressed: () {
+             Get.back();
+           },
          ),
+         title: Text(
+           'Profile',
+           style: TextStyle(
+               color: Colors.black,
+               fontWeight: FontWeight.bold,
+               fontSize: Dimension.font8),
+         ),
+         actions: [
+           IconButton(
+               onPressed: () {},
+               icon: Icon(
+                 Icons.more_horiz_rounded,
+                 color: Colors.black,
+               )),
+         ],
+         elevation: 0
+       ),
          body: Column(
            children: [
              Row(
@@ -95,34 +101,34 @@ class _profileState extends State<Profile>{
                   color: Colors.black,
                 ),
             ),
-             Row(
-               mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget> [
-                  Expanded(
-                      child: GestureDetector(
-                        onTap: (){
-                          Get.toNamed(RoutesClass.getProfileEditRoute());
-                        },
-                        child: Container(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.person_outlined,color: Colors.black,),
-                              title: Text(
-                                'Edit Profile',
-                                style: TextStyle(
-                                    fontFamily: 'Urbanist',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600
+             GestureDetector(
+               onTap: () => Get.toNamed(RoutesClass.getProfileEditRoute()),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget> [
+                    Expanded(
+
+                          child: Container(
+                            width: 380,
+                            height: 28,
+                            child: ListTile(
+                                leading: Icon(Icons.person_outlined,color: Colors.black,),
+                                title: Text(
+                                  'Edit Profile',
+                                  style: TextStyle(
+                                      fontFamily: 'Urbanist',
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600
+                                  ),
                                 ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                                trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                            ),
                           ),
-                        ),
-                      ),
-                  ),
-                ],
-              ),
+
+                    ),
+                  ],
+                ),
+             ),
              Padding(
                padding: EdgeInsets.only(top:10),
                child:  Row(

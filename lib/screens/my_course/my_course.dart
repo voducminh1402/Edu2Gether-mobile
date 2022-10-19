@@ -1,6 +1,7 @@
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
+import 'package:get/get.dart';
 
 class MyCourse extends StatefulWidget {
   const MyCourse({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _MyCourseState extends State<MyCourse> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                Get.back();
               },
             ),
             title: Text(
@@ -45,7 +46,7 @@ class _MyCourseState extends State<MyCourse> {
               IconButton(
                   onPressed: () {},
                   icon: Icon(
-                    Icons.more,
+                    Icons.more_horiz_rounded,
                     color: Colors.black,
                   )),
             ],
