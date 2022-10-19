@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/screens/user_profile/paypal_payment.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,49 +49,54 @@ class _profilePaymentState extends State<ProfilePayment>{
         ),
         body: Column(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top:0),
-              child:  Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget> [
-                  Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Container(
-                      width: 380,
-                      height: 70,
-                      child: Card(
-                        elevation: 5,
-                        child: ListTile(
-                            leading: Padding(
-                              padding: EdgeInsets.only(top:15,left: 24,right: 0,bottom: 24),
-                              child: SizedBox(
-                                height: 32,
-                                width: 32,
-                                child: Icon(Icons.paypal_sharp,color: Colors.black,),
-                              ),
+            GestureDetector(
+              onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const PaypalPayment()));
+              },
+              child: Padding(
+                padding: EdgeInsets.only(top:0),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget> [
+                    Padding(
+                      padding: const EdgeInsets.all(3),
+                      child: Container(
+                          width: 380,
+                          height: 70,
+                          child: Card(
+                            elevation: 5,
+                            child: ListTile(
+                                leading: Padding(
+                                  padding: EdgeInsets.only(top:15,left: 24,right: 0,bottom: 24),
+                                  child: SizedBox(
+                                    height: 32,
+                                    width: 32,
+                                    child: Icon(Icons.paypal_sharp,color: Colors.black,),
+                                  ),
+                                ),
+                                title: Text(
+                                  'Paypal',
+                                  style: TextStyle(
+                                    fontFamily: 'Urbanist',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                trailing: Text(
+                                  'Connected',
+                                  style: TextStyle(
+                                    fontFamily: 'Urbanist',
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.blue,
+                                  ),
+                                )
                             ),
-                            title: Text(
-                              'Paypal',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: Text(
-                              'Connected',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.blue,
-                              ),
-                            )
-                        ),
-                      )
+                          )
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Padding(

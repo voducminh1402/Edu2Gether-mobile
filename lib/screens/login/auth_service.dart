@@ -73,7 +73,7 @@ class AuthService{
         Get.to(() => Login());
       } else {
         print('User is signed in!');
-        Get.to(() => MyHomePage());
+        //Get.to(() => MyHomePage());
       }
     });
   }

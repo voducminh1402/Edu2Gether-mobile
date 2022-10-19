@@ -2,6 +2,7 @@ import 'package:edu2gether_mobile/main.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/payment_enroll_course.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/pin_enroll_course.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
@@ -31,7 +32,7 @@ class RoutesClass{
 
 
   static List<GetPage> routes = [
-    GetPage(name: home, page: () => HomePage()),
+    GetPage(name: home, page: () => MainPage()),
     GetPage(name: loginAccount, page: () => const LoginAccount()),
     GetPage(name: createAccount, page: () => const CreateAccount()),
     GetPage(name: login, page: () => const Login()),
