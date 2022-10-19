@@ -1,6 +1,8 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
 import '../mentor/top_mentor.dart';
@@ -106,18 +108,14 @@ class _HomePageBodyState extends State<HomePageBody> {
                               children: [
                                 Column(
                                   children: [
+                                    //
                                     Container(
-                                      width: 60,
-                                      height: 60,
-                                      margin: EdgeInsets.only(right: 14, top: 20),
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(25),
-                                          color:Colors.black38,
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/image/mentor.png"
-                                              )
-                                          )
+                                      margin: EdgeInsets.only(top: 20),
+                                      child: CircleAvatar(
+                                        backgroundImage:
+                                        const ExactAssetImage("assets/images/mentor.png"),
+                                        foregroundColor: Colors.white,
+                                        radius: Dimension.width13,
                                       ),
                                     ),
                                     Container(
@@ -223,7 +221,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                                 color:Colors.black38,
                                 image: DecorationImage(
                                     image: AssetImage(
-                                        "assets/image/advancedjava.png"
+                                        "assets/images/advancedjava.png"
                                     )
                                 )
                             ),

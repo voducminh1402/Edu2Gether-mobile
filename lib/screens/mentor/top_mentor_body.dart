@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utilities/dimensions.dart';
 import '../../widgets/small_text.dart';
 
 class TopMentorBody extends StatefulWidget {
@@ -33,21 +34,15 @@ class _TopMentorBodyState extends State<TopMentorBody> {
                       child: Row(
                         children: [
                           Container(
-                            width:60,
-                            height: 60 ,
-                            margin: EdgeInsets.only(right: 20),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color:Colors.white38,
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/image/advancedjava.png"
-                                    )
-                                )
+                            child: CircleAvatar(
+                              backgroundImage:
+                              const ExactAssetImage("assets/images/mentor.png"),
+                              foregroundColor: Colors.white,
+                              radius: Dimension.width15,
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(right: 85),
+                            padding: EdgeInsets.only(right: 60, left: 20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,

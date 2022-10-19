@@ -1,25 +1,14 @@
+import 'dart:async';
+
 import 'package:edu2gether_mobile/main.dart';
-import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
 
 class AuthService{
   final auth = FirebaseAuth.instance;
-  //Determine if the user is authenticated.
-  handleAuthState() {
-    return StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, snapshot) {
-          if (snapshot.hasData) {
-            return HomePage();
-          }
-            return const Login();
 
-        });
-  }
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -59,7 +48,6 @@ class AuthService{
         email: email,
         password: password,
       );
-      checkUserState();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

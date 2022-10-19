@@ -14,7 +14,7 @@
                 <string>com.googleusercontent.apps.261472646998-3qivcilclar8ld4374i01mp1kf5639fc</string>
             </array>
         </dict>
- </array>
+    </array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -61,8 +61,8 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
-	<dict>
-	    <key>NSAllowsArbitrayryLoads</key>
-	</dict>
+	<true/>
+    <key>NSAllowsArbitrayryLoads</key>
+    <true/>
 </dict>
 </plist>

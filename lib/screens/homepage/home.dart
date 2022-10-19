@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                                 color:Colors.white38,
                                 image: DecorationImage(
                                     image: AssetImage(
-                                        "assets/image/Logo-edu2-fix-02.png"
+                                        "assets/images/Logo-edu2-fix-02.png"
                                     )
                                 )
                             ),

@@ -54,7 +54,7 @@ class _NotificationBodyState extends State<NotificationBody> {
                                             color:Colors.black38,
                                             image: DecorationImage(
                                                 image: AssetImage(
-                                                    "assets/image/noti.png"
+                                                    "assets/images/noti.png"
                                                 )
                                             )
                                         ),
@@ -89,7 +89,7 @@ class _NotificationBodyState extends State<NotificationBody> {
                                             color:Colors.black38,
                                             image: DecorationImage(
                                                 image: AssetImage(
-                                                    "assets/image/noti2.png"
+                                                    "assets/images/noti2.png"
                                                 )
                                             )
                                         ),
