@@ -6,7 +6,8 @@ import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '../utilities/dimensions.dart';
+import '../../utilities/dimensions.dart';
+
 
 class VideoCourseDetails extends StatefulWidget {
   const VideoCourseDetails({Key? key}) : super(key: key);
