@@ -116,7 +116,7 @@ class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> with Ticke
                   Row(
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 50,top: 24,bottom: 20),
+                        padding: const EdgeInsets.only(left: 24, right: 50,top: 24,bottom: 10),
                         child: Text(
                           'Intro to UI/UX Design',
                           style: TextStyle(fontFamily: 'Urbanist', fontSize: 28, fontWeight: FontWeight.w700,color: Colors.black),
@@ -150,7 +150,7 @@ class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> with Ticke
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 12,left: 24,right: 12),
+                        padding: const EdgeInsets.only(top: 12,left: 24,right: 12,bottom: 0),
                         child: Text(
                           '40 VND',
                           style: TextStyle(fontFamily: 'Urbanist', fontSize: 32, fontWeight: FontWeight.w700,color: Colors.blueAccent),
@@ -165,33 +165,36 @@ class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> with Ticke
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 24,right: 3),
-                        child: Icon(Icons.groups,color: Colors.blueAccent,),
-                      ),
-                      Text(
-                        '9,839 Students',
-                        style: TextStyle(fontFamily: 'Urbanist', fontSize: 16, fontWeight: FontWeight.w700,color: Colors.black),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10,right: 3),
-                        child: Icon(Icons.schedule,color: Colors.blueAccent,),
-                      ),
-                      Text(
-                        '2.5 Hours',
-                        style: TextStyle(fontFamily: 'Urbanist', fontSize: 16, fontWeight: FontWeight.w700,color: Colors.black),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10,right: 3),
-                        child: Icon(Icons.description,color: Colors.blueAccent,),
-                      ),
-                      Text(
-                        'Certificate',
-                        style: TextStyle(fontFamily: 'Urbanist', fontSize: 16, fontWeight: FontWeight.w700,color: Colors.black),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 24,right: 3),
+                          child: Icon(Icons.groups,color: Colors.blueAccent,),
+                        ),
+                        Text(
+                          '9,839 Students',
+                          style: TextStyle(fontFamily: 'Urbanist', fontSize: 16, fontWeight: FontWeight.w700,color: Colors.black),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10,right: 3),
+                          child: Icon(Icons.schedule,color: Colors.blueAccent,),
+                        ),
+                        Text(
+                          '2.5 Hours',
+                          style: TextStyle(fontFamily: 'Urbanist', fontSize: 16, fontWeight: FontWeight.w700,color: Colors.black),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10,right: 3),
+                          child: Icon(Icons.description,color: Colors.blueAccent,),
+                        ),
+                        Text(
+                          'Certificate',
+                          style: TextStyle(fontFamily: 'Urbanist', fontSize: 16, fontWeight: FontWeight.w700,color: Colors.black),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
