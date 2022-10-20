@@ -121,12 +121,12 @@ class _HomePageBodyState extends State<HomePageBody> {
                                   children: [
                                     //
                                     Container(
-                                      margin: EdgeInsets.only(top: 20),
+                                      margin: EdgeInsets.only(top: Dimension.height5),
                                       child: CircleAvatar(
                                         backgroundImage:
                                         const ExactAssetImage("assets/images/mentor.png"),
                                         foregroundColor: Colors.white,
-                                        radius: Dimension.width13,
+                                        radius: Dimension.width10,
                                       ),
                                     ),
                                     Container(
