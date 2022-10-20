@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:getwidget/getwidget.dart';
+import '../../utilities/colors.dart';
+import '../../utilities/dimensions.dart';
 import '../../widgets/defination_bottom_nav_text.dart';
 import '../../widgets/small_text.dart';
 import 'ereceipt.dart';
@@ -19,84 +22,103 @@ class _TransactionBodyState extends State<TransactionBody> {
       children: [
         //list transaction
         Container(
-          margin: EdgeInsets.only(top: 20),
           height: 700,
           child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index){
-              return Container(
-                margin: EdgeInsets.only(left: 24, right: 24, bottom: 20),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                    onTap: (){
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const EReceiptPage()),
-                      );
-                    },
-                    child:
-                        Container(
-                      width: 360,
-                      height: 120,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width:88,
-                            height: 88,
-                            margin: EdgeInsets.only(left: 20),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color:Colors.white38,
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/advancedjava.png"
-                                    )
-                                )
-                            ),
+              padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
+              itemCount: 6,
+              itemBuilder: (context, i) {
+                return Container(
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius:
+                      BorderRadius.circular(Dimension.radius12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 2,
+                          offset: Offset(0, 2), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          // Image border
+                          child: SizedBox.fromSize(
+                            size: Size.fromRadius(48), // Image radius
+                            child: Image.asset('assets/images/course.png',
+                                fit: BoxFit.cover),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10, right: 10),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Expanded(
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                //BigText(text: "Java-Fullstack", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
-                                Text('Java-Fullstack', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),),
-
-                                SizedBox(height: 20,),
-                                SmallText(text: "Paid", color: Colors.blueAccent,),
-                              ],
-                            ),
-                          ),
-                          Container(
-                              margin: EdgeInsets.only(left: 20),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Container(
-                                    width: 10,
-                                    height: 10,
-                                    margin: EdgeInsets.only(right: 15, bottom: 10),
-                                    child: Icon(Icons.paid, color: Colors.blueAccent, size: 20),
+                                Text(
+                                  '3D Design Illustration',
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Urbanist'),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  'Paid',
+                                  style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontSize: 18,
+                                      fontFamily: 'Urbanist'),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),Container(
+                                    child: Row(
+                                      children: [
+                                        ElevatedButton.icon(
+                                          onPressed: () {
+                                            // Respond to button press
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => const EReceiptPage()),
+                                            );
+                                          },
+                                          icon: Icon(Icons.monetization_on_outlined),
+                                          label: Text("E-Receipt"),
+                                          style: ButtonStyle(
+                                              shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
+                                                    borderRadius:
+                                                    BorderRadius.circular(Dimension.radius16)),
+                                              ),
+                                              minimumSize: MaterialStateProperty.all(
+                                                Size(MediaQuery.of(context).size.width / 3.0, 30),
+                                              ),
+                                              textStyle: MaterialStateProperty.all(TextStyle(
+                                                  fontSize: Dimension.font8,
+                                                  fontWeight: FontWeight.bold)),
+                                              backgroundColor:
+                                              MaterialStateProperty.all(AppColors.mainColor)),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  DefinationBottomNavText(text: "E-Receipt")
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                    )
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
+                              ],
+                            ))
+                      ],
+                    ));
+              }),
         )
       ],
     );
