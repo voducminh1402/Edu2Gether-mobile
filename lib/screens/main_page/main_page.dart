@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/main.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
@@ -17,9 +18,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List pages = [
-    MyHomePage(),
+    MainHomePage(),
     MyCourse(),
-    MyHomePage(),
     TransactionPage(),
     Profile(),
   ];
@@ -46,7 +46,6 @@ class _MainPageState extends State<MainPage> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.note), label: "My Course"),
-            BottomNavigationBarItem(icon: Icon(Icons.inbox), label: "Inbox"),
             BottomNavigationBarItem(icon: Icon(Icons.transcribe), label: "Transaction"),
             BottomNavigationBarItem(icon: Icon(Icons.person_off), label: "Profile"),
           ]
