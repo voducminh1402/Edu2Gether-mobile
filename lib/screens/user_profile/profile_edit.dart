@@ -350,7 +350,21 @@ class _profileEditState extends State<ProfileEdit> {
                 ),
               ],
             ),
-            ButtonLogin(route: RoutesClass.getProfileRoute(), title: 'Update',),
+            Expanded(
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: SizedBox(
+                      height: 58,
+                      width: 380,
+                      child:  Card(
+                        child: ButtonLogin(route: RoutesClass.getProfileRoute(), title: 'Update',),
+                      ),
+                    ),
+                  ),
+                )
+            ),
           ],
         ),
 
