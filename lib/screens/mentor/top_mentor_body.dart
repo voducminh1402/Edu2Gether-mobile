@@ -1,6 +1,9 @@
+import 'package:edu2gether_mobile/services/mentor_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/mentor.dart';
+import '../../utilities/dimensions.dart';
 import '../../widgets/small_text.dart';
 
 class TopMentorBody extends StatefulWidget {
@@ -11,76 +14,82 @@ class TopMentorBody extends StatefulWidget {
 }
 
 class _TopMentorBodyState extends State<TopMentorBody> {
+
+  List<Mentor>? mentors;
+  var isLoaded = false;
+
+  @override
+  void initState(){
+    super.initState();
+
+    getData();
+  }
+
+  getData() async {
+    mentors = (await MentorService().getMentor())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(mentors != null){
+      isLoaded = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         //list transaction
-        Container(
-          width: 380,
-          height: 700,
-          margin: EdgeInsets.only(left: 30, right: 24),
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index){
-              return Container(
-                margin: EdgeInsets.only(bottom: 24),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 340,
-                      height: 60,
-                      child: Row(
-                        children: [
-                          Container(
-                            width:60,
-                            height: 60 ,
-                            margin: EdgeInsets.only(right: 20),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color:Colors.white38,
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/image/advancedjava.png"
-                                    )
-                                )
+        Visibility(
+          visible: isLoaded,
+          replacement: const Center(
+            child: CircularProgressIndicator(),
+          ),
+          child: Container(
+            width: 380,
+            height: 700,
+            margin: EdgeInsets.only(left: 30, right: 24),
+            child: ListView.builder(
+              itemCount: mentors?.length,
+              itemBuilder: (context, index){
+                return Container(
+                  margin: EdgeInsets.only(bottom: 24),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 340,
+                        height: 60,
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: Dimension.width5),
+                              child: CircleAvatar(
+                                backgroundImage:
+                                NetworkImage(mentors![index].image),
+                                foregroundColor: Colors.white,
+                                radius: Dimension.width15,
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 85),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                //BigText(text: "Jacob Kulikowsky", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
-                                Text('Jacob Kulikowsky', style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),),
+                            Padding(
+                              padding: EdgeInsets.only(right: 60, left: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  //BigText(text: "Jacob Kulikowsky", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
+                                  Text(mentors![index].fullName, style: TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),),
 
-                                SizedBox(height: 4,),
-                                SmallText(text: "Marketng Analyst", color: Colors.black26,),
-                              ],
+                                  SizedBox(height: 4,),
+                                  SmallText(text: mentors![index].job, color: Colors.black26,),
+                                ],
+                              ),
                             ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: 10,
-                                  height: 10,
-                                  margin: EdgeInsets.only(bottom: 10, left: 12),
-                                  child: Icon(Icons.chat_outlined, color: Colors.blueAccent, size: 20),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         )
       ],

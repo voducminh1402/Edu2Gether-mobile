@@ -1,5 +1,5 @@
 import 'package:edu2gether_mobile/routes/routes.dart';
-import 'package:edu2gether_mobile/screens/login/auth_service.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
@@ -50,7 +50,9 @@ class Login extends StatelessWidget {
                 width: Dimension.width50,
                 height: Dimension.height50,
                 child: Center(
-                  child: Image.asset('assets/images/circle.png'),
+                  child:Image.asset('assets/logos/Logo-edu2-fix-02.png',
+                      fit: BoxFit.cover),
+
                 ),
               ),
               SizedBox(
@@ -69,6 +71,7 @@ class Login extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   AuthService().signInWithGoogle();
+                  AuthService().checkUserState();
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),

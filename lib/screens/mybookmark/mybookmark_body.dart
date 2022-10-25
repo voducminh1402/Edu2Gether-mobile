@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../utilities/colors.dart';
+import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
 
@@ -25,127 +27,120 @@ class _MyBookmarkBodyState extends State<MyBookmarkBody> {
             children: [
               Container(
                 width: 380,
-                height: 38,
+                height: 774,
                 child: ListView.builder(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: EdgeInsets.only(right: 11),
-                      child: Row(
-                        children: [
-                          Container(
-                              width: 133,
-                              height: 38,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                border: Border.all(
-                                    color: Colors.blueAccent,
-                                    style: BorderStyle.solid,
-                                    width: 2.0
-                                ),
-                                color:Colors.white,
+                    padding: EdgeInsets.symmetric(vertical: Dimension.height5),
+                    itemCount: 6,
+                    itemBuilder: (context, i) {
+                      return Container(
+                          padding: EdgeInsets.all(20),
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                            BorderRadius.circular(Dimension.radius12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: Offset(0, 2), // changes position of shadow
                               ),
-                              child:
-                              Container(
-                                margin: EdgeInsets.only(left: 30, top: 7),
-                                child: BigText(text: "3D Design", color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
-                              )
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Container(
-                width: 380,
-                height: 688,
-                margin: EdgeInsets.only(top: 24, left: 20),
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index){
-                    return Container(
-                      margin: EdgeInsets.only(bottom: 16),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 343,
-                            height: 160,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width:120,
-                                  height: 120,
-                                  margin: EdgeInsets.only(right: 10),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(25),
-                                      color:Colors.black38,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              "assets/image/advancedjava.png"
-                                          )
-                                      )
-                                  ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                // Image border
+                                child: SizedBox.fromSize(
+                                  size: Size.fromRadius(62), // Image radius
+                                  child: Image.asset('assets/images/course.png',
+                                      fit: BoxFit.cover),
                                 ),
-                                Container(
-                                  width: 204,
-                                  height: 120,
-                                  child: Row(
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           Container(
-                                              width: 66,
-                                              height: 24,
-                                              margin: EdgeInsets.only(bottom: 12),
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(25),
-                                                color:Colors.black12,
-                                              ),
-                                              child:
-                                              Container(
-                                                margin: EdgeInsets.only(left: 12, top: 5),
-                                                child: BigText(text: "Back-end", color: Colors.blueAccent, size: 10, fontweight: FontWeight.w600,),
-                                              )
+                                            child: Text("3D Design", style: TextStyle(color: Colors.white),),
+                                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.mainColor,
+                                              border: Border.all(color: Colors.blue),
+                                              borderRadius: BorderRadius.circular(6),
+
+                                            ),
                                           ),
-                                          Container(
-                                            margin: EdgeInsets.only(bottom: 12),
-                                            child: BigText(text: "Advanced Java", color: Colors.black, fontweight: FontWeight.w700, size: 18,),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(bottom: 12),
-                                            child: BigText(text: "\$50", color: Colors.blueAccent, fontweight: FontWeight.w700, size: 18,),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Container(
-                                                margin: EdgeInsets.only(right: 8),
-                                                child: Icon(Icons.star_half, color: Colors.black, size: 16,),
-                                              ),
-                                              SmallText(text: "4.8 | 8.289 students", color: Colors.black38,),
-                                            ],
-                                          )
+                                          Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,)
                                         ],
                                       ),
-                                      Container(
-                                        margin: EdgeInsets.only(left: 50, bottom: 100),
-                                        child: Icon(Icons.bookmark_outlined, color: Colors.blueAccent, size: 25,),
-                                      )
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        '3D Design Illustration',
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Urbanist'),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text.rich(
+                                        TextSpan(
+                                          text: '\$48',
+                                          style: TextStyle(
+                                            fontSize: Dimension.font6,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.blueAccent,
+                                          ), // default text style
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: ' \$80',
+                                              style: TextStyle(
+                                                fontSize: Dimension.font5,
+                                                color: Colors.black38,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(height: Dimension.height3,),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            WidgetSpan(
+                                              child: Icon(Icons.star, size: Dimension.font5),
+                                            ),
+                                            WidgetSpan(child: SizedBox(width: Dimension.width3,),),
+                                            TextSpan(
+                                                text: "4.7 | ",
+                                                style: TextStyle(color: Colors.black38)
+                                            ),
+                                            TextSpan(
+                                                text: "7,938 students", style: TextStyle(color: Colors.black38)
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              )
+                                  ))
+                            ],
+                          ));
+                    }),
+              ),
             ],
           ),
         )

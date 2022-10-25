@@ -38,7 +38,7 @@ class _TopMentorPageState extends State<TopMentorPage> {
                       ),
                     ),
                     //BigText(text: "Top Mentor", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
-                    Text('Top Menter', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+                    Text('Top Mentor', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
 
                   ],
                 ),

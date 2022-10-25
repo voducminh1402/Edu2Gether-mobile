@@ -1,4 +1,6 @@
+import 'package:edu2gether_mobile/main.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
@@ -19,6 +21,8 @@ class LoginAccount extends StatefulWidget {
 class _LoginAccountState extends State<LoginAccount> {
   bool _passwordVisible = false;
   bool _rememberAccount = false;
+  late String _password;
+  late String _email;
 
   @override
   void initState() {
@@ -78,6 +82,12 @@ class _LoginAccountState extends State<LoginAccount> {
                   fillColor: AppColors.inputColor,
                   filled: true,
                 ),
+                keyboardType: TextInputType.emailAddress,
+                onChanged: (value) {
+                  setState(() {
+                    _email = value.trim();
+                  });
+                },
               ),
               SizedBox(
                 height: Dimension.height10,
@@ -111,6 +121,11 @@ class _LoginAccountState extends State<LoginAccount> {
                   fillColor: AppColors.inputColor,
                   filled: true,
                 ),
+                onChanged: (value) {
+                  setState(() {
+                    _password = value.trim();
+                  });
+                },
               ),
               SizedBox(
                 height: Dimension.height5,
@@ -142,7 +157,26 @@ class _LoginAccountState extends State<LoginAccount> {
               SizedBox(
                 height: Dimension.height5,
               ),
-              ButtonLogin(route: '', title: 'Sign in',),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    textStyle:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                onPressed: () {
+                  AuthService().signInWithEmailAndPassword(_email, _password);
+                  //if(AuthService().checkUserState()){
+                    //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
+                  //}
+
+                },
+                child: Text(
+                  'Sign in'
+                ),
+              ),
               SizedBox(
                 height: Dimension.height10,
               ),
@@ -235,7 +269,7 @@ class _LoginAccountState extends State<LoginAccount> {
                   style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
                   children: <TextSpan>[
                     new TextSpan(
-                      text: ' Sign in',
+                      text: ' Sign up',
                       style: new TextStyle(
                           color: AppColors.mainColor, fontFamily: 'Urbanist'),
                       recognizer: new TapGestureRecognizer()

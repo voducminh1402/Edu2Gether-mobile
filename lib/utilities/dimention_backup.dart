@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 
-class Dimension {
+class DimensionB {
   // static double screenHeight = window.physicalSize.height;
   // static double screenWidth = window.physicalSize.width;
   static Size screenSize = WidgetsBinding.instance.window.physicalSize;
@@ -33,8 +33,6 @@ class Dimension {
   static double width3 = screenHeight / 294;
 
   static double width10 = screenHeight / 88.2;
-  static double width13 = screenHeight / 67.8;
-  static double width15 = screenHeight / 58.8;
   static double width16 = screenHeight / 55.125;
   static double width18 = screenHeight / 49;
   static double width24 = screenHeight / 36.75;
@@ -69,14 +67,14 @@ class Dimension {
   static double radius16 = screenHeight / 55.125;
   static double radius100 = screenHeight / 8.82;
 
-  // static double listViewImgSize = screenWidth / 3.25;
-  // static double listViewTextSize = screenWidth / 3.9;
-  //
-  // static double popularFoodImgSize = screenHeight / 2.41;
-  //
-  // static double iconSize16 = screenWidth / 52.75;
-  // static double iconSize24 = screenWidth / 35.17;
-  //
-  // static double bottomHeight = screenHeight / 7.03;
+// static double listViewImgSize = screenWidth / 3.25;
+// static double listViewTextSize = screenWidth / 3.9;
+//
+// static double popularFoodImgSize = screenHeight / 2.41;
+//
+// static double iconSize16 = screenWidth / 52.75;
+// static double iconSize24 = screenWidth / 35.17;
+//
+// static double bottomHeight = screenHeight / 7.03;
 
 }

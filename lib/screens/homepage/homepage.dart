@@ -1,19 +1,19 @@
-import 'package:edu2gether_mobile/screens/transaction/transaction_body.dart';
-import 'package:edu2gether_mobile/widgets/big_text.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/defination_bottom_nav_text.dart';
+import '../../utilities/dimensions.dart';
+import '../../widgets/big_text.dart';
+import 'home_body.dart';
 
-class TransactionPage extends StatefulWidget {
-  const TransactionPage({Key? key}) : super(key: key);
+class MainHomePage extends StatefulWidget {
+  const MainHomePage({Key? key}) : super(key: key);
 
   @override
-  State<TransactionPage> createState() => _TransactionPageState();
+  State<MainHomePage> createState() => _MainHomePageState();
 }
 
-class _TransactionPageState extends State<TransactionPage> {
+class _MainHomePageState extends State<MainHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,9 +29,39 @@ class _TransactionPageState extends State<TransactionPage> {
                 children: [
                   Column(
                     children: [
-                      //BigText(text: "Transaction", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
-                      Text('Transaction', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
-
+                      Row(
+                        children: [
+                          Container(
+                            child: CircleAvatar(
+                              backgroundImage:
+                              const ExactAssetImage("assets/images/mentor.png"),
+                              foregroundColor: Colors.white,
+                              radius: Dimension.width10,
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 16),
+                                child: Row(
+                                  children: [
+                                    SmallText(text: "Good Morning", color: Colors.black, size: 12, fontweight: FontWeight.w200,),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 7),
+                                      child: Icon(Icons.waving_hand, color: Colors.black, size: 12,),
+                                    )
+                                  ],
+                                )
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5, left: 16),
+                                child: BigText(text: "Tran Quang Quyen", color: Colors.black, size: 16, fontweight: FontWeight.w700,),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ],
                   ),
                   Row(
@@ -39,12 +69,12 @@ class _TransactionPageState extends State<TransactionPage> {
                       Container(
                         width: 40,
                         height: 40,
-                        child: Icon(Icons.search, color: Colors.black, size: 30,),
+                        child: Icon(Icons.notifications_none, color: Colors.black, size: 30,),
                       ),
                       Container(
                           width: 40,
                           height: 40,
-                          child: Icon(Icons.more_horiz_outlined, color: Colors.black, size: 30,)
+                          child: Icon(Icons.bookmark_outline, color: Colors.black, size: 30,)
                       ),
                     ],
                   )
@@ -55,8 +85,8 @@ class _TransactionPageState extends State<TransactionPage> {
           ),
           //show body
           Expanded(child: SingleChildScrollView(
-            child: TransactionBody(),
-            )
+            child: HomePageBody(),
+          )
           ),
           //Bottom nav bar
           // Container(
