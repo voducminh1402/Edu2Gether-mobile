@@ -98,21 +98,21 @@ packages:
       name: firebase_auth
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.11.0"
+    version: "3.11.2"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
       name: firebase_auth_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.10.0"
+    version: "6.10.1"
   firebase_auth_web:
     dependency: transitive
     description:
       name: firebase_auth_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.6.0"
+    version: "4.6.1"
   firebase_core:
     dependency: "direct main"
     description:
@@ -147,7 +147,9 @@ packages:
       name: firebase_storage_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
+
     version: "4.1.19"
+
   firebase_storage_web:
     dependency: transitive
     description:
@@ -239,7 +241,9 @@ packages:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
+
     version: "0.15.1"
+
   http:
     dependency: "direct main"
     description:
@@ -260,7 +264,7 @@ packages:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.1"
+    version: "4.0.2"
   intl:
     dependency: transitive
     description:

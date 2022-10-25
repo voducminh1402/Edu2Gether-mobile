@@ -3,12 +3,21 @@ import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/homepage/homepage.dart';
 
+
 import 'package:edu2gether_mobile/services/auth_service.dart';
+
+import 'package:edu2gether_mobile/screens/login/auth_service.dart';
+
+import 'package:edu2gether_mobile/services/auth_service.dart';
+
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
+
+import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
+
 
 import 'package:edu2gether_mobile/screens/mostpopularcourse/review_details.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
@@ -54,7 +63,9 @@ class MyApp extends StatelessWidget {
 
 
       // home: AuthService().handleAuthState(),
+
       home: Login(),
+
 
 
       getPages: RoutesClass.routes,

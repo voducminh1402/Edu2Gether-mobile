@@ -19,7 +19,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
         //show header
         children: [
           Container(
-            margin: EdgeInsets.only(top: 24, bottom: 24, left: 24, right: 24),
+            margin: EdgeInsets.only(top: 34, left: 24, right: 24),
             padding: EdgeInsets.only(top: 9.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

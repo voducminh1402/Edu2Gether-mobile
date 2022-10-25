@@ -13,7 +13,14 @@ PODS:
   - Firebase/Storage (9.6.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 9.6.0)
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  - firebase_auth (3.11.2):
+=======
+>>>>>>> dev
   - firebase_auth (3.11.0):
+>>>>>>> f50718b ([AnhLH] fix file ios)
     - Firebase/Auth (= 9.6.0)
     - firebase_core
     - Flutter

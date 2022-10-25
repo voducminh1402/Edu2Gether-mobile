@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "261472646998-gr69qnaad9fkblplpodjfjrvee8p1uj7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.edu2gether.edu2gether_mobile",
+            "certificate_hash": "98505e3fec6b22abde432bc12766ecacf6346859"
+          }
+        },
+        {
           "client_id": "261472646998-9pg1c02glepuiote0hbkpk5mmuv3dbcb.apps.googleusercontent.com",
           "client_type": 3
         }
