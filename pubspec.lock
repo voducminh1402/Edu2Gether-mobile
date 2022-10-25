@@ -147,7 +147,11 @@ packages:
       name: firebase_storage_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "4.1.18"
+=======
+    version: "4.1.19"
+>>>>>>> f50718b ([AnhLH] fix file ios)
   firebase_storage_web:
     dependency: transitive
     description:
@@ -239,7 +243,11 @@ packages:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.15.0"
+=======
+    version: "0.15.1"
+>>>>>>> f50718b ([AnhLH] fix file ios)
   http:
     dependency: "direct main"
     description:

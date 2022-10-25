@@ -1,6 +1,10 @@
 
 import 'package:edu2gether_mobile/routes/routes.dart';
+<<<<<<< HEAD
 import 'package:edu2gether_mobile/screens/login/auth_service.dart';
+=======
+import 'package:edu2gether_mobile/services/auth_service.dart';
+>>>>>>> f50718b ([AnhLH] fix file ios)
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
