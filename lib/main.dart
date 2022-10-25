@@ -9,6 +9,7 @@ import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
+import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
 
 import 'package:edu2gether_mobile/screens/mostpopularcourse/review_details.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
