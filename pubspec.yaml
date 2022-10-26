@@ -79,7 +79,10 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/image/
+    - assets/image/advancedjava.png
+    - assets/image/noti.png
+    - assets/image/noti2.png
+    - assets/image/successful.png
     - assets/logos/
 
 
@@ -108,5 +111,5 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
-  # For details regarding fonts from package dependecies,
+  # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
