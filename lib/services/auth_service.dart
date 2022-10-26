@@ -51,9 +51,7 @@ class AuthService{
         email: email,
         password: password,
       );
-      // final user = credential.user;
-      // Mentee mentee = Mentee(id: user!.uid);
-      // createMentee(mentee);
+      checkUserState();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -79,8 +77,8 @@ class AuthService{
         Get.to(() => Login());
       } else {
         print('User is signed in!');
-        user.getIdToken().then((resutl)
-        { print(resutl);});
+        // user.getIdToken().then((resutl)
+        // { print(resutl);});
         Get.to(() => MyHomePage());
       }
     });
@@ -106,7 +104,10 @@ class AuthService{
       );
       if (response.statusCode == 200) {
         Mentee _model = Mentee.fromJson(response.body as Map<String, dynamic>);
+        print("mentee:  " + _model.toString());
         return _model;
+      } else {
+        print(response.body);
       }
     } catch(e){
       rethrow;
