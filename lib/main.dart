@@ -55,7 +55,8 @@ class MyApp extends StatelessWidget {
 
 
       // home: AuthService().handleAuthState(),
-      home: Login(),
+
+      home: MainPage(),
 
 
       getPages: RoutesClass.routes,
