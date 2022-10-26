@@ -52,10 +52,8 @@ class MyApp extends StatelessWidget {
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
 
-
-      // home: AuthService().handleAuthState(),
-      home: VideoCourseDetails(),
-
+      //home: AuthService().handleAuthState(),
+      home: MainPage(),
 
       getPages: RoutesClass.routes,
     );
