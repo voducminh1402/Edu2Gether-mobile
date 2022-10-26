@@ -2,7 +2,6 @@ import 'package:edu2gether_mobile/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 
-import 'package:edu2gether_mobile/screens/login/auth_service.dart';
 
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
@@ -107,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.white, fontSize: 15),
               ),
               onPressed: () {
-                //AuthService().signOut();
+                AuthService().signOut();
               },
             ),
           ],
