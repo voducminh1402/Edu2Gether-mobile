@@ -6,6 +6,7 @@ import 'package:edu2gether_mobile/screens/homepage/homepage.dart';
 
 import 'package:edu2gether_mobile/services/auth_service.dart';
 
+import 'package:edu2gether_mobile/screens/login/auth_service.dart';
 
 import 'package:edu2gether_mobile/services/auth_service.dart';
 
