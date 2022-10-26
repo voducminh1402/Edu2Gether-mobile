@@ -1,6 +1,6 @@
 import 'package:edu2gether_mobile/main.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
-import 'package:edu2gether_mobile/screens/login/auth_service.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
