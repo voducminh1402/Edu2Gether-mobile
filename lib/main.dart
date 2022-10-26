@@ -51,8 +51,19 @@ class MyApp extends StatelessWidget {
       ),
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
+<<<<<<< HEAD
       //home: AuthService().handleAuthState(),
       home: MainPage(),
+=======
+<<<<<<< HEAD
+
+      // home: AuthService().handleAuthState(),
+      home: VideoCourseDetails(),
+=======
+      //home: AuthService().handleAuthState(),
+      home: MainPage(),
+>>>>>>> 75d6b38 ([AnhLH] fix login)
+>>>>>>> parent of 7fa6aa3 ([anhlh] fix ios file + video course details)
 
       getPages: RoutesClass.routes,
     );
