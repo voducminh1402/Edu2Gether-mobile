@@ -2,7 +2,6 @@ import 'package:edu2gether_mobile/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 
-
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
@@ -54,7 +53,9 @@ class MyApp extends StatelessWidget {
       //home: AuthService().handleAuthState(),
 
 
-      home: MainPage(),
+
+      // home: AuthService().handleAuthState(),
+      home: PinEnrollCourse(),
 
 
       getPages: RoutesClass.routes,
