@@ -1,5 +1,3 @@
-
-
 import 'package:edu2gether_mobile/main.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';

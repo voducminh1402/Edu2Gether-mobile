@@ -1,4 +1,3 @@
-
 import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile_payment.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';

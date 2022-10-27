@@ -1,4 +1,3 @@
-
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimention_backup.dart';
 import 'package:edu2gether_mobile/widgets/big_text.dart';
@@ -554,4 +553,3 @@ class _ControlsOverlay extends StatelessWidget {
     );
   }
 }
-
