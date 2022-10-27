@@ -15,7 +15,23 @@ import 'package:get/get.dart';
 
 class Profile extends StatefulWidget {
 
-  const Profile({super.key});
+  String id;
+  String fullName;
+  String phone;
+  String address;
+  String university;
+  String country;
+  String gender;
+  String image;
+
+  Profile({required this.id,
+  required this.fullName,
+  required this.phone,
+  required this.address,
+  required this.university,
+  required this.country,
+  required this.gender,
+  required this.image,Key? key}) : super(key: key);
 
   @override
   State<Profile> createState() => _profileState();
@@ -23,7 +39,7 @@ class Profile extends StatefulWidget {
 
 class _profileState extends State<Profile>{
 
-  List<Mentee>? mentee;
+  Mentee? mentee;
   var isLoaded = false;
 
   @override
@@ -33,7 +49,7 @@ class _profileState extends State<Profile>{
   }
 
   getData() async{
-    mentee = (await MenteeService().getMentee())!;
+    mentee = await MenteeService().getMenteeById(mentee?.id ?? 0);
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(mentee != null){
       isLoaded = true;
@@ -85,334 +101,330 @@ class _profileState extends State<Profile>{
              width: 380,
              height: 700,
              margin: EdgeInsets.only(left: 30, right: 24),
-             child: ListView.builder(
-                 itemCount: mentee?.length,
-                 itemBuilder: (context, index){
-                   return Column(
-                     children: [
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: <Widget> [
-                           Container(
-                             width: 120,
-                             height: 120,
-                             child: CircleAvatar(
-                               backgroundImage: AssetImage('assets/images/avatarFBdefault.png'),
-                             ),
-                           )
-                         ],
+             child: Column(
+               children: [
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: <Widget> [
+                     Container(
+                       width: 120,
+                       height: 120,
+                       child: CircleAvatar(
+                         backgroundImage: AssetImage('assets/images/avatarFBdefault.png'),
                        ),
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: <Widget> [
-                           Padding(
-                             padding: EdgeInsets.only(top: 24),
-                             child: Text(
-                               mentee![index].fullName,
-                               style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
-                             ),
+                     )
+                   ],
+                 ),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: <Widget> [
+                     Padding(
+                       padding: EdgeInsets.only(top: 24),
+                       child: Text(
+                         mentee!.fullName,
+
+                         style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
+                       ),
+                     ),
+                   ],
+                 ),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: <Widget> [
+                     Padding(
+                       padding: EdgeInsets.only(top: 8),
+                       child: Text(
+                         'hieutrung0510@gmail.com',
+                         style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
+                       ),
+                     ),
+                   ],
+                 ),
+                 Padding(
+                   padding:EdgeInsets.only(top: 0, left: 24, right: 24),
+                   child: Divider(
+                     thickness: 1,
+                     color: Colors.black,
+                   ),
+                 ),
+                 GestureDetector(
+                   onTap: () => Get.toNamed(RoutesClass.getProfileEditRoute()),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.person_outlined,color: Colors.black,),
+                               title: Text(
+                                 'Edit Profile',
+                                 style: TextStyle(
+                                     fontFamily: 'Urbanist',
+                                     fontSize: 18,
+                                     fontWeight: FontWeight.w600
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
                            ),
-                         ],
-                       ),
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
-                         children: <Widget> [
-                           Padding(
-                             padding: EdgeInsets.only(top: 8),
-                             child: Text(
-                               'hieutrung0510@gmail.com',
-                               style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
-                             ),
-                           ),
-                         ],
-                       ),
-                       Padding(
-                         padding:EdgeInsets.only(top: 0, left: 24, right: 24),
-                         child: Divider(
-                           thickness: 1,
-                           color: Colors.black,
                          ),
-                       ),
-                       GestureDetector(
-                         onTap: () => Get.toNamed(RoutesClass.getProfileEditRoute()),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
 
-                               child: Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.person_outlined,color: Colors.black,),
-                                     title: Text(
-                                       'Edit Profile',
-                                       style: TextStyle(
-                                           fontFamily: 'Urbanist',
-                                           fontSize: 18,
-                                           fontWeight: FontWeight.w600
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-
-                             ),
-                           ],
-                         ),
                        ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child: Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Notification',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child: GestureDetector(
-                                 onTap: (){
-                                   Get.toNamed(RoutesClass.getProfilePaymentRoute());
-                                 },
-                                 child:  Container(
-                                   width: 380,
-                                   height: 28,
-                                   child: ListTile(
-                                     leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Payment',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,),
-                                   ),
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child:  Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Security',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child: Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.language_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Language',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child: Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.visibility_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Dark Mode',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing:
-                                     CupertinoSwitch(
-                                         value: true,
-                                         onChanged: (value){
-                                           setState(() {
-                                             _switchValue = false;
-                                           });
-                                         })
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child: Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.lock_outline_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Privacy Policy',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child: Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Help Center',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child: Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
-                                     title: Text(
-                                       'Invite Friends',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: EdgeInsets.only(top:10),
-                         child:  Row(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           children: <Widget> [
-                             Expanded(
-                               child:  Container(
-                                 width: 380,
-                                 height: 28,
-                                 child: ListTile(
-                                     leading: Icon(Icons.person_outlined,color: Colors.black,),
-                                     title: Text(
-                                       'Logout',
-                                       style: TextStyle(
-                                         fontFamily: 'Urbanist',
-                                         fontSize: 18,
-                                         fontWeight: FontWeight.w600,
-                                         color: Colors.red,
-                                       ),
-                                     ),
-                                     trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                                 ),
-                               ),
-                             ),
-                           ],
-                         ),
-                       ),
-
                      ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Notification',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child: GestureDetector(
+                           onTap: (){
+                             Get.toNamed(RoutesClass.getProfilePaymentRoute());
+                           },
+                           child:  Container(
+                             width: 380,
+                             height: 28,
+                             child: ListTile(
+                               leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Payment',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,),
+                             ),
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child:  Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Security',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.language_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Language',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.visibility_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Dark Mode',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing:
+                               CupertinoSwitch(
+                                   value: true,
+                                   onChanged: (value){
+                                     setState(() {
+                                       _switchValue = false;
+                                     });
+                                   })
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.lock_outline_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Privacy Policy',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Help Center',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Invite Friends',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 Padding(
+                   padding: EdgeInsets.only(top:10),
+                   child:  Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+                     children: <Widget> [
+                       Expanded(
+                         child:  Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.person_outlined,color: Colors.black,),
+                               title: Text(
+                                 'Logout',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                   color: Colors.red,
+                                 ),
+                               ),
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
 
-                   );
-                 }
+               ],
+
              ),
            ),
          ),
