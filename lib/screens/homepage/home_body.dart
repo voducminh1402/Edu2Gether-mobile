@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
@@ -157,6 +156,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                           ],
                         ),
                       ),
+
                       Container(
                         width: 380,
                         height: 110,
@@ -179,6 +179,7 @@ class _HomePageBodyState extends State<HomePageBody> {
                                           foregroundColor: Colors.white,
                                           radius: Dimension.width13,
                                         ),
+
                                       ),
                                       Container(
                                         margin: EdgeInsets.only(top: 10),

@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
@@ -35,7 +36,7 @@ class _profileEditState extends State<ProfileEdit> {
             color: Colors.black,
             onPressed: (){
               Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => Profile()));
+                  MaterialPageRoute(builder: (context) => MainPage()));
             },
           ),
           backgroundColor: Colors.white,

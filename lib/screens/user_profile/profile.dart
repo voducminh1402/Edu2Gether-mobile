@@ -1,4 +1,3 @@
-
 import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile_payment.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
@@ -129,30 +128,33 @@ class _profileState extends State<Profile>{
                   ],
                 ),
              ),
-             Padding(
-               padding: EdgeInsets.only(top:10),
-               child:  Row(
-                 mainAxisAlignment: MainAxisAlignment.start,
-                 children: <Widget> [
-                   Expanded(
-                       child: Container(
-                         width: 380,
-                         height: 28,
-                         child: ListTile(
-                             leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
-                             title: Text(
-                               'Notification',
-                               style: TextStyle(
-                                 fontFamily: 'Urbanist',
-                                 fontSize: 18,
-                                 fontWeight: FontWeight.w600,
+             GestureDetector(
+               onTap: () => Get.toNamed(RoutesClass.getNotificationRoute()),
+               child: Padding(
+                 padding: EdgeInsets.only(top:10),
+                 child:  Row(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   children: <Widget> [
+                     Expanded(
+                         child: Container(
+                           width: 380,
+                           height: 28,
+                           child: ListTile(
+                               leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
+                               title: Text(
+                                 'Notification',
+                                 style: TextStyle(
+                                   fontFamily: 'Urbanist',
+                                   fontSize: 18,
+                                   fontWeight: FontWeight.w600,
+                                 ),
                                ),
-                             ),
-                             trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                           ),
                          ),
-                       ),
-                   ),
-                 ],
+                     ),
+                   ],
+                 ),
                ),
              ),
              Padding(
