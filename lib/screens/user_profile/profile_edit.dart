@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
@@ -74,6 +75,7 @@ class _profileEditState extends State<ProfileEdit> {
       home:GestureDetector(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
+
           backgroundColor: Colors.white,
           appBar: AppBar(
             leading: BackButton(

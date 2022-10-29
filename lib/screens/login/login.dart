@@ -52,6 +52,7 @@ class Login extends StatelessWidget {
 
                   child: Image.asset('assets/logos/Logo-edu2-fix-02.png'),
 
+
                 ),
               ),
               SizedBox(
