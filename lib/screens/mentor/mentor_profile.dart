@@ -51,7 +51,7 @@ class _MentorProfileState extends State<MentorProfile> {
   void initState(){
     super.initState();
     _getMentorById();
-    _getCourse();
+    _getCourseByMentorId();
   }
 
   _getMentorById() async{
@@ -62,8 +62,8 @@ class _MentorProfileState extends State<MentorProfile> {
     }
   }
 
-  _getCourse() async{
-    _course = await CourseService().getCourses();
+  _getCourseByMentorId() async{
+    _course = (await CourseService().getCoursesByMentorId(_mentor?.id ?? 0));
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(_course != null){
       isLoaded = true;
@@ -272,12 +272,12 @@ class _MentorProfileState extends State<MentorProfile> {
                 Expanded(child: TabBarView(
                   children: [
                     ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
+                        padding:const  EdgeInsets.symmetric(vertical: 0, horizontal: 3),
                         itemCount: _course!.length,
                         itemBuilder: (context, i) {
                           return Container(
-                              padding: EdgeInsets.all(20),
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              padding:const EdgeInsets.all(20),
+                              margin: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
@@ -287,7 +287,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                     color: Colors.grey.withOpacity(0.1),
                                     spreadRadius: 2,
                                     blurRadius: 2,
-                                    offset: Offset(0, 2), // changes position of shadow
+                                    offset:const Offset(0, 2), // changes position of shadow
                                   ),
                                 ],
                               ),
@@ -297,12 +297,12 @@ class _MentorProfileState extends State<MentorProfile> {
                                     borderRadius: BorderRadius.circular(20),
                                     // Image border
                                     child: SizedBox.fromSize(
-                                      size: Size.fromRadius(48), // Image radius
+                                      size: const Size.fromRadius(48), // Image radius
                                       child: Image.asset('assets/images/course.png',
                                           fit: BoxFit.cover),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 15,
                                   ),
                                   Expanded(
@@ -313,23 +313,23 @@ class _MentorProfileState extends State<MentorProfile> {
                                           Text(
                                             _course![i].name,
                                             overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
+                                            style:const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 22,
                                                 fontWeight: FontWeight.bold,
                                                 fontFamily: 'Urbanist'),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           Text(
                                             _course![i].estimateHour.toString() + ' hours',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
                                                 fontFamily: 'Urbanist'),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
                                           // GFProgressBar(
