@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
+
 import '../../utilities/colors.dart';
 import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
@@ -18,25 +19,72 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
+
+  late List<Course>? _courses = [];
+  late List<Subject>? _subject = [];
+  List<Mentor>? _mentors;
+  var isLoaded = false;
+
+  //int id = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+    _getDataSubject();
+    _getDataMentor();
+  }
+
+  void _getData() async {
+    _courses = (await CourseService().getCourses())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_courses != null){
+      isLoaded = true;
+    }
+  }
+
+  void _getDataSubject() async{
+    _subject = (await SubjectService().getSubject())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_subject != null){
+      isLoaded = true;
+    }
+  }
+
+  void _getDataMentor() async {
+    _mentors = (await MentorService().getMentor())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_mentors != null){
+      isLoaded = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: 380,
-          height: 700,
-          margin: EdgeInsets.only(left: 24, right: 24, top: 10),
-          child: Column(
-            children: [
-              Container(
-                width: 380,
-                height: 50,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Search',
+        Visibility(
+          visible: isLoaded,
+          replacement: const Center(
+            child: CircularProgressIndicator(),
+          ),
+          child: Container(
+            width: 380,
+            height: 700,
+            margin: EdgeInsets.only(left: 24, right: 24, top: 10),
+            child: Column(
+              children: [
+                Container(
+                  width: 380,
+                  height: 50,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Search',
+                    ),
                   ),
                 ),
+
               ),
               Container(
                 width: 380,
@@ -127,31 +175,33 @@ class _HomePageBodyState extends State<HomePageBody> {
                                         const ExactAssetImage("assets/images/mentor.png"),
                                         foregroundColor: Colors.white,
                                         radius: Dimension.width13,
+
                                       ),
-                                    ),
-                                    Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: Text("Tanner Stafold",
-                                        maxLines: 1,
-                                        softWrap: true,
-                                        style: TextStyle(
-                                          fontFamily: 'Urbanist',
-                                          fontSize: 14,
-                                          overflow: TextOverflow.ellipsis,
-                                          fontWeight: FontWeight.w400,
+                                      Container(
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: Text(_mentors![index].fullName,
+                                          maxLines: 1,
+                                          softWrap: true,
+                                          style: TextStyle(
+                                            fontFamily: 'Urbanist',
+                                            fontSize: 14,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.w400,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          );
-                        },
+                                    ],
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+
               ),
               Container(
                 margin: EdgeInsets.only(top: 10),
@@ -331,9 +381,10 @@ class _HomePageBodyState extends State<HomePageBody> {
                           }),
                     )
                   ],
+
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

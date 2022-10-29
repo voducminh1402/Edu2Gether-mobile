@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../models/mentee.dart';
+
 import '../../routes/routes.dart';
 import '../../widgets/button_login.dart';
 
@@ -32,6 +33,7 @@ class ProfileEdit extends StatefulWidget{
     required this.country,
     required this.gender,
     required this.image,Key? key}) : super(key: key);
+
 
   @override
   State<ProfileEdit> createState() => _profileEditState();
@@ -115,6 +117,7 @@ class _profileEditState extends State<ProfileEdit> {
                         child: SizedBox(
                           width: 380,
                           height: 56,
+
                           child: TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -128,6 +131,7 @@ class _profileEditState extends State<ProfileEdit> {
                               filled: true,
                             ),
                             style: const TextStyle(
+
                               color: Colors.black,
                               fontFamily: 'Urbanist',
                               fontSize: 14,
@@ -150,6 +154,7 @@ class _profileEditState extends State<ProfileEdit> {
                       child: SizedBox(
                         width: 380,
                         height: 56,
+
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -163,6 +168,7 @@ class _profileEditState extends State<ProfileEdit> {
                             filled: true,
                           ),
                           style: const TextStyle(
+
                             color: Colors.black,
                             fontFamily: 'Urbanist',
                             fontSize: 14,
@@ -220,6 +226,7 @@ class _profileEditState extends State<ProfileEdit> {
                       child: SizedBox(
                         width: 380,
                         height: 56,
+ 
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -234,6 +241,7 @@ class _profileEditState extends State<ProfileEdit> {
                             suffixIcon: const Icon(Icons.mail_sharp),
                           ),
                           style: const TextStyle(
+
                             fontFamily: 'Urbanist',
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -254,6 +262,7 @@ class _profileEditState extends State<ProfileEdit> {
                       child: SizedBox(
                         width: 380,
                         height: 56,
+
                         child: TextField(
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
@@ -268,6 +277,7 @@ class _profileEditState extends State<ProfileEdit> {
                               suffixIcon: const Icon(Icons.keyboard_arrow_down)
                           ),
                           style: const TextStyle(
+
                             fontFamily: 'Urbanist',
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -317,6 +327,7 @@ class _profileEditState extends State<ProfileEdit> {
                         height: 56,
                         child: DropdownButtonFormField(
                           decoration: const InputDecoration(
+
                             enabledBorder: OutlineInputBorder( //<-- SEE HERE
                               borderSide: BorderSide(color: Colors.white24, width: 2),
                             ),
@@ -328,6 +339,7 @@ class _profileEditState extends State<ProfileEdit> {
                           ),
                           dropdownColor: Colors.white,
                           value: dropdownValue ,
+
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownValue = newValue!;
@@ -339,6 +351,7 @@ class _profileEditState extends State<ProfileEdit> {
                               child: Text(
                                 value,
                                 style: const TextStyle(fontSize: 14,fontFamily: 'Urbanist', fontWeight: FontWeight.w600),
+
                               ),
                             );
                           }).toList(),
@@ -357,6 +370,7 @@ class _profileEditState extends State<ProfileEdit> {
                       child: SizedBox(
                         width: 380,
                         height: 56,
+
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -370,6 +384,7 @@ class _profileEditState extends State<ProfileEdit> {
                             filled: true,
                           ),
                           style: const TextStyle(
+
                             fontFamily: 'Urbanist',
                             fontSize: 14,
                             fontWeight: FontWeight.bold,

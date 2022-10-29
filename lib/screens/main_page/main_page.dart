@@ -1,9 +1,15 @@
 import 'package:edu2gether_mobile/main.dart';
+
 import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
+
+import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
+import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +29,9 @@ class _MainPageState extends State<MainPage> {
     MainHomePage(),
     MyCourse(),
     TransactionPage(),
+
     Profile(id: '', fullName: '', phone: '', address: '', university: '', country: '', gender: '', image: '',),
+
   ];
   int currentIndex = 0;
   void onTap(int index) async{

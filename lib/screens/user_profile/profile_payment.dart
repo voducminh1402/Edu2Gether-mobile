@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../routes/routes.dart';
+import '../main_page/main_page.dart';
+
 
 class ProfilePayment extends StatefulWidget{
 
@@ -24,7 +26,9 @@ class _profilePaymentState extends State<ProfilePayment>{
           leading: BackButton(
             color: Colors.black,
             onPressed: (){
-              Get.toNamed(RoutesClass.getProfileRoute());
+
+              Navigator.pop(context,
+                  MaterialPageRoute(builder: (context) => MainPage()));
             },
           ),
           backgroundColor: Colors.white,

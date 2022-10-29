@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/course.dart';
+import '../../models/mentor.dart';
+import '../../models/subject.dart';
+import '../../services/course_service.dart';
+import '../../services/mentor_service.dart';
+import '../../services/subject_service.dart';
+
 import '../../utilities/colors.dart';
 import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
@@ -14,11 +21,47 @@ class MostPopularCourseBody extends StatefulWidget {
 }
 
 class _MostPopularCourseBodyState extends State<MostPopularCourseBody> {
+
+  late List<Course>? _courses = [];
+  late List<Subject>? _subject = [];
+  var isLoaded = false;
+
+  //int id = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+    _getDataSubject();
+  }
+
+  void _getData() async {
+    _courses = (await CourseService().getCourses())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_courses != null){
+      isLoaded = true;
+    }
+  }
+
+  void _getDataSubject() async{
+    _subject = (await SubjectService().getSubject())!;
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_subject != null){
+      isLoaded = true;
+    }
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         //list transaction
+
         Container(
           width: 380,
           height: 774,

@@ -1,5 +1,5 @@
 import 'package:edu2gether_mobile/routes/routes.dart';
-import 'package:edu2gether_mobile/screens/login/auth_service.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
@@ -49,8 +49,9 @@ class Login extends StatelessWidget {
               Container(
                 width: Dimension.width50,
                 height: Dimension.height50,
-                child: Center(
+
                   child: Image.asset('assets/logos/Logo-edu2-fix-02.png'),
+
                 ),
               ),
               SizedBox(
@@ -151,8 +152,8 @@ class Login extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Divider(
-                      color: AppColors.mainColor,
-                    )),
+                          color: AppColors.mainColor,
+                        )),
                     SizedBox(
                       width: Dimension.width10,
                     ),
@@ -165,8 +166,8 @@ class Login extends StatelessWidget {
                     ),
                     Expanded(
                         child: Divider(
-                      color: AppColors.mainColor,
-                    )),
+                          color: AppColors.mainColor,
+                        )),
                   ],
                 ),
               ),
@@ -175,27 +176,27 @@ class Login extends StatelessWidget {
               ),
               Center(
                   child: RichText(
-                text: new TextSpan(
-                  text: "Don't have an account?",
-                  style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
-                  children: <TextSpan>[
-                    new TextSpan(
-                      text: ' Sign up',
-                      style: new TextStyle(
-                          color: AppColors.mainColor, fontFamily: 'Urbanist'),
-                      recognizer: new TapGestureRecognizer()
-                        ..onTap = () {
-                        Get.toNamed(RoutesClass.getCreateAccountRoute());
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => const CreateAccount()),
-                          // );
-                        },
+                    text: new TextSpan(
+                      text: "Don't have an account?",
+                      style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
+                      children: <TextSpan>[
+                        new TextSpan(
+                          text: ' Sign up',
+                          style: new TextStyle(
+                              color: AppColors.mainColor, fontFamily: 'Urbanist'),
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.toNamed(RoutesClass.getCreateAccountRoute());
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => const CreateAccount()),
+                              // );
+                            },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ))
+                  ))
             ],
           ),
         ),

@@ -1,7 +1,9 @@
 
+
 import 'package:edu2gether_mobile/models/mentee.dart';
 
 import 'package:edu2gether_mobile/services/mentee_service.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +13,7 @@ import 'package:get/get.dart';
 
 
 class Profile extends StatefulWidget {
+
 
   String id;
   String fullName;
@@ -30,11 +33,13 @@ class Profile extends StatefulWidget {
   required this.gender,
   required this.image,Key? key}) : super(key: key);
 
+
   @override
   State<Profile> createState() => _profileState();
 }
 
 class _profileState extends State<Profile>{
+
 
   Mentee? mentee;
   var isLoaded = false;
@@ -53,6 +58,7 @@ class _profileState extends State<Profile>{
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -64,7 +70,9 @@ class _profileState extends State<Profile>{
          appBar: AppBar(
          backgroundColor: Colors.white,
          leading: IconButton(
+
            icon: const Icon(
+
              Icons.arrow_back,
              color: Colors.black,
            ),
@@ -82,7 +90,9 @@ class _profileState extends State<Profile>{
          actions: [
            IconButton(
                onPressed: () {},
+
                icon: const Icon(
+
                  Icons.more_horiz_rounded,
                  color: Colors.black,
                )),
@@ -181,6 +191,7 @@ class _profileState extends State<Profile>{
                      children: const <Widget> [
                        Expanded(
                          child: SizedBox(
+
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -426,6 +437,7 @@ class _profileState extends State<Profile>{
 
              ),
            ),
+
          ),
        ),
      );

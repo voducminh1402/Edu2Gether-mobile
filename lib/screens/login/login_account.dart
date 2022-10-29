@@ -1,6 +1,12 @@
 import 'package:edu2gether_mobile/main.dart';
 import 'package:edu2gether_mobile/routes/routes.dart';
-import 'package:edu2gether_mobile/screens/login/auth_service.dart';
+
+
+import 'package:edu2gether_mobile/services/auth_service.dart';
+
+
+import 'package:edu2gether_mobile/services/auth_service.dart';
+
 import 'package:edu2gether_mobile/screens/login/create_account.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
@@ -165,16 +171,20 @@ class _LoginAccountState extends State<LoginAccount> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     textStyle:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+
+                    TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 onPressed: () {
                   AuthService().signInWithEmailAndPassword(_email, _password);
                   //if(AuthService().checkUserState()){
-                    //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
+                  //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
+
                   //}
 
                 },
                 child: Text(
+
                   'Sign in'
+
                 ),
               ),
               SizedBox(
@@ -196,8 +206,8 @@ class _LoginAccountState extends State<LoginAccount> {
                   children: [
                     Expanded(
                         child: Divider(
-                      color: AppColors.mainColor,
-                    )),
+                          color: AppColors.mainColor,
+                        )),
                     SizedBox(
                       width: Dimension.width10,
                     ),
@@ -210,8 +220,8 @@ class _LoginAccountState extends State<LoginAccount> {
                     ),
                     Expanded(
                         child: Divider(
-                      color: AppColors.mainColor,
-                    )),
+                          color: AppColors.mainColor,
+                        )),
                   ],
                 ),
               ),
@@ -264,28 +274,30 @@ class _LoginAccountState extends State<LoginAccount> {
               ),
               Center(
                   child: RichText(
-                text: new TextSpan(
-                  text: "Don't have an account?",
-                  style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
-                  children: <TextSpan>[
-                    new TextSpan(
-                      text: ' Sign up',
-                      style: new TextStyle(
-                          color: AppColors.mainColor, fontFamily: 'Urbanist'),
-                      recognizer: new TapGestureRecognizer()
-                        ..onTap = () {
-                          Get.toNamed(RoutesClass.getCreateAccountRoute());
 
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => const CreateAccount()),
-                          // );
-                        },
+                    text: new TextSpan(
+                      text: "Don't have an account?",
+                      style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
+                      children: <TextSpan>[
+                        new TextSpan(
+                          text: ' Sign up',
+                          style: new TextStyle(
+                              color: AppColors.mainColor, fontFamily: 'Urbanist'),
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () {
+                              Get.toNamed(RoutesClass.getCreateAccountRoute());
+
+
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => const CreateAccount()),
+                              // );
+                            },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ))
+                  ))
             ],
           ),
         ),

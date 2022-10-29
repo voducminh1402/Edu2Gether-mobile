@@ -1,7 +1,9 @@
+
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mentor.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mentor_service.dart';
+
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/big_text.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MentorProfile extends StatefulWidget {
+
 
   String id;
   String fullName;
@@ -35,11 +38,13 @@ class MentorProfile extends StatefulWidget {
     required this.image,
     this.websiteUrl,Key? key}) : super(key: key);
 
+
   @override
   State<MentorProfile> createState() => _MentorProfileState();
 }
 
 class _MentorProfileState extends State<MentorProfile> {
+
 
   List<Course>? _course;
 
@@ -78,7 +83,9 @@ class _MentorProfileState extends State<MentorProfile> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             leading: IconButton(
+
               icon: const Icon(
+
                 Icons.arrow_back,
                 color: Colors.black,
               ),
@@ -91,11 +98,13 @@ class _MentorProfileState extends State<MentorProfile> {
             actions: [
               IconButton(
                   onPressed: () {},
+
                   icon: const Icon(
                     Icons.more,
                     color: Colors.black,
                   )),
               const SizedBox(
+
                 width: 12,
               )
             ],
@@ -117,7 +126,9 @@ class _MentorProfileState extends State<MentorProfile> {
                   ),
                 ),
                 BigText(
+
                   text: _mentor!.fullName,
+
                   size: Dimension.font8,
                   fontweight: FontWeight.bold,
                 ),
@@ -125,7 +136,9 @@ class _MentorProfileState extends State<MentorProfile> {
                   height: Dimension.height3,
                 ),
                 SmallText(
+
                   text: _mentor!.job,
+
                   size: Dimension.font6,
                 ),
                 SizedBox(
@@ -150,9 +163,11 @@ class _MentorProfileState extends State<MentorProfile> {
                         ),
                       ],
                     ),
+
                     SizedBox(
                       height: Dimension.height16,
                       child: const VerticalDivider(
+
                         thickness: 1,
                         color: Colors.black,
                       ),
@@ -172,9 +187,11 @@ class _MentorProfileState extends State<MentorProfile> {
                         ),
                       ],
                     ),
+
                     SizedBox(
                       height: Dimension.height16,
                       child: const VerticalDivider(
+
                         thickness: 1,
                         color: Colors.black,
                       ),
@@ -206,8 +223,10 @@ class _MentorProfileState extends State<MentorProfile> {
                       onPressed: () {
                         // Respond to button press
                       },
+
                       icon: const Icon(Icons.message),
                       label: const Text("Message"),
+
                       style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -227,8 +246,10 @@ class _MentorProfileState extends State<MentorProfile> {
                       onPressed: () {
                         // Respond to button press
                       },
+
                       icon: const Icon(Icons.web),
                       label: const Text("Website"),
+
                       style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -251,7 +272,9 @@ class _MentorProfileState extends State<MentorProfile> {
                 SizedBox(
                   height: Dimension.height3,
                 ),
+
                 const Divider(),
+
                 SizedBox(
                   height: Dimension.height3,
                 ),
@@ -263,7 +286,9 @@ class _MentorProfileState extends State<MentorProfile> {
                   unselectedLabelColor: Colors.grey,
                   unselectedLabelStyle: TextStyle(
                       fontWeight: FontWeight.bold, fontSize: Dimension.font6),
+
                   tabs: const [
+
                     Tab(text: 'Courses'),
                     Tab(text: 'Students'),
                     Tab(text: 'Reviews'),
@@ -272,12 +297,14 @@ class _MentorProfileState extends State<MentorProfile> {
                 Expanded(child: TabBarView(
                   children: [
                     ListView.builder(
+
                         padding:const  EdgeInsets.symmetric(vertical: 0, horizontal: 3),
                         itemCount: _course!.length,
                         itemBuilder: (context, i) {
                           return Container(
                               padding:const EdgeInsets.all(20),
                               margin: const EdgeInsets.symmetric(vertical: 10),
+
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius:
@@ -287,7 +314,9 @@ class _MentorProfileState extends State<MentorProfile> {
                                     color: Colors.grey.withOpacity(0.1),
                                     spreadRadius: 2,
                                     blurRadius: 2,
+
                                     offset:const Offset(0, 2), // changes position of shadow
+
                                   ),
                                 ],
                               ),
@@ -297,12 +326,16 @@ class _MentorProfileState extends State<MentorProfile> {
                                     borderRadius: BorderRadius.circular(20),
                                     // Image border
                                     child: SizedBox.fromSize(
+
                                       size: const Size.fromRadius(48), // Image radius
+
                                       child: Image.asset('assets/images/course.png',
                                           fit: BoxFit.cover),
                                     ),
                                   ),
+
                                   const SizedBox(
+
                                     width: 15,
                                   ),
                                   Expanded(
@@ -310,15 +343,19 @@ class _MentorProfileState extends State<MentorProfile> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+
                                           Text(
                                             _course![i].name,
                                             overflow: TextOverflow.ellipsis,
                                             style:const TextStyle(
+
+
                                                 color: Colors.black,
                                                 fontSize: 22,
                                                 fontWeight: FontWeight.bold,
                                                 fontFamily: 'Urbanist'),
                                           ),
+
                                           const SizedBox(
                                             height: 10,
                                           ),
@@ -345,6 +382,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                           //   backgroundColor: Colors.black12,
                                           //   progressBarColor: Colors.blue,
                                           // )
+
                                         ],
                                       ))
                                 ],
@@ -395,12 +433,14 @@ class _MentorProfileState extends State<MentorProfile> {
                                     Row(
                                       children: [
                                         Container(
+
                                           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                                           decoration: BoxDecoration(
                                             border: Border.all(color: AppColors.mainColor, width: 2),
                                             borderRadius: BorderRadius.circular(Dimension.radius16),
 
                                           ),
+
                                           child: Row(
                                             children: [
                                               Icon(Icons.star, size: 14, color: AppColors.mainColor,),
@@ -408,9 +448,11 @@ class _MentorProfileState extends State<MentorProfile> {
                                               Text("5", style: TextStyle(color: AppColors.mainColor),),
                                             ],
                                           ),
+
                                         ),
                                         SizedBox(width: Dimension.width5,),
                                         const Icon(Icons.more)
+
                                       ],
                                     )
                                   ],
@@ -422,7 +464,9 @@ class _MentorProfileState extends State<MentorProfile> {
                                   children: [
                                     Row(
                                       children: [
+
                                         const Icon(Icons.heart_broken, size: 20,),
+
                                         SizedBox(width: Dimension.width5,),
                                         SmallText(text: "369", size: Dimension.font5, color: Colors.black54, fontweight: FontWeight.bold,),
                                       ],
