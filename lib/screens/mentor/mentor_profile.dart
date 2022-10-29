@@ -1,3 +1,7 @@
+import 'package:edu2gether_mobile/models/course.dart';
+import 'package:edu2gether_mobile/models/mentor.dart';
+import 'package:edu2gether_mobile/services/course_service.dart';
+import 'package:edu2gether_mobile/services/mentor_service.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/big_text.dart';
@@ -6,13 +10,66 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MentorProfile extends StatefulWidget {
-  const MentorProfile({Key? key}) : super(key: key);
+
+  String id;
+  String fullName;
+  String phone;
+  String address;
+  String country;
+  String qualification;
+  String? evidence;
+  String job;
+  String gender;
+  String image;
+  String? websiteUrl;
+
+  MentorProfile({required this.id,
+    required this.fullName,
+    required this.phone,
+    required this.address,
+    required this.country,
+    required this.qualification,
+    this.evidence,
+    required this.job,
+    required this.gender,
+    required this.image,
+    this.websiteUrl,Key? key}) : super(key: key);
 
   @override
   State<MentorProfile> createState() => _MentorProfileState();
 }
 
 class _MentorProfileState extends State<MentorProfile> {
+
+  List<Course>? _course;
+
+  Mentor? _mentor;
+
+  var isLoaded = false;
+
+  @override
+  void initState(){
+    super.initState();
+    _getMentorById();
+    _getCourse();
+  }
+
+  _getMentorById() async{
+    _mentor = (await MentorService().getMentorById(_mentor?.id ?? 0));
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_mentor != null){
+      isLoaded = true;
+    }
+  }
+
+  _getCourse() async{
+    _course = await CourseService().getCourses();
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_course != null){
+      isLoaded = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -21,7 +78,7 @@ class _MentorProfileState extends State<MentorProfile> {
           appBar: AppBar(
             backgroundColor: Colors.white,
             leading: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
@@ -34,11 +91,11 @@ class _MentorProfileState extends State<MentorProfile> {
             actions: [
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.more,
                     color: Colors.black,
                   )),
-              SizedBox(
+              const SizedBox(
                 width: 12,
               )
             ],
@@ -60,7 +117,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   ),
                 ),
                 BigText(
-                  text: "Joathan Williams",
+                  text: _mentor!.fullName,
                   size: Dimension.font8,
                   fontweight: FontWeight.bold,
                 ),
@@ -68,7 +125,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   height: Dimension.height3,
                 ),
                 SmallText(
-                  text: "Senior UI/UX Designer at Google",
+                  text: _mentor!.job,
                   size: Dimension.font6,
                 ),
                 SizedBox(
@@ -93,9 +150,9 @@ class _MentorProfileState extends State<MentorProfile> {
                         ),
                       ],
                     ),
-                    Container(
+                    SizedBox(
                       height: Dimension.height16,
-                      child: VerticalDivider(
+                      child: const VerticalDivider(
                         thickness: 1,
                         color: Colors.black,
                       ),
@@ -115,9 +172,9 @@ class _MentorProfileState extends State<MentorProfile> {
                         ),
                       ],
                     ),
-                    Container(
+                    SizedBox(
                       height: Dimension.height16,
-                      child: VerticalDivider(
+                      child: const VerticalDivider(
                         thickness: 1,
                         color: Colors.black,
                       ),
@@ -149,8 +206,8 @@ class _MentorProfileState extends State<MentorProfile> {
                       onPressed: () {
                         // Respond to button press
                       },
-                      icon: Icon(Icons.message),
-                      label: Text("Message"),
+                      icon: const Icon(Icons.message),
+                      label: const Text("Message"),
                       style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -170,8 +227,8 @@ class _MentorProfileState extends State<MentorProfile> {
                       onPressed: () {
                         // Respond to button press
                       },
-                      icon: Icon(Icons.web),
-                      label: Text("Website"),
+                      icon: const Icon(Icons.web),
+                      label: const Text("Website"),
                       style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
@@ -194,7 +251,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 SizedBox(
                   height: Dimension.height3,
                 ),
-                Divider(),
+                const Divider(),
                 SizedBox(
                   height: Dimension.height3,
                 ),
@@ -206,7 +263,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   unselectedLabelColor: Colors.grey,
                   unselectedLabelStyle: TextStyle(
                       fontWeight: FontWeight.bold, fontSize: Dimension.font6),
-                  tabs: [
+                  tabs: const [
                     Tab(text: 'Courses'),
                     Tab(text: 'Students'),
                     Tab(text: 'Reviews'),
@@ -215,8 +272,8 @@ class _MentorProfileState extends State<MentorProfile> {
                 Expanded(child: TabBarView(
                   children: [
                     ListView.builder(
-                        padding: EdgeInsets.symmetric(vertical: Dimension.height5),
-                        itemCount: 6,
+                        padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
+                        itemCount: _course!.length,
                         itemBuilder: (context, i) {
                           return Container(
                               padding: EdgeInsets.all(20),
@@ -240,7 +297,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                     borderRadius: BorderRadius.circular(20),
                                     // Image border
                                     child: SizedBox.fromSize(
-                                      size: Size.fromRadius(62), // Image radius
+                                      size: Size.fromRadius(48), // Image radius
                                       child: Image.asset('assets/images/course.png',
                                           fit: BoxFit.cover),
                                     ),
@@ -253,27 +310,8 @@ class _MentorProfileState extends State<MentorProfile> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                child: Text("3D Design", style: TextStyle(color: Colors.white),),
-                                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                                                decoration: BoxDecoration(
-                                                  color: AppColors.mainColor,
-                                                  border: Border.all(color: Colors.blue),
-                                                  borderRadius: BorderRadius.circular(6),
-
-                                                ),
-                                              ),
-                                              Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,)
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
                                           Text(
-                                            '3D Design Illustration',
+                                            _course![i].name,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                                 color: Colors.black,
@@ -284,43 +322,29 @@ class _MentorProfileState extends State<MentorProfile> {
                                           SizedBox(
                                             height: 10,
                                           ),
-                                          Text.rich(
-                                            TextSpan(
-                                              text: '\$48',
-                                              style: TextStyle(
-                                                fontSize: Dimension.font6,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.blueAccent,
-                                              ), // default text style
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: ' \$80',
-                                                  style: TextStyle(
-                                                    fontSize: Dimension.font5,
-                                                    color: Colors.black38,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                          Text(
+                                            _course![i].estimateHour.toString() + ' hours',
+                                            style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 18,
+                                                fontFamily: 'Urbanist'),
                                           ),
-                                          SizedBox(height: Dimension.height3,),
-                                          RichText(
-                                            text: TextSpan(
-                                              children: [
-                                                WidgetSpan(
-                                                  child: Icon(Icons.star, size: Dimension.font5),
-                                                ),
-                                                WidgetSpan(child: SizedBox(width: Dimension.width3,),),
-                                                TextSpan(
-                                                  text: "4.7 | ",
-                                                  style: TextStyle(color: Colors.black38)
-                                                ),
-                                                TextSpan(
-                                                  text: "7,938 students", style: TextStyle(color: Colors.black38)
-                                                ),
-                                              ],
-                                            ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
+                                          // GFProgressBar(
+                                          //   percentage: 0.7,
+                                          //   lineHeight: 5,
+                                          //   alignment: MainAxisAlignment.spaceBetween,
+                                          //   trailing: const Text(
+                                          //     '70/100',
+                                          //     textAlign: TextAlign.end,
+                                          //     style: TextStyle(
+                                          //         fontSize: 14, color: Colors.grey),
+                                          //   ),
+                                          //   backgroundColor: Colors.black12,
+                                          //   progressBarColor: Colors.blue,
+                                          // )
                                         ],
                                       ))
                                 ],
@@ -371,6 +395,12 @@ class _MentorProfileState extends State<MentorProfile> {
                                     Row(
                                       children: [
                                         Container(
+                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(color: AppColors.mainColor, width: 2),
+                                            borderRadius: BorderRadius.circular(Dimension.radius16),
+
+                                          ),
                                           child: Row(
                                             children: [
                                               Icon(Icons.star, size: 14, color: AppColors.mainColor,),
@@ -378,15 +408,9 @@ class _MentorProfileState extends State<MentorProfile> {
                                               Text("5", style: TextStyle(color: AppColors.mainColor),),
                                             ],
                                           ),
-                                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                                          decoration: BoxDecoration(
-                                            border: Border.all(color: AppColors.mainColor, width: 2),
-                                            borderRadius: BorderRadius.circular(Dimension.radius16),
-
-                                          ),
                                         ),
                                         SizedBox(width: Dimension.width5,),
-                                        Icon(Icons.more)
+                                        const Icon(Icons.more)
                                       ],
                                     )
                                   ],
@@ -398,7 +422,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                   children: [
                                     Row(
                                       children: [
-                                        Icon(Icons.heart_broken, size: 20,),
+                                        const Icon(Icons.heart_broken, size: 20,),
                                         SizedBox(width: Dimension.width5,),
                                         SmallText(text: "369", size: Dimension.font5, color: Colors.black54, fontweight: FontWeight.bold,),
                                       ],
