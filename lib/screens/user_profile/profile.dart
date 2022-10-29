@@ -1,9 +1,6 @@
 
 import 'package:edu2gether_mobile/models/mentee.dart';
-import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
-import 'package:edu2gether_mobile/screens/user_profile/profile_payment.dart';
-import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
-import 'package:edu2gether_mobile/screens/user_profile/profile_payment.dart';
+
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +64,7 @@ class _profileState extends State<Profile>{
          appBar: AppBar(
          backgroundColor: Colors.white,
          leading: IconButton(
-           icon: Icon(
+           icon: const Icon(
              Icons.arrow_back,
              color: Colors.black,
            ),
@@ -85,7 +82,7 @@ class _profileState extends State<Profile>{
          actions: [
            IconButton(
                onPressed: () {},
-               icon: Icon(
+               icon: const Icon(
                  Icons.more_horiz_rounded,
                  color: Colors.black,
                )),
@@ -100,13 +97,13 @@ class _profileState extends State<Profile>{
            child: Container(
              width: 380,
              height: 700,
-             margin: EdgeInsets.only(left: 30, right: 24),
+             margin: const EdgeInsets.only(left: 30, right: 24),
              child: Column(
                children: [
                  Row(
                    mainAxisAlignment: MainAxisAlignment.center,
-                   children: <Widget> [
-                     Container(
+                   children: const <Widget> [
+                     SizedBox(
                        width: 120,
                        height: 120,
                        child: CircleAvatar(
@@ -119,11 +116,11 @@ class _profileState extends State<Profile>{
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: <Widget> [
                      Padding(
-                       padding: EdgeInsets.only(top: 24),
+                       padding: const EdgeInsets.only(top: 24),
                        child: Text(
                          mentee!.fullName,
 
-                         style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
+                         style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
                        ),
                      ),
                    ],
@@ -132,15 +129,15 @@ class _profileState extends State<Profile>{
                    mainAxisAlignment: MainAxisAlignment.center,
                    children: <Widget> [
                      Padding(
-                       padding: EdgeInsets.only(top: 8),
+                       padding: const EdgeInsets.only(top: 8),
                        child: Text(
-                         'hieutrung0510@gmail.com',
-                         style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
+                         mentee!.university,
+                         style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
                        ),
                      ),
                    ],
                  ),
-                 Padding(
+                 const Padding(
                    padding:EdgeInsets.only(top: 0, left: 24, right: 24),
                    child: Divider(
                      thickness: 1,
@@ -148,13 +145,15 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  GestureDetector(
-                   onTap: () => Get.toNamed(RoutesClass.getProfileEditRoute()),
+                   onTap: () async{
+                     Get.toNamed(RoutesClass.getProfileEditRoute());
+                   } ,
                    child: Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
 
-                         child: Container(
+                         child: SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -176,12 +175,12 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
-                         child: Container(
+                         child: SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -202,7 +201,7 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
                      children: <Widget> [
@@ -211,7 +210,7 @@ class _profileState extends State<Profile>{
                            onTap: (){
                              Get.toNamed(RoutesClass.getProfilePaymentRoute());
                            },
-                           child:  Container(
+                           child:  const SizedBox(
                              width: 380,
                              height: 28,
                              child: ListTile(
@@ -233,12 +232,12 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
-                         child:  Container(
+                         child:  SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -259,12 +258,12 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
-                         child: Container(
+                         child: SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -285,17 +284,17 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
                      children: <Widget> [
                        Expanded(
-                         child: Container(
+                         child: SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
-                               leading: Icon(Icons.visibility_sharp,color: Colors.black,),
-                               title: Text(
+                               leading: const Icon(Icons.visibility_sharp,color: Colors.black,),
+                               title: const Text(
                                  'Dark Mode',
                                  style: TextStyle(
                                    fontFamily: 'Urbanist',
@@ -318,12 +317,12 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
-                         child: Container(
+                         child: SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -344,12 +343,12 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
-                         child: Container(
+                         child: SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -370,12 +369,12 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
-                         child: Container(
+                         child: SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(
@@ -396,12 +395,12 @@ class _profileState extends State<Profile>{
                    ),
                  ),
                  Padding(
-                   padding: EdgeInsets.only(top:10),
+                   padding: const EdgeInsets.only(top:10),
                    child:  Row(
                      mainAxisAlignment: MainAxisAlignment.start,
-                     children: <Widget> [
+                     children: const <Widget> [
                        Expanded(
-                         child:  Container(
+                         child:  SizedBox(
                            width: 380,
                            height: 28,
                            child: ListTile(

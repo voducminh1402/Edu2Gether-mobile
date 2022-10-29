@@ -33,4 +33,26 @@ class MenteeService {
     }
   }
 
+  Future<Mentee?> updateMenteeById(Mentee mentee, id) async{
+    try{
+      id = 1;
+      var url = Uri.parse("http://54.255.199.121/api/v1/mentees");
+      var response = await http.patch(
+        url,
+        body:{
+          "id": mentee.id,
+          "fullName" : mentee.fullName,
+          "phone": mentee.phone
+        },
+        ).then((value) => {
+          print(value.body),
+      });
+    }
+    catch(e)
+    {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
 }
