@@ -25,6 +25,7 @@ class AuthService{
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
+
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
@@ -71,14 +72,14 @@ class AuthService{
   checkUserState(){
     FirebaseAuth.instance
         .authStateChanges()
-        .listen((User? user) {
+        .listen((User? user) async {
       if (user == null) {
         print('User is currently signed out!');
         Get.to(() => Login());
       } else {
         print('User is signed in!');
-        // user.getIdToken().then((resutl)
-        // { print(resutl);});
+        await user.getIdToken().then((result)
+        { login(result);});
         Get.to(() => MyHomePage());
       }
     });
@@ -97,15 +98,14 @@ class AuthService{
       log(e.toString());
     }
   }
-  Future<Mentee?> createMentee(mentee) async {
+  Future<Mentee?> login(token) async {
     try{
-      var response = await http.post(Uri.parse("http://54.255.199.121/api/v1" + "/mentees"),
-          body: jsonEncode(mentee)
+      var response = await http.post(Uri.parse("http://54.255.199.121/api/v1/authentication/login?token=" + token),
       );
+      print("anh vui ve");
+      print(response.body.toString() + "respone");
+
       if (response.statusCode == 200) {
-        Mentee _model = Mentee.fromJson(response.body as Map<String, dynamic>);
-        print("mentee:  " + _model.toString());
-        return _model;
       } else {
         print(response.body);
       }
