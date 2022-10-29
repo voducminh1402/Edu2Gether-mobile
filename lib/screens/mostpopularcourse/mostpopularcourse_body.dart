@@ -7,6 +7,7 @@ import '../../models/subject.dart';
 import '../../services/course_service.dart';
 import '../../services/mentor_service.dart';
 import '../../services/subject_service.dart';
+
 import '../../utilities/colors.dart';
 import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
@@ -60,37 +61,34 @@ class _MostPopularCourseBodyState extends State<MostPopularCourseBody> {
     return Column(
       children: [
         //list transaction
-        Visibility(
-          visible: isLoaded,
-          replacement: const Center(
-            child: CircularProgressIndicator(),
-          ),
-          child: Container(
-            width: 380,
-            height: 774,
-            margin: EdgeInsets.only(left: 24, right: 24),
-            child: Column(
-              children: [
-                Container(
-                  width: 380,
-                  height: 688,
-                  child: ListView.builder(
-                      padding: EdgeInsets.symmetric(vertical: Dimension.height5),
-                      itemCount: _courses?.length,
-                      itemBuilder: (context, i) {
-                        return Container(
-                            padding: EdgeInsets.all(20),
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.circular(Dimension.radius12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 2), // changes position of shadow
+
+        Container(
+          width: 380,
+          height: 774,
+          margin: EdgeInsets.only(left: 24, right: 24),
+          child: Column(
+            children: [
+              Container(
+                width: 380,
+                height: 38,
+                child: ListView.builder(
+                  itemCount: 10,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      margin: EdgeInsets.only(right: 11),
+                      child: Row(
+                        children: [
+                          Container(
+                              width: 133,
+                              height: 38,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                border: Border.all(
+                                    color: Colors.blueAccent,
+                                    style: BorderStyle.solid,
+                                    width: 2.0
+
                                 ),
                               ],
                             ),

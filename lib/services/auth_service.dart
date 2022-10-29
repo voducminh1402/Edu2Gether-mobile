@@ -72,12 +72,15 @@ class AuthService{
   checkUserState(){
     FirebaseAuth.instance
         .authStateChanges()
+
         .listen((User? user) async {
+
       if (user == null) {
         print('User is currently signed out!');
         Get.to(() => Login());
       } else {
         print('User is signed in!');
+
         await user.getIdToken().then((result)
         { login(result);});
         Get.to(() => MyHomePage());
@@ -98,6 +101,7 @@ class AuthService{
       log(e.toString());
     }
   }
+
   Future<Mentee?> login(token) async {
     try{
       var response = await http.post(Uri.parse("http://54.255.199.121/api/v1/authentication/login?token=" + token),

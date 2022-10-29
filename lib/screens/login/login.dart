@@ -49,10 +49,8 @@ class Login extends StatelessWidget {
               Container(
                 width: Dimension.width50,
                 height: Dimension.height50,
-                child: Center(
 
-                  child:Image.asset('assets/logos/Logo-edu2-fix-02.png',
-                      fit: BoxFit.cover),
+                  child: Image.asset('assets/logos/Logo-edu2-fix-02.png'),
 
 
                 ),
