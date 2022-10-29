@@ -33,6 +33,7 @@ dependencies:
     sdk: flutter
   intl_phone_field: ^1.2.0
   video_player: ^2.4.7
+
   firebase_auth: 3.11.2
   firebase_core: ^1.10.0
   google_sign_in: ^5.4.2

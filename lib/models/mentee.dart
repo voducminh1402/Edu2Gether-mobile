@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final mentee = menteeFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -11,23 +8,24 @@ String menteeToJson(List<Mentee> data) => json.encode(List<dynamic>.from(data.ma
 class Mentee {
   Mentee({
     required this.id,
-    this.fullName,
-    this.phone,
-    this.address,
-    this.university,
-    this.country,
-    this.gender,
-    this.image,
+    required this.fullName,
+    required this.phone,
+    required this.address,
+    required this.university,
+    required this.country,
+    required this.gender,
+    required this.image,
   });
 
   String id;
-  String? fullName;
-  String? phone;
-  String? address;
-  String? university;
-  String? country;
-  String? gender;
-  String? image;
+  String fullName;
+  String phone;
+  String address;
+  String university;
+  String country;
+  String gender;
+  String image;
+
 
   factory Mentee.fromJson(Map<String, dynamic> json) => Mentee(
     id: json["id"],
