@@ -28,7 +28,7 @@ class RoutesClass{
   static String getNotification = "/getNotification";
   static String videoCourseDetail = "/getCourseDetail";
 
-  static String getNotification = "/getNotification";
+  //static String getNotification = "/getNotification";
 
 
   static String getHomeRoute() => home;
@@ -43,7 +43,7 @@ class RoutesClass{
   static String getNotificationRoute() => getNotification;
   static String getVideoCourseDetail(id) => videoCourseDetail;
 
-  static String getNotificationRoute() => getNotification;
+  //static String getNotificationRoute() => getNotification;
 
 
   static List<GetPage> routes = [
@@ -51,8 +51,8 @@ class RoutesClass{
     GetPage(name: loginAccount, page: () => const LoginAccount()),
     GetPage(name: createAccount, page: () => const CreateAccount()),
     GetPage(name: login, page: () => const Login()),
-    GetPage(name: profile, page: () => const Profile()),
-    GetPage(name: profileEdit, page: () => const ProfileEdit()),
+    //GetPage(name: profile, page: () => const Profile()),
+    //GetPage(name: profileEdit, page: () => const ProfileEdit()),
     GetPage(name: profilePayment, page: () => const ProfilePayment()),
     GetPage(name: paymentEnrollCourse, page: () => const PaymentEnrollCourse()),
     GetPage(name: pinEnrollCourse, page: () => PinEnrollCourse()),

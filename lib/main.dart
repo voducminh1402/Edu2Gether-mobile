@@ -62,8 +62,7 @@ class MyApp extends StatelessWidget {
 
       // home: AuthService().handleAuthState(),
 
-      home: Profile(id: '', fullName: '', phone: '', address: '', university: '', country: '', gender: '', image: '',),
-
+      home: Login(),
 
 
 

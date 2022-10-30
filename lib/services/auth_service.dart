@@ -1,17 +1,21 @@
 import 'dart:async';
 
+import 'package:edu2gether_mobile/models/authen_response.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:developer';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService{
   final auth = FirebaseAuth.instance;
+
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -82,8 +86,13 @@ class AuthService{
         print('User is signed in!');
 
         await user.getIdToken().then((result)
-        { login(result);});
-        Get.to(() => MyHomePage());
+        async {
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString("user", result);
+          AuthenResponse? response = await login(result);
+          Get.to(() => ProfileEdit(id: response!.id, fullName: response!.name));
+        });
+        
       }
     });
   }
@@ -102,7 +111,7 @@ class AuthService{
     }
   }
 
-  Future<Mentee?> login(token) async {
+  Future<AuthenResponse?> login(token) async {
     try{
       var response = await http.post(Uri.parse("http://54.255.199.121/api/v1/authentication/login?token=" + token),
       );
@@ -110,6 +119,7 @@ class AuthService{
       print(response.body.toString() + "respone");
 
       if (response.statusCode == 200) {
+        return AuthenResponse.fromJson(jsonDecode(response.body));
       } else {
         print(response.body);
       }
