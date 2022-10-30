@@ -90,7 +90,7 @@ class AuthService{
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString("user", result);
           AuthenResponse? response = await login(result);
-          Get.to(() => ProfileEdit(id: response!.id, fullName: response!.name));
+          Get.to(() => ProfileEdit(id: response!.id,));
         });
         
       }
