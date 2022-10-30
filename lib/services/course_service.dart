@@ -19,14 +19,16 @@ class CourseService{
       log(e.toString());
     }
   }
-  static Future<Mentee?> getCourseById(id) async {
+
+  Future<List<Course>?> getCoursesByMentorId(id) async {
     try {
       id = 1;
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentees/1");
+      var url = Uri.parse("http://54.255.199.121/api/v1/courses/mentors/1");
       var response = await http.get(url);
       if (response.statusCode == 200) {
-        Mentee _model = Mentee.fromJson(jsonDecode(response.body));
-        return _model;
+        List<Course> _coursesByMentorId = courseFromJson(response.body);
+        return _coursesByMentorId;
+
       }
     } catch (e) {
       print(e.toString());
