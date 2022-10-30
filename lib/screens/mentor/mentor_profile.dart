@@ -342,7 +342,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                             height: 10,
                                           ),
                                           Text(
-                                            _course![i].estimateHour.toString() + ' hours',
+                                            _course?[i].estimateHour.toString() ?? '' + 'hours',
                                             style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
