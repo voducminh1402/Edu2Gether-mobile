@@ -15,28 +15,9 @@ class MentorProfile extends StatefulWidget {
 
 
   String id;
-  String fullName;
-  String phone;
-  String address;
-  String country;
-  String qualification;
-  String? evidence;
-  String job;
-  String gender;
-  String image;
-  String? websiteUrl;
 
-  MentorProfile({required this.id,
-    required this.fullName,
-    required this.phone,
-    required this.address,
-    required this.country,
-    required this.qualification,
-    this.evidence,
-    required this.job,
-    required this.gender,
-    required this.image,
-    this.websiteUrl,Key? key}) : super(key: key);
+
+  MentorProfile({required this.id, Key? key}) : super(key: key);
 
 
   @override
@@ -127,7 +108,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 ),
                 BigText(
 
-                  text: _mentor!.fullName,
+                  text: _mentor?.fullName ?? '',
 
                   size: Dimension.font8,
                   fontweight: FontWeight.bold,
@@ -137,7 +118,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 ),
                 SmallText(
 
-                  text: _mentor!.job,
+                  text: _mentor?.job ?? '',
 
                   size: Dimension.font6,
                 ),
@@ -299,7 +280,7 @@ class _MentorProfileState extends State<MentorProfile> {
                     ListView.builder(
 
                         padding:const  EdgeInsets.symmetric(vertical: 0, horizontal: 3),
-                        itemCount: _course!.length,
+                        itemCount: _course?.length,
                         itemBuilder: (context, i) {
                           return Container(
                               padding:const EdgeInsets.all(20),
@@ -345,7 +326,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                         children: [
 
                                           Text(
-                                            _course![i].name,
+                                            _course?[i].name ?? '',
                                             overflow: TextOverflow.ellipsis,
                                             style:const TextStyle(
 
