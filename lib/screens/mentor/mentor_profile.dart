@@ -10,6 +10,7 @@ import 'package:edu2gether_mobile/widgets/big_text.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/components/progress_bar/gf_progress_bar.dart';
 
 class MentorProfile extends StatefulWidget {
 
@@ -350,19 +351,19 @@ class _MentorProfileState extends State<MentorProfile> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          // GFProgressBar(
-                                          //   percentage: 0.7,
-                                          //   lineHeight: 5,
-                                          //   alignment: MainAxisAlignment.spaceBetween,
-                                          //   trailing: const Text(
-                                          //     '70/100',
-                                          //     textAlign: TextAlign.end,
-                                          //     style: TextStyle(
-                                          //         fontSize: 14, color: Colors.grey),
-                                          //   ),
-                                          //   backgroundColor: Colors.black12,
-                                          //   progressBarColor: Colors.blue,
-                                          // )
+                                          GFProgressBar(
+                                            percentage: 0.7,
+                                            lineHeight: 5,
+                                            alignment: MainAxisAlignment.spaceBetween,
+                                            trailing: const Text(
+                                              '70/100',
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  fontSize: 14, color: Colors.grey),
+                                            ),
+                                            backgroundColor: Colors.black12,
+                                            progressBarColor: Colors.blue,
+                                          )
 
                                         ],
                                       ))
