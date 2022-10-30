@@ -33,7 +33,7 @@ class _profilePaymentState extends State<ProfilePayment>{
           ),
           backgroundColor: Colors.white,
           elevation: 0,
-          titleTextStyle: TextStyle(
+          titleTextStyle: const TextStyle(
             color: Colors.black,
             fontFamily: 'Urbanist',
             fontSize: 20,
@@ -45,7 +45,7 @@ class _profilePaymentState extends State<ProfilePayment>{
           actions: [
             IconButton(
                 onPressed: (){},
-                icon: Icon(
+                icon: const Icon(
                   Icons.more_horiz_rounded,
                   color: Colors.black,
                 ))
@@ -58,7 +58,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                 Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const PaypalPayment()));
               },
               child: Padding(
-                padding: EdgeInsets.only(top:0),
+                padding: const EdgeInsets.only(top:0),
                 child:  Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget> [
@@ -67,7 +67,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                       child: Container(
                           width: 380,
                           height: 70,
-                          child: Card(
+                          child: const Card(
                             elevation: 5,
                             child: ListTile(
                                 leading: Padding(
@@ -104,13 +104,13 @@ class _profilePaymentState extends State<ProfilePayment>{
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top:24),
+              padding: const EdgeInsets.only(top:24),
               child:  Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget> [
+                children: const <Widget> [
                   Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Container(
+                    padding: EdgeInsets.all(3),
+                    child: SizedBox(
                         width: 380,
                         height: 70,
                         child: Card(
@@ -150,13 +150,13 @@ class _profilePaymentState extends State<ProfilePayment>{
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top:24),
+              padding: const EdgeInsets.only(top:24),
               child:  Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget> [
+                children: const <Widget> [
                   Padding(
-                    padding: const EdgeInsets.all(3),
-                    child: Container(
+                    padding: EdgeInsets.all(3),
+                    child: SizedBox(
                         width: 380,
                         height: 70,
                         child: Card(
@@ -207,7 +207,7 @@ class _profilePaymentState extends State<ProfilePayment>{
                         child: MaterialButton(
                             color: Colors.blueAccent,
                             onPressed: () => {},
-                            child: Text(
+                            child: const Text(
                               'Add new card',
                               style: TextStyle(
                                 fontSize: 16,
