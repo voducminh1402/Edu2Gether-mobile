@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
@@ -18,21 +19,21 @@ class ProfileEdit extends StatefulWidget{
 
   String id;
   String fullName;
-  String phone;
-  String address;
-  String university;
-  String country;
-  String gender;
-  String image;
+  String? phone;
+  String? address;
+  String? university;
+  String? country;
+  String? gender;
+  String? image;
 
   ProfileEdit({required this.id,
     required this.fullName,
-    required this.phone,
-    required this.address,
-    required this.university,
-    required this.country,
-    required this.gender,
-    required this.image,Key? key}) : super(key: key);
+    this.phone,
+    this.address,
+    this.university,
+    this.country,
+    this.gender,
+    this.image,Key? key}) : super(key: key);
 
 
   @override
@@ -74,6 +75,7 @@ class _profileEditState extends State<ProfileEdit> {
       home:GestureDetector(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
+
           backgroundColor: Colors.white,
           appBar: AppBar(
             leading: BackButton(
@@ -181,42 +183,6 @@ class _profileEditState extends State<ProfileEdit> {
                   ),
                 ],
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.start,
-              //   children: <Widget>[
-              //     Expanded(
-              //       child: Padding(
-              //         padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-              //         child: Container(
-              //           width: 380,
-              //           height: 56,
-              //           child: Container(
-              //             child: TextField(
-              //               decoration: InputDecoration(
-              //                 border: OutlineInputBorder(
-              //                     borderSide: BorderSide.none,
-              //                     borderRadius: BorderRadius.circular(12)),
-              //                 focusedBorder: OutlineInputBorder(
-              //                     borderSide: BorderSide(color: AppColors.mainColor),
-              //                     borderRadius: BorderRadius.circular(12)),
-              //                 hintText: '10/10/2000',
-              //                 fillColor: AppColors.inputColor,
-              //                 filled: true,
-              //                 suffixIcon: Icon(Icons.edit_calendar),
-              //               ),
-              //               style: TextStyle(
-              //                 color: Colors.black,
-              //                 fontFamily: 'Urbanist',
-              //                 fontSize: 14,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
