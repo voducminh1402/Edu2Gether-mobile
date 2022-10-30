@@ -1,45 +1,37 @@
 {
   "project_info": {
-    "project_number": "261472646998",
-    "project_id": "edu2gether-67cc1",
-    "storage_bucket": "edu2gether-67cc1.appspot.com"
+    "project_number": "887705149592",
+    "project_id": "edu2gether-362515",
+    "storage_bucket": "edu2gether-362515.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:261472646998:android:462150ce0e57f14af788f7",
+        "mobilesdk_app_id": "1:887705149592:android:c04e3c9c06091c037a70ed",
         "android_client_info": {
           "package_name": "com.edu2gether.edu2gether_mobile"
         }
       },
       "oauth_client": [
         {
-          "client_id": "261472646998-gr69qnaad9fkblplpodjfjrvee8p1uj7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.edu2gether.edu2gether_mobile",
-            "certificate_hash": "98505e3fec6b22abde432bc12766ecacf6346859"
-          }
-        },
-        {
-          "client_id": "261472646998-9pg1c02glepuiote0hbkpk5mmuv3dbcb.apps.googleusercontent.com",
+          "client_id": "887705149592-gd897s3t26si6cjsjk8t3nondbqeffsp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDrk6owLDTSWNAcrX2reQuAb1NYArN7VcI"
+          "current_key": "AIzaSyBkW6o1AUt690gI0DWXiAIO2Gbysm9LuYE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "261472646998-9pg1c02glepuiote0hbkpk5mmuv3dbcb.apps.googleusercontent.com",
+              "client_id": "887705149592-gd897s3t26si6cjsjk8t3nondbqeffsp.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "261472646998-3qivcilclar8ld4374i01mp1kf5639fc.apps.googleusercontent.com",
+              "client_id": "887705149592-ainii1u5pgs7hvibu5f4a01dsskmbbao.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.edu2gether.edu2getherMobile"
