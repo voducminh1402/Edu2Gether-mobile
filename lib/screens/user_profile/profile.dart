@@ -15,27 +15,14 @@ import 'package:get/get.dart';
 class Profile extends StatefulWidget {
 
 
-  String id;
-  String fullName;
-  String phone;
-  String address;
-  String university;
-  String country;
-  String gender;
-  String image;
+  String? id;
 
-  Profile({required this.id,
-    required this.fullName,
-    required this.phone,
-    required this.address,
-    required this.university,
-    required this.country,
-    required this.gender,
-    required this.image,Key? key}) : super(key: key);
+
+  Profile({required this.id, Key? key}) : super(key: key);
 
 
   @override
-  State<Profile> createState() => _profileState();
+  State<Profile> createState() => _profileState(id.toString());
 }
 
 class _profileState extends State<Profile>{
@@ -43,6 +30,13 @@ class _profileState extends State<Profile>{
 
   Mentee? mentee;
   var isLoaded = false;
+
+  String name = 'trung';
+
+  _profileState(String id){
+    id = name;
+    print(id);
+  }
 
   @override
   void initState(){
@@ -101,7 +95,7 @@ class _profileState extends State<Profile>{
             elevation: 0
         ),
         body: Visibility(
-          visible: isLoaded,
+          visible: isLoaded = true,
           replacement: const Center(
             child: CircularProgressIndicator(),
           ),
@@ -129,8 +123,7 @@ class _profileState extends State<Profile>{
                     Padding(
                       padding: const EdgeInsets.only(top: 24),
                       child: Text(
-                        mentee!.fullName,
-
+                        mentee?.fullName!! ?? '',
                         style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
                       ),
                     ),
@@ -142,7 +135,7 @@ class _profileState extends State<Profile>{
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        mentee!.university,
+                        mentee?.university!! ?? '',
                         style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
                       ),
                     ),
