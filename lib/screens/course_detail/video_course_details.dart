@@ -10,17 +10,15 @@ import '../../utilities/dimensions.dart';
 
 
 class VideoCourseDetails extends StatefulWidget {
-
-  String id;
-
-  VideoCourseDetails(
-      {required this.id,Key? key}) : super(key: key);
+  const VideoCourseDetails({Key? key}) : super(key: key);
 
   @override
   State<VideoCourseDetails> createState() => _VideoCourseDetailsState();
 }
 
 class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProviderStateMixin {
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
         ),
         body: Column(
           children: [
-            _BumbleBeeRemoteVideo(widget.id),
+            _BumbleBeeRemoteVideo(),
           ],
         ),
       ),
@@ -47,10 +45,6 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
 }
 
 class _BumbleBeeRemoteVideo extends StatefulWidget {
-  String name = 'anh';
-  _BumbleBeeRemoteVideo(String id){
-    name = id;
-  }
   @override
   _BumbleBeeRemoteVideoState createState() => _BumbleBeeRemoteVideoState();
 }
@@ -124,8 +118,7 @@ class _BumbleBeeRemoteVideoState extends State<_BumbleBeeRemoteVideo> with Ticke
                       Padding(
                         padding: const EdgeInsets.only(left: 24, right: 50,top: 24,bottom: 10),
                         child: Text(
-                          widget.name,
-                          //'Intro to UI/UX Design',
+                          'Intro to UI/UX Design',
                           style: TextStyle(fontFamily: 'Urbanist', fontSize: 28, fontWeight: FontWeight.w700,color: Colors.black),
                         ),
                       ),

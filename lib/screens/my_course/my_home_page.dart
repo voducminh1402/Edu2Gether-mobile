@@ -6,12 +6,7 @@ import 'package:getwidget/getwidget.dart';
 
 
 import '../../models/course.dart';
-import '../../models/mentee.dart';
-import '../../routes/routes.dart';
 import '../../utilities/dimensions.dart';
-import 'package:get/get.dart';
-
-import '../course_detail/video_course_details.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -115,89 +110,80 @@ class _MyHomePageState extends State<MyHomePage> {
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
                     itemCount: _courses!.length,
                     itemBuilder: (context, i) {
-                      return GestureDetector(
-                        onTap: () async {
-                          Mentee? course = await CourseService.getCourseById(_courses![i].id);
-                         //String id = course!.id.toString();
-                         print(course.toString() + "anh vui ve");
-                          Get.to(VideoCourseDetails(id: course!.id));
-
-                        },
-                        child: Container(
-                            padding: EdgeInsets.all(20),
-                            margin: EdgeInsets.symmetric(vertical: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                              BorderRadius.circular(Dimension.radius12),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  spreadRadius: 2,
-                                  blurRadius: 2,
-                                  offset: Offset(0, 2), // changes position of shadow
+                      return Container(
+                          padding: EdgeInsets.all(20),
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius:
+                            BorderRadius.circular(Dimension.radius12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.1),
+                                spreadRadius: 2,
+                                blurRadius: 2,
+                                offset: Offset(0, 2), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                // Image border
+                                child: SizedBox.fromSize(
+                                  size: Size.fromRadius(48), // Image radius
+                                  child: Image.asset('assets/images/course.png',
+                                      fit: BoxFit.cover),
                                 ),
-                              ],
-                            ),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  // Image border
-                                  child: SizedBox.fromSize(
-                                    size: Size.fromRadius(48), // Image radius
-                                    child: Image.asset('assets/images/course.png',
-                                        fit: BoxFit.cover),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Expanded(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          _courses![i].name,
-                                          overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                              Expanded(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _courses![i].name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Urbanist'),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        _courses![i].estimateHour.toString() + ' hours',
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: 18,
+                                            fontFamily: 'Urbanist'),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      GFProgressBar(
+                                        percentage: 0.7,
+                                        lineHeight: 5,
+                                        alignment: MainAxisAlignment.spaceBetween,
+                                        trailing: const Text(
+                                          '70/100',
+                                          textAlign: TextAlign.end,
                                           style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.bold,
-                                              fontFamily: 'Urbanist'),
+                                              fontSize: 14, color: Colors.grey),
                                         ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text(
-                                          _courses![i].estimateHour.toString() + ' hours',
-                                          style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 18,
-                                              fontFamily: 'Urbanist'),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        GFProgressBar(
-                                          percentage: 0.7,
-                                          lineHeight: 5,
-                                          alignment: MainAxisAlignment.spaceBetween,
-                                          trailing: const Text(
-                                            '70/100',
-                                            textAlign: TextAlign.end,
-                                            style: TextStyle(
-                                                fontSize: 14, color: Colors.grey),
-                                          ),
-                                          backgroundColor: Colors.black12,
-                                          progressBarColor: Colors.blue,
-                                        )
-                                      ],
-                                    ))
-                              ],
-                            )),
-                      );
+                                        backgroundColor: Colors.black12,
+                                        progressBarColor: Colors.blue,
+                                      )
+                                    ],
+                                  ))
+                            ],
+                          ));
                     }),
                 ListView.builder(
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
