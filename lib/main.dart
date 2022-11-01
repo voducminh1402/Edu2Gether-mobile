@@ -1,7 +1,6 @@
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
-import 'package:edu2gether_mobile/screens/homepage/homepage.dart';
 
 
 import 'package:edu2gether_mobile/services/auth_service.dart';

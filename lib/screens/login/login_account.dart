@@ -170,16 +170,20 @@ class _LoginAccountState extends State<LoginAccount> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     textStyle:
+
                     TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                 onPressed: () {
                   AuthService().signInWithEmailAndPassword(_email, _password);
                   //if(AuthService().checkUserState()){
                   //Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
+
                   //}
 
                 },
                 child: Text(
-                    'Sign in'
+
+                  'Sign in'
+
                 ),
               ),
               SizedBox(
@@ -269,6 +273,7 @@ class _LoginAccountState extends State<LoginAccount> {
               ),
               Center(
                   child: RichText(
+
                     text: new TextSpan(
                       text: "Don't have an account?",
                       style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),

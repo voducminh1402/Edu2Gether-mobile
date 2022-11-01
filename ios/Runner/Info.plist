@@ -3,6 +3,7 @@
 <plist version="1.0">
 <dict>
 <key>CFBundleURLTypes</key>
+
 <array>
 	<dict>
 		<key>CFBundleTypeRole</key>
@@ -60,6 +61,5 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-
 </dict>
 </plist>
