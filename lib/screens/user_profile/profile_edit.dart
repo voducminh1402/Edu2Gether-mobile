@@ -17,27 +17,14 @@ import '../../widgets/button_login.dart';
 
 class ProfileEdit extends StatefulWidget{
 
-  String id;
-  String fullName;
-  String? phone;
-  String? address;
-  String? university;
-  String? country;
-  String? gender;
-  String? image;
+  String? id;
 
-  ProfileEdit({required this.id,
-    required this.fullName,
-    this.phone,
-    this.address,
-    this.university,
-    this.country,
-    this.gender,
-    this.image,Key? key}) : super(key: key);
+
+  ProfileEdit({required this.id, Key? key}) : super(key: key);
 
 
   @override
-  State<ProfileEdit> createState() => _profileEditState();
+  State<ProfileEdit> createState() => _profileEditState(id.toString());
 
 }
 
@@ -47,16 +34,23 @@ class _profileEditState extends State<ProfileEdit> {
 
   var isLoaded = false;
 
+  String name = 'trung';
+
+  _profileEditState(String id){
+    id = name;
+    print(id);
+  }
+
   @override
   void initState(){
     super.initState();
     _getMentee();
-    _patchMenteeById();
+    // _patchMenteeById();
   }
 
-  _patchMenteeById() async{
-    _mentee = await MenteeService().updateMenteeById(_mentee!, _mentee!.id);
-  }
+  // _patchMenteeById() async{
+  //   _mentee = await MenteeService().updateMenteeById(_mentee?.id!!!!! ?? 0);
+  // }
 
   _getMentee() async{
     _mentee = (await MenteeService().getMenteeById(_mentee?.id ?? 0));
@@ -83,7 +77,7 @@ class _profileEditState extends State<ProfileEdit> {
               onPressed: () async{
                 Navigator.pop(context,false);
                 Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => Profile(id: '', fullName: '', phone: '', address: '', university: '', country: '', gender: '', image: '',)));
+                    MaterialPageRoute(builder: (context) => Profile(id: '')));
               },
             ),
             backgroundColor: Colors.white,
@@ -128,7 +122,7 @@ class _profileEditState extends State<ProfileEdit> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: AppColors.mainColor),
                                   borderRadius: BorderRadius.circular(12)),
-                              hintText: _mentee!.fullName,
+                              hintText: _mentee?.fullName,
                               fillColor: AppColors.inputColor,
                               filled: true,
                             ),
@@ -165,7 +159,7 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
-                            hintText:  _mentee!.university,
+                            hintText:  _mentee?.university,
                             fillColor: AppColors.inputColor,
                             filled: true,
                           ),
@@ -201,7 +195,7 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
-                            hintText: _mentee!.address,
+                            hintText: _mentee?.address,
                             fillColor: AppColors.inputColor,
                             filled: true,
                             suffixIcon: const Icon(Icons.mail_sharp),
@@ -237,7 +231,7 @@ class _profileEditState extends State<ProfileEdit> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: AppColors.mainColor),
                                   borderRadius: BorderRadius.circular(12)),
-                              hintText: _mentee!.country,
+                              hintText: _mentee?.country,
                               fillColor: AppColors.inputColor,
                               filled: true,
                               suffixIcon: const Icon(Icons.keyboard_arrow_down)
@@ -266,7 +260,7 @@ class _profileEditState extends State<ProfileEdit> {
                         height: 56,
                         child: IntlPhoneField(
                           decoration: InputDecoration(
-                            labelText: _mentee!.phone,
+                            labelText: _mentee?.phone,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide(),
                             ),
@@ -345,7 +339,7 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
-                            hintText: _mentee!.image,
+                            hintText: _mentee?.image,
                             fillColor: AppColors.inputColor,
                             filled: true,
                           ),

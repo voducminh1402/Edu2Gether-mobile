@@ -48,7 +48,7 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
 class _BumbleBeeRemoteVideo extends StatefulWidget {
   String name = 'anh';
   _BumbleBeeRemoteVideo(String id){
-    name = id;
+    id = name;
   }
   @override
   _BumbleBeeRemoteVideoState createState() => _BumbleBeeRemoteVideoState();

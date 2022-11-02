@@ -30,7 +30,7 @@ class _MainPageState extends State<MainPage> {
     MyCourse(),
     TransactionPage(),
 
-    Profile(id: '', fullName: '', phone: '', address: '', university: '', country: '', gender: '', image: '',),
+    Profile(id: ''),
 
   ];
   int currentIndex = 0;

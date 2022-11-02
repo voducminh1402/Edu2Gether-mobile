@@ -19,7 +19,7 @@ class Mentee {
   });
 
   String id;
-  String fullName;
+  String? fullName;
   String phone;
   String address;
   String university;
