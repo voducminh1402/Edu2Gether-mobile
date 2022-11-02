@@ -82,7 +82,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   onPressed: () {},
 
                   icon: const Icon(
-                    Icons.more,
+                    Icons.more_horiz,
                     color: Colors.black,
                   )),
               const SizedBox(
@@ -101,7 +101,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   child: Center(
                     child: CircleAvatar(
                       backgroundImage:
-                          const ExactAssetImage("assets/images/mentor.png"),
+                      NetworkImage(_mentor!.image),
                       foregroundColor: Colors.white,
                       radius: Dimension.width24,
                     ),
@@ -135,7 +135,7 @@ class _MentorProfileState extends State<MentorProfile> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         BigText(
-                          text: "25",
+                          text: _course!.length.toString(),
                           size: Dimension.font8,
                           fontweight: FontWeight.bold,
                         ),
@@ -198,62 +198,62 @@ class _MentorProfileState extends State<MentorProfile> {
                 SizedBox(
                   height: Dimension.height5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        // Respond to button press
-                      },
-
-                      icon: const Icon(Icons.message),
-                      label: const Text("Message"),
-
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.radius16)),
-                          ),
-                          minimumSize: MaterialStateProperty.all(
-                            Size(MediaQuery.of(context).size.width / 2.3, 46),
-                          ),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: Dimension.font5,
-                              fontWeight: FontWeight.bold)),
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.mainColor)),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: () {
-                        // Respond to button press
-                      },
-
-                      icon: const Icon(Icons.web),
-                      label: const Text("Website"),
-
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.radius16)),
-                          ),
-                          minimumSize: MaterialStateProperty.all(
-                            Size(MediaQuery.of(context).size.width / 2.3, 46),
-                          ),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: Dimension.font5,
-                              fontWeight: FontWeight.bold)),
-                          side: MaterialStateProperty.all(
-                              BorderSide(color: AppColors.mainColor, width: 2)),
-                          foregroundColor:
-                              MaterialStateProperty.all(AppColors.mainColor)),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: Dimension.height3,
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     ElevatedButton.icon(
+                //       onPressed: () {
+                //         // Respond to button press
+                //       },
+                //
+                //       icon: const Icon(Icons.message),
+                //       label: const Text("Message"),
+                //
+                //       style: ButtonStyle(
+                //           shape: MaterialStateProperty.all(
+                //             RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Dimension.radius16)),
+                //           ),
+                //           minimumSize: MaterialStateProperty.all(
+                //             Size(MediaQuery.of(context).size.width / 2.3, 46),
+                //           ),
+                //           textStyle: MaterialStateProperty.all(TextStyle(
+                //               fontSize: Dimension.font5,
+                //               fontWeight: FontWeight.bold)),
+                //           backgroundColor:
+                //               MaterialStateProperty.all(AppColors.mainColor)),
+                //     ),
+                //     OutlinedButton.icon(
+                //       onPressed: () {
+                //         // Respond to button press
+                //       },
+                //
+                //       icon: const Icon(Icons.web),
+                //       label: const Text("Website"),
+                //
+                //       style: ButtonStyle(
+                //           shape: MaterialStateProperty.all(
+                //             RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Dimension.radius16)),
+                //           ),
+                //           minimumSize: MaterialStateProperty.all(
+                //             Size(MediaQuery.of(context).size.width / 2.3, 46),
+                //           ),
+                //           textStyle: MaterialStateProperty.all(TextStyle(
+                //               fontSize: Dimension.font5,
+                //               fontWeight: FontWeight.bold)),
+                //           side: MaterialStateProperty.all(
+                //               BorderSide(color: AppColors.mainColor, width: 2)),
+                //           foregroundColor:
+                //               MaterialStateProperty.all(AppColors.mainColor)),
+                //     )
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: Dimension.height3,
+                // ),
 
                 const Divider(),
 
@@ -311,8 +311,7 @@ class _MentorProfileState extends State<MentorProfile> {
 
                                       size: const Size.fromRadius(48), // Image radius
 
-                                      child: Image.asset('assets/images/course.png',
-                                          fit: BoxFit.cover),
+                                      child:Image.network(_course![i].image.toString()) ,
                                     ),
                                   ),
 
