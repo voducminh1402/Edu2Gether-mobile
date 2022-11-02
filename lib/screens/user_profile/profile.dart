@@ -94,7 +94,7 @@ class _profileState extends State<Profile>{
             ],
             elevation: 0
         ),
-        body: Visibility(
+        body:  isLoaded == false ? Center(child: CircularProgressIndicator(),):Visibility(
           visible: isLoaded = true,
           replacement: const Center(
             child: CircularProgressIndicator(),

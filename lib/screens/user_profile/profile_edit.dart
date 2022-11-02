@@ -12,19 +12,22 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../models/mentee.dart';
 
 import '../../routes/routes.dart';
+import 'package:country_list_pick/country_list_pick.dart';
 import '../../widgets/button_login.dart';
 
 
 class ProfileEdit extends StatefulWidget{
 
-  String? id;
+  String id;
+
+
 
 
   ProfileEdit({required this.id, Key? key}) : super(key: key);
 
 
   @override
-  State<ProfileEdit> createState() => _profileEditState(id.toString());
+  State<ProfileEdit> createState() => _profileEditState();
 
 }
 
@@ -34,18 +37,19 @@ class _profileEditState extends State<ProfileEdit> {
 
   var isLoaded = false;
 
-  String name = 'trung';
-
-  _profileEditState(String id){
-    id = name;
-    print(id);
-  }
+  late String? _fullName;
+  late String _phone;
+  late String _address;
+  late String _university;
+  late String _country;
+  late String _gender;
+  late String _image;
 
   @override
   void initState(){
     super.initState();
     _getMentee();
-    // _patchMenteeById();
+
   }
 
   // _patchMenteeById() async{
@@ -53,12 +57,19 @@ class _profileEditState extends State<ProfileEdit> {
   // }
 
   _getMentee() async{
-    _mentee = (await MenteeService().getMenteeById(_mentee?.id ?? 0));
+    _mentee = (await MenteeService().getMenteeById(widget.id));
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(_mentee != null){
+      _country = _mentee!.country;
+      _fullName = _mentee!.fullName;
+      _address = _mentee!.address;
+      _phone = _mentee!.phone;
+      _university = _mentee!.university;
+      _image = _mentee!.image;
       isLoaded = true;
     }
   }
+
 
 
   String dropdownValue = 'Male';
@@ -100,7 +111,7 @@ class _profileEditState extends State<ProfileEdit> {
                   ))
             ],
           ),
-          body: Column(
+          body: isLoaded == false ? Center(child: CircularProgressIndicator(),): Column(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top:0),
@@ -133,6 +144,12 @@ class _profileEditState extends State<ProfileEdit> {
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
+                            onChanged: (value){
+                              setState(() {
+                                _fullName = value.trim();
+                              });
+
+                            },
                           ),
 
                         ),
@@ -170,6 +187,9 @@ class _profileEditState extends State<ProfileEdit> {
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
+                          onChanged: (value){
+                            _university = value.trim();
+                          },
                         ),
 
                       ),
@@ -186,7 +206,7 @@ class _profileEditState extends State<ProfileEdit> {
                       child: SizedBox(
                         width: 380,
                         height: 56,
- 
+
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -206,42 +226,9 @@ class _profileEditState extends State<ProfileEdit> {
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                      child: SizedBox(
-                        width: 380,
-                        height: 56,
-
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(12)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: AppColors.mainColor),
-                                  borderRadius: BorderRadius.circular(12)),
-                              hintText: _mentee?.country,
-                              fillColor: AppColors.inputColor,
-                              filled: true,
-                              suffixIcon: const Icon(Icons.keyboard_arrow_down)
-                          ),
-                          style: const TextStyle(
-
-                            fontFamily: 'Urbanist',
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          onChanged: (value){
+                            _address = value.trim();
+                          },
                         ),
 
                       ),
@@ -265,9 +252,12 @@ class _profileEditState extends State<ProfileEdit> {
                               borderSide: BorderSide(),
                             ),
                           ),
-                          initialCountryCode: 'NP',
+                          initialCountryCode: 'AL',
                           onChanged: (phone) {
-                            print(phone.completeNumber);
+                            _phone = phone.completeNumber.toString().trim();
+                          },
+                          onCountryChanged: (country) {
+                            _country = country.name.toString().trim();
                           },
                         ),
 
@@ -303,6 +293,7 @@ class _profileEditState extends State<ProfileEdit> {
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownValue = newValue!;
+                              _gender = dropdownValue.trim();
                             });
                           },
                           items: <String>['Male', 'Female', 'LGBT', 'Hide'].map<DropdownMenuItem<String>>((String value) {
@@ -349,6 +340,9 @@ class _profileEditState extends State<ProfileEdit> {
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
+                          onChanged: (value){
+                            _image = value.trim();
+                          },
                         ),
                       ),
                     ),
@@ -364,7 +358,22 @@ class _profileEditState extends State<ProfileEdit> {
                         height: 58,
                         width: 380,
                         child:  Card(
-                          child: ButtonUpdate(route: RoutesClass.getProfileRoute(), title: 'Update',),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                textStyle:
+                                TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                            onPressed: () {
+
+                            },
+                            child: Text(
+                                'Update'
+                            ),
+                          ),
                         ),
                       ),
                     ),
