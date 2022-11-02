@@ -17,7 +17,7 @@ class _PinEnrollCourseState extends State<PinEnrollCourse>{
 
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
               Colors.white,
@@ -49,7 +49,7 @@ class _PinScreen extends State<PinScreen>{
 
   var outLineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10.0),
-    borderSide: BorderSide(color: Colors.transparent),
+    borderSide: const BorderSide(color: Colors.transparent),
   );
 
   int pinIndex  = 0;
@@ -61,12 +61,12 @@ class _PinScreen extends State<PinScreen>{
       home: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          leading: BackButton(
+          leading: const BackButton(
             color: Colors.black,
           ),
           backgroundColor: Colors.white,
           elevation: 0,
-          titleTextStyle: TextStyle(
+          titleTextStyle: const TextStyle(
             color: Colors.black,
             fontFamily: 'Urbanist',
             fontSize: 20,
@@ -78,7 +78,7 @@ class _PinScreen extends State<PinScreen>{
           actions: [
             IconButton(
                 onPressed: (){},
-                icon: Icon(
+                icon: const Icon(
                   Icons.more_horiz_rounded,
                   color: Colors.white,
                 )
@@ -89,13 +89,13 @@ class _PinScreen extends State<PinScreen>{
           children: <Widget>[
             Expanded(
                 child: Container(
-                  alignment: Alignment(0,0.5),
-                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  alignment: const Alignment(0,0.5),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       buildSecurityText(),
-                      SizedBox(height: 40.0,),
+                      const SizedBox(height: 40.0,),
                       buildPinRow(),
                     ],
                   ),
@@ -115,29 +115,28 @@ class _PinScreen extends State<PinScreen>{
   ContinueButton(){
     return Expanded(
         child: ElevatedButton(
-          child: Text("Continue"),
           style: ElevatedButton.styleFrom(
               primary: Colors.blueAccent,
-              padding: EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-              textStyle: TextStyle(
+              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+              textStyle: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Urbanist'
               ),
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
           ),
           onPressed: () {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return Container(
+                  return SizedBox(
                     width: 340,
                     height: 530,
                     child: AlertDialog(
                       scrollable: true,
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                      title: Container(
+                      title: SizedBox(
                           width: 150,
                           height: 130,
                           child: Image.asset('assets/image/successful.png')
@@ -147,15 +146,15 @@ class _PinScreen extends State<PinScreen>{
                         child: Form(
                           child: Column(
                             children: <Widget>[
-                              Text(
+                              const Text(
                                  'Enroll Course Successful!',
                                   style: TextStyle(fontFamily: 'Urbanist', fontSize: 20, fontWeight: FontWeight.w700,color: Colors.blueAccent),
                                 ),
-                              Container(
+                              SizedBox(
                                 height: 44,
                                 width: 200,
                                 child: Row(
-                                  children: [
+                                  children: const [
                                     Flexible(
                                         child: Center(
                                           child: Text(
@@ -172,7 +171,12 @@ class _PinScreen extends State<PinScreen>{
                                   onPressed: (){
                                     //Link to Course
                                   },
-                                  child: Expanded(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blueAccent,
+                                    padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                                    shape: const StadiumBorder(),
+                                ),
+                                  child: const Expanded(
                                     child: FittedBox(
                                       child: Text("View Course",
                                         textAlign: TextAlign.center,
@@ -185,17 +189,17 @@ class _PinScreen extends State<PinScreen>{
                                       ),
                                     ),
                                   ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent,
-                                    padding: EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                                    shape: StadiumBorder(),
-                                ),
                               ),
                               ElevatedButton(
                                 onPressed: (){
                                   ////Link to Receipt
                                 },
-                                child: Expanded(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 10),
+                                  shape: const StadiumBorder(),
+                                ),
+                                child: const Expanded(
                                   child: FittedBox(
                                     child: Text("View E-Receipt",
                                       textAlign: TextAlign.center,
@@ -208,11 +212,6 @@ class _PinScreen extends State<PinScreen>{
                                     ),
                                   ),
                                 ),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white,
-                                  padding: EdgeInsets.symmetric(horizontal: 100, vertical: 10),
-                                  shape: StadiumBorder(),
-                                ),
                               )
                             ],
                           ),
@@ -222,6 +221,7 @@ class _PinScreen extends State<PinScreen>{
                   );
                 });
           },
+          child: const Text("Continue"),
         ),
     );
   }
@@ -307,7 +307,7 @@ class _PinScreen extends State<PinScreen>{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Container(
+                    const SizedBox(
                       width: 60.0,
                       child: MaterialButton(
                         onPressed: null,
@@ -320,7 +320,7 @@ class _PinScreen extends State<PinScreen>{
                         pinIndexSetUp("0");
                       },
                     ),
-                    Container(
+                    SizedBox(
                       width: 60,
                       child: MaterialButton(
                         height: 60,
@@ -330,7 +330,7 @@ class _PinScreen extends State<PinScreen>{
                         onPressed: (){
                           clearPin();
                         },
-                        child: Icon(Icons.backspace,color: Colors.black,),
+                        child: const Icon(Icons.backspace,color: Colors.black,),
                       ),
                     ),
                   ],
@@ -397,19 +397,17 @@ class _PinScreen extends State<PinScreen>{
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 10),
-        child: Container(
-          child: Row(
-            children: <Widget>[
-              ButtonConfirm(route: RoutesClass.getPaymentEnrollCourseRoute(), title: 'Confirmation - 40'),
-            ],
-          ),
+        child: Row(
+          children: <Widget>[
+            ButtonConfirm(route: RoutesClass.getPaymentEnrollCourseRoute(), title: 'Confirmation - 40'),
+          ],
         ),
       ),
     );
   }
 
   buildSecurityText() {
-    return Text(
+    return const Text(
         'Enter your PIN to confirm payment',
       style: TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w400, fontSize: 18,color: Colors.black),
     );
@@ -446,11 +444,11 @@ class PINNumber extends StatelessWidget {
   final TextEditingController textEditingController;
   final OutlineInputBorder outlineInputBorder;
 
-  PINNumber({required this.textEditingController,required this.outlineInputBorder});
+  const PINNumber({required this.textEditingController,required this.outlineInputBorder});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 50,
       child: TextField(
         controller: textEditingController,
@@ -458,12 +456,12 @@ class PINNumber extends StatelessWidget {
         obscureText: true,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(16.0),
+            contentPadding: const EdgeInsets.all(16.0),
             border: outlineInputBorder,
             filled: true,
             fillColor: Colors.white,
         ),
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 21,
           color: Colors.black,
@@ -477,7 +475,7 @@ class KeyboardNumber extends StatelessWidget {
   final int n;
   final Function() onPressed;
 
-  KeyboardNumber({required this.n,required this.onPressed});
+  const KeyboardNumber({required this.n,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -490,7 +488,7 @@ class KeyboardNumber extends StatelessWidget {
       ),
       alignment: Alignment.center,
       child: MaterialButton(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         onPressed: onPressed,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(60.0),
