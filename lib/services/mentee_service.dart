@@ -20,8 +20,7 @@ class MenteeService {
 
   Future<Mentee?> getMenteeById(id) async{
     try{
-      id = 1;
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentees/1");
+      var url = Uri.parse("http://54.255.199.121/api/v1/mentees/"+id.toString());
       var response = await http.get(url);
       if(response.statusCode == 200){
         Mentee _mentee = Mentee.fromJson(jsonDecode(response.body));
