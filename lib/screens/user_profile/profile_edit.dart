@@ -49,12 +49,8 @@ class _profileEditState extends State<ProfileEdit> {
   void initState(){
     super.initState();
     _getMentee();
-
   }
 
-  // _patchMenteeById() async{
-  //   _mentee = await MenteeService().updateMenteeById(_mentee?.id!!!!! ?? 0);
-  // }
 
   _getMentee() async{
     _mentee = (await MenteeService().getMenteeById(widget.id));
@@ -373,7 +369,7 @@ class _profileEditState extends State<ProfileEdit> {
                                 textStyle:
                                 TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                             onPressed: () {
-
+                              MenteeService().updateMentee(_getMentee());
                             },
                             child: Text(
                                 'Update'

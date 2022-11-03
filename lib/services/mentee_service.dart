@@ -32,20 +32,14 @@ class MenteeService {
     }
   }
 
-  Future<Mentee?> updateMenteeById(Mentee mentee, id) async{
+  Future<Mentee?> updateMentee(Mentee mentee) async{
     try{
-      id = 1;
       var url = Uri.parse("http://54.255.199.121/api/v1/mentees");
-      var response = await http.patch(
-        url,
-        body:{
-          "id": mentee.id,
-          "fullName" : mentee.fullName,
-          "phone": mentee.phone
-        },
-        ).then((value) => {
-          print(value.body),
-      });
+      var response = await http.patch(url);
+      if(response.statusCode == 200){
+        Mentee _menteeUpdate = Mentee.fromJson(jsonDecode(response.body));
+        return _menteeUpdate;
+      }
     }
     catch(e)
     {
