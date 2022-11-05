@@ -222,7 +222,7 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
-                            labelText: 'Address',
+                            labelText: 'Address Mail',
                             hintText: _mentee?.address,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             fillColor: AppColors.inputColor,
