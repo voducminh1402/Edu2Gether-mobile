@@ -10,33 +10,15 @@ import 'package:edu2gether_mobile/widgets/big_text.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:getwidget/components/progress_bar/gf_progress_bar.dart';
 
 class MentorProfile extends StatefulWidget {
 
 
   String id;
-  String fullName;
-  String phone;
-  String address;
-  String country;
-  String qualification;
-  String? evidence;
-  String job;
-  String gender;
-  String image;
-  String? websiteUrl;
 
-  MentorProfile({required this.id,
-    required this.fullName,
-    required this.phone,
-    required this.address,
-    required this.country,
-    required this.qualification,
-    this.evidence,
-    required this.job,
-    required this.gender,
-    required this.image,
-    this.websiteUrl,Key? key}) : super(key: key);
+
+  MentorProfile({required this.id, Key? key}) : super(key: key);
 
 
   @override
@@ -100,7 +82,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   onPressed: () {},
 
                   icon: const Icon(
-                    Icons.more,
+                    Icons.more_horiz,
                     color: Colors.black,
                   )),
               const SizedBox(
@@ -119,7 +101,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   child: Center(
                     child: CircleAvatar(
                       backgroundImage:
-                          const ExactAssetImage("assets/images/mentor.png"),
+                      NetworkImage(_mentor!.image),
                       foregroundColor: Colors.white,
                       radius: Dimension.width24,
                     ),
@@ -127,7 +109,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 ),
                 BigText(
 
-                  text: _mentor!.fullName,
+                  text: _mentor?.fullName ?? '',
 
                   size: Dimension.font8,
                   fontweight: FontWeight.bold,
@@ -137,7 +119,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 ),
                 SmallText(
 
-                  text: _mentor!.job,
+                  text: _mentor?.job ?? '',
 
                   size: Dimension.font6,
                 ),
@@ -153,7 +135,7 @@ class _MentorProfileState extends State<MentorProfile> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         BigText(
-                          text: "25",
+                          text: _course!.length.toString(),
                           size: Dimension.font8,
                           fontweight: FontWeight.bold,
                         ),
@@ -216,62 +198,62 @@ class _MentorProfileState extends State<MentorProfile> {
                 SizedBox(
                   height: Dimension.height5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        // Respond to button press
-                      },
-
-                      icon: const Icon(Icons.message),
-                      label: const Text("Message"),
-
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.radius16)),
-                          ),
-                          minimumSize: MaterialStateProperty.all(
-                            Size(MediaQuery.of(context).size.width / 2.3, 46),
-                          ),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: Dimension.font5,
-                              fontWeight: FontWeight.bold)),
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.mainColor)),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: () {
-                        // Respond to button press
-                      },
-
-                      icon: const Icon(Icons.web),
-                      label: const Text("Website"),
-
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.radius16)),
-                          ),
-                          minimumSize: MaterialStateProperty.all(
-                            Size(MediaQuery.of(context).size.width / 2.3, 46),
-                          ),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: Dimension.font5,
-                              fontWeight: FontWeight.bold)),
-                          side: MaterialStateProperty.all(
-                              BorderSide(color: AppColors.mainColor, width: 2)),
-                          foregroundColor:
-                              MaterialStateProperty.all(AppColors.mainColor)),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: Dimension.height3,
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     ElevatedButton.icon(
+                //       onPressed: () {
+                //         // Respond to button press
+                //       },
+                //
+                //       icon: const Icon(Icons.message),
+                //       label: const Text("Message"),
+                //
+                //       style: ButtonStyle(
+                //           shape: MaterialStateProperty.all(
+                //             RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Dimension.radius16)),
+                //           ),
+                //           minimumSize: MaterialStateProperty.all(
+                //             Size(MediaQuery.of(context).size.width / 2.3, 46),
+                //           ),
+                //           textStyle: MaterialStateProperty.all(TextStyle(
+                //               fontSize: Dimension.font5,
+                //               fontWeight: FontWeight.bold)),
+                //           backgroundColor:
+                //               MaterialStateProperty.all(AppColors.mainColor)),
+                //     ),
+                //     OutlinedButton.icon(
+                //       onPressed: () {
+                //         // Respond to button press
+                //       },
+                //
+                //       icon: const Icon(Icons.web),
+                //       label: const Text("Website"),
+                //
+                //       style: ButtonStyle(
+                //           shape: MaterialStateProperty.all(
+                //             RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Dimension.radius16)),
+                //           ),
+                //           minimumSize: MaterialStateProperty.all(
+                //             Size(MediaQuery.of(context).size.width / 2.3, 46),
+                //           ),
+                //           textStyle: MaterialStateProperty.all(TextStyle(
+                //               fontSize: Dimension.font5,
+                //               fontWeight: FontWeight.bold)),
+                //           side: MaterialStateProperty.all(
+                //               BorderSide(color: AppColors.mainColor, width: 2)),
+                //           foregroundColor:
+                //               MaterialStateProperty.all(AppColors.mainColor)),
+                //     )
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: Dimension.height3,
+                // ),
 
                 const Divider(),
 
@@ -299,7 +281,7 @@ class _MentorProfileState extends State<MentorProfile> {
                     ListView.builder(
 
                         padding:const  EdgeInsets.symmetric(vertical: 0, horizontal: 3),
-                        itemCount: _course!.length,
+                        itemCount: _course?.length,
                         itemBuilder: (context, i) {
                           return Container(
                               padding:const EdgeInsets.all(20),
@@ -329,8 +311,7 @@ class _MentorProfileState extends State<MentorProfile> {
 
                                       size: const Size.fromRadius(48), // Image radius
 
-                                      child: Image.asset('assets/images/course.png',
-                                          fit: BoxFit.cover),
+                                      child:Image.network(_course![i].image.toString()) ,
                                     ),
                                   ),
 
@@ -345,7 +326,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                         children: [
 
                                           Text(
-                                            _course![i].name,
+                                            _course?[i].name ?? '',
                                             overflow: TextOverflow.ellipsis,
                                             style:const TextStyle(
 
@@ -360,7 +341,7 @@ class _MentorProfileState extends State<MentorProfile> {
                                             height: 10,
                                           ),
                                           Text(
-                                            _course![i].estimateHour.toString() + ' hours',
+                                            _course?[i].estimateHour.toString() ?? '' + 'hours',
                                             style: const TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 18,
@@ -369,19 +350,19 @@ class _MentorProfileState extends State<MentorProfile> {
                                           const SizedBox(
                                             height: 10,
                                           ),
-                                          // GFProgressBar(
-                                          //   percentage: 0.7,
-                                          //   lineHeight: 5,
-                                          //   alignment: MainAxisAlignment.spaceBetween,
-                                          //   trailing: const Text(
-                                          //     '70/100',
-                                          //     textAlign: TextAlign.end,
-                                          //     style: TextStyle(
-                                          //         fontSize: 14, color: Colors.grey),
-                                          //   ),
-                                          //   backgroundColor: Colors.black12,
-                                          //   progressBarColor: Colors.blue,
-                                          // )
+                                          GFProgressBar(
+                                            percentage: 0.7,
+                                            lineHeight: 5,
+                                            alignment: MainAxisAlignment.spaceBetween,
+                                            trailing: const Text(
+                                              '70/100',
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                  fontSize: 14, color: Colors.grey),
+                                            ),
+                                            backgroundColor: Colors.black12,
+                                            progressBarColor: Colors.blue,
+                                          )
 
                                         ],
                                       ))

@@ -1,9 +1,8 @@
-import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
+import 'package:edu2gether_mobile/utilities/dimensions.dart';
 
-import 'package:edu2gether_mobile/widgets/button_update.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -11,29 +10,17 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../models/mentee.dart';
 
-import '../../routes/routes.dart';
-import '../../widgets/button_login.dart';
+import 'package:edu2gether_mobile/models/authen_response.dart';
+import 'package:get/get.dart';
 
 
 class ProfileEdit extends StatefulWidget{
 
   String id;
-  String fullName;
-  String? phone;
-  String? address;
-  String? university;
-  String? country;
-  String? gender;
-  String? image;
+  AuthenResponse user;
 
-  ProfileEdit({required this.id,
-    required this.fullName,
-    this.phone,
-    this.address,
-    this.university,
-    this.country,
-    this.gender,
-    this.image,Key? key}) : super(key: key);
+
+  ProfileEdit({required this.id, required this.user, Key? key}) : super(key: key);
 
 
   @override
@@ -47,43 +34,64 @@ class _profileEditState extends State<ProfileEdit> {
 
   var isLoaded = false;
 
+  late String? _fullName;
+  late String _phone;
+  late String _address;
+  late String _university;
+  late String _country = "VN";
+  late String _gender;
+  late String _image;
+
   @override
   void initState(){
     super.initState();
     _getMentee();
-    _patchMenteeById();
   }
 
-  _patchMenteeById() async{
-    _mentee = await MenteeService().updateMenteeById(_mentee!, _mentee!.id);
-  }
 
   _getMentee() async{
-    _mentee = (await MenteeService().getMenteeById(_mentee?.id ?? 0));
+    if(widget.user!.isConfirmedInfo){
+      _mentee = (await MenteeService().getMenteeById(widget.id));
+    }
+    else {
+      isLoaded = true;
+      _fullName = widget.user!.name;
+      _image = widget.user!.image ?? "";
+      _phone = widget.user!.phone ?? "";
+    }
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(_mentee != null){
+      _country = _mentee!.country;
+      _fullName = _mentee!.fullName;
+      _address = _mentee!.address;
+      _phone = _mentee!.phone;
+      _university = _mentee!.university;
+      _image = _mentee!.image;
+      dropdownValue = _mentee!.gender;
       isLoaded = true;
     }
   }
-
 
   String dropdownValue = 'Male';
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home:GestureDetector(
+    return SingleChildScrollView(
+      physics: ScrollPhysics(),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minHeight: MediaQuery.of(context).size.height,
+          maxHeight: MediaQuery.of(context).size.height + 300
+        ),
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
-
+          //resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: AppBar(
             leading: BackButton(
               color: Colors.black,
-              onPressed: () async{
-                Navigator.pop(context,false);
+              onPressed: (){
                 Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => Profile(id: '', fullName: '', phone: '', address: '', university: '', country: '', gender: '', image: '',)));
+                    MaterialPageRoute(builder: (context) => Profile()));
               },
             ),
             backgroundColor: Colors.white,
@@ -106,7 +114,7 @@ class _profileEditState extends State<ProfileEdit> {
                   ))
             ],
           ),
-          body: Column(
+          body: isLoaded == false ? Center(child: CircularProgressIndicator(),): Column(
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top:0),
@@ -115,7 +123,7 @@ class _profileEditState extends State<ProfileEdit> {
                   children: <Widget> [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24),
+                        padding: const EdgeInsets.only(left: 24, right: 24,top: 5),
                         child: SizedBox(
                           width: 380,
                           height: 56,
@@ -128,7 +136,8 @@ class _profileEditState extends State<ProfileEdit> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: AppColors.mainColor),
                                   borderRadius: BorderRadius.circular(12)),
-                              hintText: _mentee!.fullName,
+                              labelText: 'Full Name',
+                              hintText: _mentee?.fullName ?? widget.user!.name,
                               fillColor: AppColors.inputColor,
                               filled: true,
                             ),
@@ -139,6 +148,12 @@ class _profileEditState extends State<ProfileEdit> {
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                             ),
+                            onChanged: (value){
+                              setState(() {
+                                _fullName = value.trim();
+                              });
+
+                            },
                           ),
 
                         ),
@@ -165,7 +180,8 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
-                            hintText:  _mentee!.university,
+                            labelText: 'University',
+                            hintText:  _mentee?.university,
                             fillColor: AppColors.inputColor,
                             filled: true,
                           ),
@@ -176,6 +192,9 @@ class _profileEditState extends State<ProfileEdit> {
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
+                          onChanged: (value){
+                            _university = value.trim();
+                          },
                         ),
 
                       ),
@@ -192,7 +211,7 @@ class _profileEditState extends State<ProfileEdit> {
                       child: SizedBox(
                         width: 380,
                         height: 56,
- 
+
                         child: TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -201,7 +220,8 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
-                            hintText: _mentee!.address,
+                            labelText: 'Address',
+                            hintText: _mentee?.address,
                             fillColor: AppColors.inputColor,
                             filled: true,
                             suffixIcon: const Icon(Icons.mail_sharp),
@@ -212,42 +232,9 @@ class _profileEditState extends State<ProfileEdit> {
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
-                        ),
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                      child: SizedBox(
-                        width: 380,
-                        height: 56,
-
-                        child: TextField(
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(12)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: AppColors.mainColor),
-                                  borderRadius: BorderRadius.circular(12)),
-                              hintText: _mentee!.country,
-                              fillColor: AppColors.inputColor,
-                              filled: true,
-                              suffixIcon: const Icon(Icons.keyboard_arrow_down)
-                          ),
-                          style: const TextStyle(
-
-                            fontFamily: 'Urbanist',
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          onChanged: (value){
+                            _address = value.trim();
+                          },
                         ),
 
                       ),
@@ -266,14 +253,18 @@ class _profileEditState extends State<ProfileEdit> {
                         height: 56,
                         child: IntlPhoneField(
                           decoration: InputDecoration(
-                            labelText: _mentee!.phone,
+                            labelText: 'Phone',
+                            hintText: _mentee?.phone ?? widget.user?.phone,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide(),
                             ),
                           ),
-                          initialCountryCode: 'NP',
+                          initialCountryCode: 'VN',
                           onChanged: (phone) {
-                            print(phone.completeNumber);
+                            _phone = phone.completeNumber.toString().trim();
+                          },
+                          onCountryChanged: (country) {
+                            _country = country.name.toString().trim();
                           },
                         ),
 
@@ -309,6 +300,7 @@ class _profileEditState extends State<ProfileEdit> {
                           onChanged: (String? newValue) {
                             setState(() {
                               dropdownValue = newValue!;
+                              _gender = dropdownValue.trim();
                             });
                           },
                           items: <String>['Male', 'Female', 'LGBT', 'Hide'].map<DropdownMenuItem<String>>((String value) {
@@ -345,7 +337,8 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
-                            hintText: _mentee!.image,
+                            labelText: 'Image Link',
+                            hintText: _mentee?.image,
                             fillColor: AppColors.inputColor,
                             filled: true,
                           ),
@@ -355,33 +348,49 @@ class _profileEditState extends State<ProfileEdit> {
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
                           ),
+                          onChanged: (value){
+                            _image = value.trim();
+                          },
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-              Expanded(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: SizedBox(
-                        height: 58,
-                        width: 380,
-                        child:  Card(
-                          child: ButtonUpdate(route: RoutesClass.getProfileRoute(), title: 'Update',),
-                        ),
-                      ),
-                    ),
-                  )
+              SizedBox(
+                height: Dimension.height50,
               ),
+              SizedBox(
+                            height: 58,
+                            width: 380,
+                            child:  Card(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    textStyle:
+                                    TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                                onPressed: () {
+                                  Mentee mentee = Mentee(id: widget.id, fullName: _fullName, phone: _phone, address: _address, university: _university, country: _country, gender: _gender, image: _image);
+                                  MenteeService().editMentee(mentee, !widget.user!.isConfirmedInfo);
+                                },
+                                child: Text(
+                                    'Update'
+                                ),
+                              ),
+                            ),
+                          ),
             ],
           ),
 
         ),
       ),
     );
+
+
   }
 
 }

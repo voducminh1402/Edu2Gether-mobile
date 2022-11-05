@@ -20,8 +20,7 @@ class MenteeService {
 
   Future<Mentee?> getMenteeById(id) async{
     try{
-      id = 1;
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentees/1");
+      var url = Uri.parse("http://54.255.199.121/api/v1/mentees/"+id.toString());
       var response = await http.get(url);
       if(response.statusCode == 200){
         Mentee _mentee = Mentee.fromJson(jsonDecode(response.body));
@@ -33,20 +32,33 @@ class MenteeService {
     }
   }
 
-  Future<Mentee?> updateMenteeById(Mentee mentee, id) async{
+  Future<Mentee?> editMentee(Mentee mentee, bool isCreate) async{
     try{
-      id = 1;
       var url = Uri.parse("http://54.255.199.121/api/v1/mentees");
-      var response = await http.patch(
-        url,
-        body:{
-          "id": mentee.id,
-          "fullName" : mentee.fullName,
-          "phone": mentee.phone
-        },
-        ).then((value) => {
-          print(value.body),
-      });
+      var response;
+      if(isCreate){
+        response = await http.post(url,
+          headers: {
+            "accept": "text/plain",
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(mentee)
+        );
+      }
+      else {
+        response = await http.patch(url,
+            headers: {
+              "accept": "text/plain",
+              "Content-Type": "application/json"
+            },
+            body: jsonEncode(mentee)
+        );
+      }
+
+      if(response.statusCode == 200){
+        Mentee _menteeUpdate = Mentee.fromJson(jsonDecode(response.body));
+        return _menteeUpdate;
+      }
     }
     catch(e)
     {

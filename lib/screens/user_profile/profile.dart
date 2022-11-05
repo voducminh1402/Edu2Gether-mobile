@@ -1,6 +1,9 @@
 
 
+import 'package:edu2gether_mobile/models/authen_response.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
 
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 
@@ -15,23 +18,10 @@ import 'package:get/get.dart';
 class Profile extends StatefulWidget {
 
 
-  String id;
-  String fullName;
-  String phone;
-  String address;
-  String university;
-  String country;
-  String gender;
-  String image;
+  String? id;
 
-  Profile({required this.id,
-    required this.fullName,
-    required this.phone,
-    required this.address,
-    required this.university,
-    required this.country,
-    required this.gender,
-    required this.image,Key? key}) : super(key: key);
+
+  Profile({this.id, Key? key}) : super(key: key);
 
 
   @override
@@ -44,6 +34,9 @@ class _profileState extends State<Profile>{
   Mentee? mentee;
   var isLoaded = false;
 
+  late String id;
+  late AuthenResponse user;
+
   @override
   void initState(){
     super.initState();
@@ -51,11 +44,16 @@ class _profileState extends State<Profile>{
   }
 
   getData() async{
-    mentee = await MenteeService().getMenteeById(mentee?.id ?? 0);
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(mentee != null){
-      isLoaded = true;
-    }
+    await AuthService().getUserLogin().then((value) async {
+      id = value.id;
+      user = value;
+      mentee = await MenteeService().getMenteeById(id);
+      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+      if(mentee != null){
+        isLoaded = true;
+      }
+    });
+
   }
 
 
@@ -100,8 +98,8 @@ class _profileState extends State<Profile>{
             ],
             elevation: 0
         ),
-        body: Visibility(
-          visible: isLoaded,
+        body:  isLoaded == false ? Center(child: CircularProgressIndicator(),):Visibility(
+          visible: isLoaded = true,
           replacement: const Center(
             child: CircularProgressIndicator(),
           ),
@@ -129,8 +127,7 @@ class _profileState extends State<Profile>{
                     Padding(
                       padding: const EdgeInsets.only(top: 24),
                       child: Text(
-                        mentee!.fullName,
-
+                        mentee?.fullName!! ?? '',
                         style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
                       ),
                     ),
@@ -142,7 +139,7 @@ class _profileState extends State<Profile>{
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        mentee!.university,
+                        mentee?.university!! ?? '',
                         style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
                       ),
                     ),
@@ -157,7 +154,7 @@ class _profileState extends State<Profile>{
                 ),
                 GestureDetector(
                   onTap: () async{
-                    Get.toNamed(RoutesClass.getProfileEditRoute());
+                    Get.to(() => ProfileEdit(id: id, user: user));
                   } ,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -354,32 +351,32 @@ class _profileState extends State<Profile>{
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child: SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
-                              title: Text(
-                                'Help Center',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top:10),
+                //   child:  Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: const <Widget> [
+                //       Expanded(
+                //         child: SizedBox(
+                //           width: 380,
+                //           height: 28,
+                //           child: ListTile(
+                //               leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
+                //               title: Text(
+                //                 'Help Center',
+                //                 style: TextStyle(
+                //                   fontFamily: 'Urbanist',
+                //                   fontSize: 18,
+                //                   fontWeight: FontWeight.w600,
+                //                 ),
+                //               ),
+                //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(top:10),
                   child:  Row(
@@ -406,31 +403,34 @@ class _profileState extends State<Profile>{
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child:  SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.person_outlined,color: Colors.black,),
-                              title: Text(
-                                'Logout',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.red,
+                GestureDetector(
+                  onTap: () => AuthService().signOut(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top:10),
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const <Widget> [
+                        Expanded(
+                          child:  SizedBox(
+                            width: 380,
+                            height: 28,
+                            child: ListTile(
+                                leading: Icon(Icons.person_outlined,color: Colors.black,),
+                                title: Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                    fontFamily: 'Urbanist',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                  ),
                                 ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                                trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
 
