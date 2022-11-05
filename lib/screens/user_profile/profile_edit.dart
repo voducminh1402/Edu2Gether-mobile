@@ -253,7 +253,7 @@ class _profileEditState extends State<ProfileEdit> {
                       padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
                       child: SizedBox(
                         width: 380,
-                        height: 56,
+                        height: 80,
                         child: IntlPhoneField(
                           decoration: InputDecoration(
                             labelText: 'Phone',
