@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
 
       // home: AuthService().handleAuthState(),
 
-      home: Profile(id: '1',),
+      home: Login(),
 
 
       getPages: RoutesClass.routes,

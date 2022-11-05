@@ -32,10 +32,29 @@ class MenteeService {
     }
   }
 
-  Future<Mentee?> updateMentee(Mentee mentee) async{
+  Future<Mentee?> editMentee(Mentee mentee, bool isCreate) async{
     try{
       var url = Uri.parse("http://54.255.199.121/api/v1/mentees");
-      var response = await http.patch(url);
+      var response;
+      if(isCreate){
+        response = await http.post(url,
+          headers: {
+            "accept": "text/plain",
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(mentee)
+        );
+      }
+      else {
+        response = await http.patch(url,
+            headers: {
+              "accept": "text/plain",
+              "Content-Type": "application/json"
+            },
+            body: jsonEncode(mentee)
+        );
+      }
+
       if(response.statusCode == 200){
         Mentee _menteeUpdate = Mentee.fromJson(jsonDecode(response.body));
         return _menteeUpdate;
