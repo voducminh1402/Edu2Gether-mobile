@@ -8,7 +8,7 @@ import 'package:edu2gether_mobile/models/course.dart';
 class CourseService{
   Future<List<Course>?> getCourses() async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1" + "/courses");
+      var url = Uri.parse("http://54.255.199.121/api/v1/courses");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Course> _model = courseFromJson(response.body);
@@ -22,8 +22,7 @@ class CourseService{
 
   Future<List<Course>?> getCoursesByMentorId(id) async {
     try {
-      id = 1;
-      var url = Uri.parse("http://54.255.199.121/api/v1/courses/mentors/1");
+      var url = Uri.parse("http://54.255.199.121/api/v1/courses/mentors/" + id.toString());
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Course> _coursesByMentorId = courseFromJson(response.body);
