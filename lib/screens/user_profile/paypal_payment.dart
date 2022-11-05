@@ -77,3 +77,6 @@ class _PaypalPaymentState extends State<PaypalPayment> {
     }
   }
 }
+///Paypal Account
+///sb-ftdd021746778@personal.example.com
+///12345678

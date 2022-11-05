@@ -49,12 +49,8 @@ class _profileEditState extends State<ProfileEdit> {
   void initState(){
     super.initState();
     _getMentee();
-
   }
 
-  // _patchMenteeById() async{
-  //   _mentee = await MenteeService().updateMenteeById(_mentee?.id!!!!! ?? 0);
-  // }
 
   _getMentee() async{
     _mentee = (await MenteeService().getMenteeById(widget.id));
@@ -120,7 +116,7 @@ class _profileEditState extends State<ProfileEdit> {
                   children: <Widget> [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24),
+                        padding: const EdgeInsets.only(left: 24, right: 24,top: 5),
                         child: SizedBox(
                           width: 380,
                           height: 56,
@@ -133,6 +129,7 @@ class _profileEditState extends State<ProfileEdit> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: AppColors.mainColor),
                                   borderRadius: BorderRadius.circular(12)),
+                              labelText: 'Full Name',
                               hintText: _mentee?.fullName,
                               fillColor: AppColors.inputColor,
                               filled: true,
@@ -176,6 +173,7 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
+                            labelText: 'University',
                             hintText:  _mentee?.university,
                             fillColor: AppColors.inputColor,
                             filled: true,
@@ -215,6 +213,7 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
+                            labelText: 'Address',
                             hintText: _mentee?.address,
                             fillColor: AppColors.inputColor,
                             filled: true,
@@ -247,7 +246,8 @@ class _profileEditState extends State<ProfileEdit> {
                         height: 56,
                         child: IntlPhoneField(
                           decoration: InputDecoration(
-                            labelText: _mentee?.phone,
+                            labelText: 'Phone',
+                            hintText: _mentee?.phone,
                             border: const OutlineInputBorder(
                               borderSide: BorderSide(),
                             ),
@@ -330,6 +330,7 @@ class _profileEditState extends State<ProfileEdit> {
                             focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: AppColors.mainColor),
                                 borderRadius: BorderRadius.circular(12)),
+                            labelText: 'Image Link',
                             hintText: _mentee?.image,
                             fillColor: AppColors.inputColor,
                             filled: true,
@@ -368,7 +369,7 @@ class _profileEditState extends State<ProfileEdit> {
                                 textStyle:
                                 TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                             onPressed: () {
-
+                              MenteeService().updateMentee(_getMentee());
                             },
                             child: Text(
                                 'Update'
