@@ -52,7 +52,7 @@ class RoutesClass{
     GetPage(name: createAccount, page: () => const CreateAccount()),
     GetPage(name: login, page: () => const Login()),
     GetPage(name: profile, page: () =>  Profile(id: '',)),
-    GetPage(name: profileEdit, page: () =>  ProfileEdit(id: '',)),
+    //GetPage(name: profileEdit, page: () =>  ProfileEdit(id: '',)),
     GetPage(name: profilePayment, page: () => const ProfilePayment()),
     GetPage(name: paymentEnrollCourse, page: () => const PaymentEnrollCourse()),
     GetPage(name: pinEnrollCourse, page: () => PinEnrollCourse()),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:edu2gether_mobile/models/authen_response.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -73,6 +74,13 @@ class AuthService{
     checkUserState();
   }
 
+  Future<AuthenResponse> getUserLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? response = prefs.getString("user");
+    AuthenResponse user = AuthenResponse.fromJson(jsonDecode(response!));
+    return user;
+  }
+
   checkUserState(){
     FirebaseAuth.instance
         .authStateChanges()
@@ -80,6 +88,8 @@ class AuthService{
         .listen((User? user) async {
 
       if (user == null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.clear();
         print('User is currently signed out!');
         Get.to(() => Login());
       } else {
@@ -88,9 +98,15 @@ class AuthService{
         await user.getIdToken().then((result)
         async {
           final prefs = await SharedPreferences.getInstance();
-          await prefs.setString("user", result);
+
           AuthenResponse? response = await login(result);
-          Get.to(() => ProfileEdit(id: response!.id,));
+          await prefs.setString("user", jsonEncode(response));
+          if(!response!.isConfirmedInfo){
+            Get.to(() => ProfileEdit(id: response!.id, user: response,));
+          }
+          else {
+            Get.to(() => const MainPage());
+          }
         });
         
       }

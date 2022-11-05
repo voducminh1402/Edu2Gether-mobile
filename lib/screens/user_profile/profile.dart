@@ -1,6 +1,9 @@
 
 
+import 'package:edu2gether_mobile/models/authen_response.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
 
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 
@@ -15,14 +18,14 @@ import 'package:get/get.dart';
 class Profile extends StatefulWidget {
 
 
-  String id;
+  String? id;
 
 
-  Profile({required this.id, Key? key}) : super(key: key);
+  Profile({this.id, Key? key}) : super(key: key);
 
 
   @override
-  State<Profile> createState() => _profileState(id.toString());
+  State<Profile> createState() => _profileState();
 }
 
 class _profileState extends State<Profile>{
@@ -31,12 +34,8 @@ class _profileState extends State<Profile>{
   Mentee? mentee;
   var isLoaded = false;
 
-  String name = 'trung';
-
-  _profileState(String id){
-    id = name;
-    print(id);
-  }
+  late String id;
+  late AuthenResponse user;
 
   @override
   void initState(){
@@ -45,11 +44,16 @@ class _profileState extends State<Profile>{
   }
 
   getData() async{
-    mentee = await MenteeService().getMenteeById(widget.id);
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(mentee != null){
-      isLoaded = true;
-    }
+    await AuthService().getUserLogin().then((value) async {
+      id = value.id;
+      user = value;
+      mentee = await MenteeService().getMenteeById(id);
+      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+      if(mentee != null){
+        isLoaded = true;
+      }
+    });
+
   }
 
 
@@ -150,7 +154,7 @@ class _profileState extends State<Profile>{
                 ),
                 GestureDetector(
                   onTap: () async{
-                    Get.toNamed(RoutesClass.getProfileEditRoute());
+                    Get.to(() => ProfileEdit(id: id, user: user));
                   } ,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -347,32 +351,32 @@ class _profileState extends State<Profile>{
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child: SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
-                              title: Text(
-                                'Help Center',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top:10),
+                //   child:  Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: const <Widget> [
+                //       Expanded(
+                //         child: SizedBox(
+                //           width: 380,
+                //           height: 28,
+                //           child: ListTile(
+                //               leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
+                //               title: Text(
+                //                 'Help Center',
+                //                 style: TextStyle(
+                //                   fontFamily: 'Urbanist',
+                //                   fontSize: 18,
+                //                   fontWeight: FontWeight.w600,
+                //                 ),
+                //               ),
+                //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.only(top:10),
                   child:  Row(
@@ -399,31 +403,34 @@ class _profileState extends State<Profile>{
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child:  SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.person_outlined,color: Colors.black,),
-                              title: Text(
-                                'Logout',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.red,
+                GestureDetector(
+                  onTap: () => AuthService().signOut(),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top:10),
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const <Widget> [
+                        Expanded(
+                          child:  SizedBox(
+                            width: 380,
+                            height: 28,
+                            child: ListTile(
+                                leading: Icon(Icons.person_outlined,color: Colors.black,),
+                                title: Text(
+                                  'Logout',
+                                  style: TextStyle(
+                                    fontFamily: 'Urbanist',
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.red,
+                                  ),
                                 ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                                trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
 
