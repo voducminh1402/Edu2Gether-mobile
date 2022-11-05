@@ -15,7 +15,7 @@ import 'package:get/get.dart';
 class Profile extends StatefulWidget {
 
 
-  String? id;
+  String id;
 
 
   Profile({required this.id, Key? key}) : super(key: key);
@@ -45,7 +45,7 @@ class _profileState extends State<Profile>{
   }
 
   getData() async{
-    mentee = await MenteeService().getMenteeById(mentee?.id ?? 0);
+    mentee = await MenteeService().getMenteeById(widget.id);
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(mentee != null){
       isLoaded = true;
@@ -94,7 +94,7 @@ class _profileState extends State<Profile>{
             ],
             elevation: 0
         ),
-        body: Visibility(
+        body:  isLoaded == false ? Center(child: CircularProgressIndicator(),):Visibility(
           visible: isLoaded = true,
           replacement: const Center(
             child: CircularProgressIndicator(),
