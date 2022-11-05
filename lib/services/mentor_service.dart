@@ -22,8 +22,7 @@ class MentorService{
 
   Future<Mentor?> getMentorById(id) async{
     try{
-      id = 1;
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentors/1");
+      var url = Uri.parse("http://54.255.199.121/api/v1/mentors/" + id.toString());
       var response = await http.get(url);
       if(response.statusCode == 200){
         Mentor _mentor = Mentor.fromJson(jsonDecode(response.body));

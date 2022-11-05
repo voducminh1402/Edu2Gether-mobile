@@ -16,7 +16,7 @@ class Transaction {
     required this.paymentId,
     required this.description,
     required this.status,
-    required this.amoun,
+    required this.amount,
     required this.walletId,
   });
 
@@ -26,7 +26,7 @@ class Transaction {
   int paymentId;
   String description;
   String status;
-  num amoun;
+  num amount;
   int walletId;
 
 
@@ -37,7 +37,7 @@ class Transaction {
     paymentId: json["paymentId"],
     description: json["description"],
     status: json["status"],
-    amoun: json["amoun"],
+    amount: json["amoun"],
     walletId: json["walletId"],
   );
 
@@ -48,7 +48,7 @@ class Transaction {
     "paymentId": paymentId,
     "description": description,
     "status": status,
-    "amoun": amoun,
+    "amoun": amount,
     "walletId": walletId,
   };
 }
