@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:edu2gether_mobile/models/authen_response.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
@@ -13,6 +14,7 @@ import 'package:http/http.dart' as http;
 import 'dart:developer';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:edu2gether_mobile/utilities/path.dart';
 
 class AuthService{
   final auth = FirebaseAuth.instance;
@@ -83,7 +85,7 @@ class AuthService{
 
   checkUserState(){
     FirebaseAuth.instance
-        .authStateChanges()
+        .userChanges()
 
         .listen((User? user) async {
 
@@ -101,13 +103,15 @@ class AuthService{
 
           AuthenResponse? response = await login(result);
           await prefs.setString("user", jsonEncode(response));
-          if(!response!.isConfirmedInfo){
+          if(response != null && !response!.isConfirmedInfo){
             Get.to(() => ProfileEdit(id: response!.id, user: response,));
           }
           else {
             Get.to(() => const MainPage());
           }
         });
+
+
         
       }
     });
@@ -115,7 +119,7 @@ class AuthService{
 
   Future<List<Mentee>?> getMentees() async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1" + "/mentees");
+      var url = Uri.parse(Path.path + "/mentees");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Mentee> _model = menteeFromJson(response.body);
@@ -129,15 +133,16 @@ class AuthService{
 
   Future<AuthenResponse?> login(token) async {
     try{
-      var response = await http.post(Uri.parse("http://54.255.199.121/api/v1/authentication/login?token=" + token),
+      var response = await http.post(Uri.parse(Path.path + "/authentication/login?token=" + token),
+        headers: {
+          "accept": "*/*"
+        }
       );
       print("anh vui ve");
       print(response.body.toString() + "respone");
 
       if (response.statusCode == 200) {
         return AuthenResponse.fromJson(jsonDecode(response.body));
-      } else {
-        print(response.body);
       }
     } catch(e){
       rethrow;

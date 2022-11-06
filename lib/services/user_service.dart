@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:edu2gether_mobile/models/user.dart';
+import 'package:edu2gether_mobile/utilities/path.dart';
 import 'package:http/http.dart' as http;
 
 
@@ -8,7 +9,7 @@ class UserService{
 
   static Future<User?> getUserByWalletID(id) async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/wallets/"+ id.toString() +"/user");
+      var url = Uri.parse(Path.path  + "/wallets/"+ id.toString() +"/user");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         User _model = User.fromJson(jsonDecode(response.body));
