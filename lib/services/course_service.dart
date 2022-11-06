@@ -21,6 +21,21 @@ class CourseService{
     }
   }
 
+  Future<Course?> getCoursesById(id) async {
+    try {
+      var url = Uri.parse(Path.path+ "/courses/" + id.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        Course _course = Course.fromJson(jsonDecode(response.body));
+        return _course;
+
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
   Future<List<Course>?> getCoursesByMentorId(id) async {
     try {
       var url = Uri.parse(Path.path+ "/courses/mentors/" + id.toString());

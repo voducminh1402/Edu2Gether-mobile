@@ -1,5 +1,6 @@
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/subject.dart';
+import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/major_service.dart';
@@ -144,112 +145,106 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                             padding: EdgeInsets.symmetric(vertical: Dimension.height5),
                             itemCount: _courses!.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                  padding: EdgeInsets.all(20),
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                    BorderRadius.circular(Dimension.radius12),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        spreadRadius: 2,
-                                        blurRadius: 2,
-                                        offset: Offset(0, 2), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        // Image border
-                                        child: SizedBox.fromSize(
-                                          size: Size.fromRadius(62), // Image radius
-                                          child: Image.network(_courses![index].image.toString()),
+                              return GestureDetector(
+                                onTap: () => Get.to(() => VideoCourseDetails(id: _courses![index].id)),
+                                child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    margin: EdgeInsets.symmetric(vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                      BorderRadius.circular(Dimension.radius12),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.1),
+                                          spreadRadius: 2,
+                                          blurRadius: 2,
+                                          offset: Offset(0, 2), // changes position of shadow
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      Expanded(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(_courses![index].major.name.toString(), style: TextStyle(color: Colors.white),),
-                                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                                                    decoration: BoxDecoration(
-                                                      color: AppColors.mainColor,
-                                                      border: Border.all(color: Colors.blue),
-                                                      borderRadius: BorderRadius.circular(6),
-
-                                                    ),
-                                                  ),
-                                                  Icon(Icons.bookmark_outline, color: AppColors.mainColor, size: Dimension.font10,)
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                _courses![index].name.toString(),
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 22,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'Urbanist'),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text.rich(
-                                                TextSpan(
-                                                  text: '\$${_courses![index].price.toString()}',
-                                                  style: TextStyle(
-                                                    fontSize: Dimension.font6,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.blueAccent,
-                                                  ), // default text style
-                                                  // children: <TextSpan>[
-                                                  //   TextSpan(
-                                                  //     text: ' \$80',
-                                                  //     style: TextStyle(
-                                                  //       fontSize: Dimension.font5,
-                                                  //       color: Colors.black38,
-                                                  //     ),
-                                                  //   ),
-                                                  // ],
-                                                ),
-                                              ),
-                                              SizedBox(height: Dimension.height3,),
-                                              RichText(
-                                                text: TextSpan(
+                                      ],
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(20),
+                                          // Image border
+                                          child: SizedBox.fromSize(
+                                            size: Size.fromRadius(62), // Image radius
+                                            child: Image.network(_courses![index].image.toString()),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [
-                                                    WidgetSpan(
-                                                      child: Icon(Icons.star, size: Dimension.font5),
+                                                    Container(
+                                                      child: Text(_courses![index].major!.name.toString(), style: TextStyle(color: Colors.white),),
+                                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors.mainColor,
+                                                        border: Border.all(color: Colors.blue),
+                                                        borderRadius: BorderRadius.circular(6),
+
+                                                      ),
                                                     ),
-                                                    WidgetSpan(child: SizedBox(width: Dimension.width3,),),
-                                                    TextSpan(
-                                                        text: "4.7 | ",
-                                                        style: TextStyle(color: Colors.black38)
-                                                    ),
-                                                    TextSpan(
-                                                        text: "7,938 students", style: TextStyle(color: Colors.black38)
-                                                    ),
+                                                    Icon(Icons.bookmark_outline, color: AppColors.mainColor, size: Dimension.font10,)
                                                   ],
                                                 ),
-                                              ),
-                                            ],
-                                          ))
-                                    ],
-                                  ));
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  _courses![index].name.toString(),
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 22,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontFamily: 'Urbanist'),
+                                                ),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text.rich(
+                                                  TextSpan(
+                                                    text: '\$${_courses![index].price.toString()}',
+                                                    style: TextStyle(
+                                                      fontSize: Dimension.font6,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.blueAccent,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: Dimension.height3,),
+                                                RichText(
+                                                  text: TextSpan(
+                                                    children: [
+                                                      WidgetSpan(
+                                                        child: Icon(Icons.star, size: Dimension.font5),
+                                                      ),
+                                                      WidgetSpan(child: SizedBox(width: Dimension.width3,),),
+                                                      TextSpan(
+                                                          text: "4.7 | ",
+                                                          style: TextStyle(color: Colors.black38)
+                                                      ),
+                                                      TextSpan(
+                                                          text: "7,938 students", style: TextStyle(color: Colors.black38)
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ))
+                                      ],
+                                    )),
+                              );
                             }),
                       )
                     ],
