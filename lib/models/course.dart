@@ -97,6 +97,8 @@
 
 import 'dart:convert';
 
+import 'package:edu2gether_mobile/models/mentor.dart';
+
 List<Course> courseFromJson(String str) => List<Course>.from(json.decode(str).map((x) => Course.fromJson(x)));
 
 String courseToJson(List<Course> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -129,8 +131,9 @@ class Course {
     required this.isActived,
     required this.approver,
     required this.approveStatus,
-    required this.subject,
-    required this.major,
+    this.subject,
+    this.major,
+    this.mentor
   });
 
   int id;
@@ -151,8 +154,9 @@ class Course {
   String isActived;
   String approver;
   int approveStatus;
-  Subject subject;
-  Major major;
+  Subject? subject;
+  Major? major;
+  Mentor? mentor;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
     id: json["id"],
@@ -173,8 +177,9 @@ class Course {
     isActived: json["isActived"],
     approver: json["approver"],
     approveStatus: json["approveStatus"],
-    subject: Subject.fromJson(json["subject"]),
-    major: Major.fromJson(json["major"]),
+    subject:json["subject"] == null ? null : Subject.fromJson(json["subject"]),
+    major: json["major"] == null ? null : Major.fromJson(json["major"]),
+    mentor: json["mentor"] == null ? null : Mentor.fromJson(json["mentor"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -196,8 +201,9 @@ class Course {
     "isActived": isActived,
     "approver": approver,
     "approveStatus": approveStatus,
-    "subject": subject.toJson(),
-    "major": major.toJson(),
+    "subject": subject == null ? null : subject!.toJson(),
+    "major": major == null ? null : major!.toJson(),
+    "mentor": mentor == null ? null : mentor!.toJson(),
   };
 }
 

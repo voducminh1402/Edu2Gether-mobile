@@ -4,6 +4,7 @@ import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
+import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 
 
 import 'package:edu2gether_mobile/services/auth_service.dart';
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
       // home: AuthService().handleAuthState(),
 
       //home: MentorProfile(id: "1",),
+      //home: VideoCourseDetails(id: 4),
       home: Login(),
 
 
