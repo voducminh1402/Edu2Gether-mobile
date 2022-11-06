@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:edu2gether_mobile/models/course.dart';
+import 'package:edu2gether_mobile/utilities/path.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:edu2gether_mobile/models/subject.dart';
@@ -25,7 +26,7 @@ class SubjectService{
 
   Future<List<Subject>?> getSubjectById(int id) async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/subjects/" + id.toString());
+      var url = Uri.parse(Path.path  + "/subjects/" + id.toString());
       var response = await http.get(url,
           headers: {
             "accept": "text/plain"

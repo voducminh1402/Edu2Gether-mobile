@@ -39,7 +39,7 @@ class _profileEditState extends State<ProfileEdit> {
   late String _address;
   late String _university;
   late String _country = "VN";
-  late String _gender;
+  late String _gender = "Male";
   late String _image;
 
   @override
