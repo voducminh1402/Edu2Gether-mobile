@@ -35,4 +35,20 @@ class CourseService{
       log(e.toString());
     }
   }
+
+  Future<List<Course>?> getBookmarkByUserId(id) async {
+    try {
+      var url = Uri.parse(Path.path+ "/marks/users/" + id.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _courses = courseFromJson(response.body);
+        return _courses;
+
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
 }

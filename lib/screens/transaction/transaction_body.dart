@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:getwidget/getwidget.dart';
+import '../../models/mentee.dart';
 import '../../models/transaction.dart';
+import '../../services/auth_service.dart';
+import '../../services/mentee_service.dart';
 import '../../utilities/colors.dart';
 import '../../utilities/dimensions.dart';
 import '../../widgets/defination_bottom_nav_text.dart';
@@ -24,7 +27,7 @@ class _TransactionBodyState extends State<TransactionBody> {
 
   late List<Transaction>? _transaction = [];
   var isLoaded = false;
-
+  Mentee? _mentee;
   //int id = 1;
 
   @override
@@ -34,7 +37,11 @@ class _TransactionBodyState extends State<TransactionBody> {
   }
 
   void _getData() async {
-    _transaction = (await TransactionService.getTransactionByID(1))!;
+    await AuthService().getUserLogin().then((value) async {
+      _mentee = await MenteeService().getMenteeById(value.id);
+      print(_mentee!.id);
+    });
+    _transaction = (await TransactionService.getTransactionByID(_mentee!.id))!;
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(_transaction != null){
       isLoaded = true;

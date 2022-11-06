@@ -3,6 +3,7 @@ import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/models/mentor.dart';
 import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 import 'package:edu2gether_mobile/screens/mostpopularcourse/most_popular_courses.dart';
+import 'package:edu2gether_mobile/screens/mybookmark/mybookmark.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
@@ -11,6 +12,8 @@ import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
@@ -54,7 +57,7 @@ class _MainHomePageState extends State<MainHomePage> {
         children: [
           //show header
           Container(
-              margin: EdgeInsets.only(top: 45, bottom: 15),
+              margin: EdgeInsets.only(top: 45, ),
               padding: EdgeInsets.only(left: 24, right: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,10 +105,18 @@ class _MainHomePageState extends State<MainHomePage> {
                         height: 40,
                         child: Icon(Icons.notifications_none, color: Colors.black, size: 30,),
                       ),
-                      Container(
-                          width: 40,
-                          height: 40,
-                          child: Icon(Icons.bookmark_outline, color: Colors.black, size: 30,)
+                      GestureDetector(
+                        onTap: () async {
+                          Get.to(MyBookmarkPage(id: _mentee!.id,));
+                          // Payment? payment = await PaymentService.getPaymentById(_transaction![i].paymentId);
+                          // print(payment!.id);
+                          // Get.to(EReceiptPage(id: payment.id, transactionId: _transaction![i].id, menteeId: _transaction![i].walletId, walletId: _transaction![i].walletId.toString(),));
+                        },
+                        child: Container(
+                            width: 40,
+                            height: 40,
+                            child: Icon(Icons.bookmark_outline, color: Colors.black, size: 30,)
+                        ),
                       ),
                     ],
                   )
@@ -123,13 +134,14 @@ class _MainHomePageState extends State<MainHomePage> {
                 children: [
                   Container(
                     width: 380,
-                    height: 50,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Search',
-                      ),
-                    ),
+                    height: 20,
+                    child: Text('__________________________________________________________________')
+                    // TextField(
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(),
+                    //     hintText: 'Search',
+                    //   ),
+                    // ),
                   ),
                   Container(
                     width: 380,
@@ -251,7 +263,7 @@ class _MainHomePageState extends State<MainHomePage> {
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     width: 380,
-                    height: 300,
+                    height: 330,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -274,7 +286,7 @@ class _MainHomePageState extends State<MainHomePage> {
                         ),
                         Container(
                           width: 380,
-                          height: 210,
+                          height: 310,
                           child: ListView.builder(
                               padding: EdgeInsets.symmetric(vertical: Dimension.height5),
                               itemCount: _courses!.length,
@@ -326,7 +338,7 @@ class _MainHomePageState extends State<MainHomePage> {
 
                                                       ),
                                                     ),
-                                                    Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,)
+                                                    Icon(Icons.local_fire_department, color: AppColors.fireRed, size: Dimension.font10,)
                                                   ],
                                                 ),
                                                 SizedBox(

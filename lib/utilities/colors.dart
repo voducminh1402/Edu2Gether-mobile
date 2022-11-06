@@ -14,4 +14,5 @@ class AppColors {
   static final Color yellowColor = const Color(0xFFffd279);
   static final Color greyScaleColor = const Color(0xD9D9D9);
   static final Color blueBookingSelected = const Color(0x5378FD);
+  static final Color fireRed = const Color(0xFFFF5722);
 }

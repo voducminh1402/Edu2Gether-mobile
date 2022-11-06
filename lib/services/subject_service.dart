@@ -9,7 +9,7 @@ import 'package:edu2gether_mobile/models/subject.dart';
 class SubjectService{
   Future<List<Subject>?> getSubject() async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/subjects");
+      var url = Uri.parse("https://54.255.199.121/api/v1/subjects");
       var response = await http.get(url,
       headers: {
         "accept": "text/plain"
