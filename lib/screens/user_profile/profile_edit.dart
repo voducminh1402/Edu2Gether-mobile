@@ -1,5 +1,6 @@
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
+import 'package:edu2gether_mobile/services/storage_services.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 
@@ -9,9 +10,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../models/mentee.dart';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:edu2gether_mobile/models/authen_response.dart';
-import 'package:get/get.dart';
+
+
 
 
 class ProfileEdit extends StatefulWidget{
@@ -76,6 +78,9 @@ class _profileEditState extends State<ProfileEdit> {
 
   @override
   Widget build(BuildContext context) {
+
+    final Storage storage = Storage();
+
     return SingleChildScrollView(
       physics: ScrollPhysics(),
       child: ConstrainedBox(
@@ -323,6 +328,47 @@ class _profileEditState extends State<ProfileEdit> {
                   ),
                 ],
               ),
+
+              //
+          Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
+                child: SizedBox(
+                  width: 380,
+                  height: 56,
+
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(12)),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.mainColor),
+                          borderRadius: BorderRadius.circular(12)),
+                      labelText: 'Image Link',
+                      hintText: _image,
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      fillColor: AppColors.inputColor,
+                      filled: true,
+                    ),
+                    style: const TextStyle(
+
+                      fontFamily: 'Urbanist',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    onChanged: (value){
+                      _image = value.trim();
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -333,29 +379,34 @@ class _profileEditState extends State<ProfileEdit> {
                         width: 380,
                         height: 56,
 
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.mainColor),
-                                borderRadius: BorderRadius.circular(12)),
-                            labelText: 'Image Link',
-                            hintText: _mentee?.image,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            fillColor: AppColors.inputColor,
-                            filled: true,
-                          ),
-                          style: const TextStyle(
+                        child: ElevatedButton(
+                            onPressed: () async{
+                              final results = await FilePicker.platform.pickFiles(
+                                allowMultiple: false,
+                                type: FileType.custom,
+                                allowedExtensions: ['png','jpg','jpeg'],
+                              );
+                              if(results == null){
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('No file selected'),
+                                  ),
+                                );
+                                return null;
+                              }
 
-                            fontFamily: 'Urbanist',
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          onChanged: (value){
-                            _image = value.trim();
-                          },
+                              final path = results.files.single.path!;
+                              final fileName = results.files.single.name;
+
+                              storage.uploadFile(fileName, path).then((value) {setState(() {
+                                _image = value!;
+                                print(_image + "anh vui ve");
+                              });} );
+
+
+
+                            },
+                            child: Text('Chose picture')
                         ),
                       ),
                     ),
