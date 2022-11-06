@@ -9,7 +9,6 @@ import '../../models/transaction.dart';
 import '../../services/transaction_service.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
-import 'ereceipt_body.dart';
 
 class EReceiptPage extends StatefulWidget {
   int id;
@@ -28,7 +27,7 @@ class EReceiptPage extends StatefulWidget {
 class _EReceiptState extends State<EReceiptPage> {
 
   Payment? _payment = new Payment(id: 0, bookingId: 0, totalPrice: 0, status: "status", paymentType: "paymentType", failReason: "failReason");
-  Transaction? _transaction = new Transaction(id: 0, createdTime: "createdTime", updatedTime: "updatedTime", paymentId: 0, description: "description", status: "status", amoun: 0, walletId: 0);
+  Transaction? _transaction = new Transaction(id: 0, createdTime: "createdTime", updatedTime: "updatedTime", paymentId: 0, description: "description", status: "status", amount: 0, walletId: 0);
   User? _user = new User(id: "id", email: "email", userName: "userName", password: "password", isActived: "isActived", roleID: 1, isSystemAdmin: true);
   var isLoaded = false;
 

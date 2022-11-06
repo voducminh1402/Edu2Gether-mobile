@@ -1,6 +1,7 @@
 
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mentor.dart';
+import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mentor_service.dart';
 
@@ -10,6 +11,7 @@ import 'package:edu2gether_mobile/widgets/big_text.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/progress_bar/gf_progress_bar.dart';
 
 class MentorProfile extends StatefulWidget {
@@ -37,29 +39,22 @@ class _MentorProfileState extends State<MentorProfile> {
   @override
   void initState(){
     super.initState();
-    _getMentorById();
-    _getCourseByMentorId();
+    _getData();
   }
 
-  _getMentorById() async{
-    _mentor = (await MentorService().getMentorById(_mentor?.id ?? 0));
+  _getData() async {
+    _mentor = (await MentorService().getMentorById(widget.id));
+    _course = (await CourseService().getCoursesByMentorId(widget.id));
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_mentor != null){
-      isLoaded = true;
-    }
-  }
-
-  _getCourseByMentorId() async{
-    _course = (await CourseService().getCoursesByMentorId(_mentor?.id ?? 0));
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_course != null){
+    if(_course != null && _mentor != null){
       isLoaded = true;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return !isLoaded ? Scaffold(body: const Center(child: CircularProgressIndicator(),)) :
+      DefaultTabController(
       length: 3,
       child: Scaffold(
           appBar: AppBar(
@@ -72,8 +67,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 color: Colors.black,
               ),
               onPressed: () {
-                //Get.toNamed(RoutesClass.getLoginRoute());
-                //Navigator.pop(context);
+                Get.to(() => const TopMentorPage());
               },
             ),
             elevation: 0,

@@ -15,7 +15,7 @@ import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 
-import 'package:edu2gether_mobile/screens/mostpopularcourse/mostpopularcourse.dart';
+import 'package:edu2gether_mobile/screens/mostpopularcourse/most_popular_courses.dart';
 
 
 import 'package:edu2gether_mobile/screens/mostpopularcourse/review_details.dart';
@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
 
       // home: AuthService().handleAuthState(),
 
+      //home: MentorProfile(id: "1",),
       home: Login(),
 
 
@@ -123,37 +124,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// class MyHomePage extends StatelessWidget {
-//   const MyHomePage({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Home page'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           children: [
-//             SizedBox(height: 100,),
-//             Text(FirebaseAuth.instance.currentUser!.email!, style: TextStyle(fontSize: 30),),
-//             SizedBox(height: 30,),
-//             MaterialButton(
-//               padding: const EdgeInsets.all(10),
-//               color: Colors.green,
-//               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-//               child: const Text(
-//                 'LOG OUT',
-//                 style: TextStyle(color: Colors.white, fontSize: 15),
-//               ),
-//               onPressed: () {
-//                 AuthService().signOut();
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

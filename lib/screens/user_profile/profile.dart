@@ -351,32 +351,6 @@ class _profileState extends State<Profile>{
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(top:10),
-                //   child:  Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: const <Widget> [
-                //       Expanded(
-                //         child: SizedBox(
-                //           width: 380,
-                //           height: 28,
-                //           child: ListTile(
-                //               leading: Icon(Icons.info_outline_sharp,color: Colors.black,),
-                //               title: Text(
-                //                 'Help Center',
-                //                 style: TextStyle(
-                //                   fontFamily: 'Urbanist',
-                //                   fontSize: 18,
-                //                   fontWeight: FontWeight.w600,
-                //                 ),
-                //               ),
-                //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.only(top:10),
                   child:  Row(
