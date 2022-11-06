@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:edu2gether_mobile/models/mentee.dart';
+import 'package:edu2gether_mobile/utilities/path.dart';
 import 'package:http/http.dart' as http;
 
 class MenteeService {
   Future<List<Mentee>?> getMentee() async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentees");
+      var url = Uri.parse(Path.path + "/mentees");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Mentee> _menteeModel = menteeFromJson(response.body);
@@ -20,7 +21,7 @@ class MenteeService {
 
   Future<Mentee?> getMenteeById(id) async{
     try{
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentees/"+id.toString());
+      var url = Uri.parse(Path.path+ "/mentees/"+id.toString());
       var response = await http.get(url);
       if(response.statusCode == 200){
         Mentee _mentee = Mentee.fromJson(jsonDecode(response.body));
@@ -34,7 +35,7 @@ class MenteeService {
 
   Future<Mentee?> editMentee(Mentee mentee, bool isCreate) async{
     try{
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentees");
+      var url = Uri.parse(Path.path + "/mentees");
       var response;
       if(isCreate){
         response = await http.post(url,

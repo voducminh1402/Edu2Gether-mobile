@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
@@ -36,8 +38,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_course.dart';
 
-
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+  }
+}
 void main() async {
+  HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
