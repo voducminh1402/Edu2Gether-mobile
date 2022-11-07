@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/course.dart';
+import '../../models/mark.dart';
 import '../../services/course_service.dart';
+import '../../services/mark_service.dart';
 import '../../utilities/colors.dart';
 import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
@@ -52,7 +54,7 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
         //show header
         children: [
           Container(
-            margin: EdgeInsets.only(top: 24, bottom: 24, left: 24, right: 24),
+            margin: EdgeInsets.only(top: 24, left: 24, right: 24),
             padding: EdgeInsets.only(top: 9.5),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -66,7 +68,7 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
                       child: Container(
                         width: 40,
                         height: 40,
-                        margin: EdgeInsets.only(right: 10),
+                        margin: EdgeInsets.only(right: 15),
                         child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
                       ),
                     ),
@@ -74,11 +76,6 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
                     Text('My Bookmark', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
 
                   ],
-                ),
-                Container(
-                    width: 40,
-                    height: 40,
-                    child: Icon(Icons.more_horiz_outlined, color: Colors.black, size: 30,)
                 ),
               ],
             ),
@@ -148,7 +145,13 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
 
                                                     ),
                                                   ),
-                                                  Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,)
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        Mark mark = Mark(courseId: _courses![i].id, menteeID: widget.id);
+                                                        MarkService().unMarkACourse(mark);
+                                                      },
+                                                      icon: Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,),
+                                                  )
                                                 ],
                                               ),
                                               SizedBox(

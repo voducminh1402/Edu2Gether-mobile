@@ -10,15 +10,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../models/mark.dart';
+import '../../services/mark_service.dart';
 import '../../utilities/dimensions.dart';
 
 
 class VideoCourseDetails extends StatefulWidget {
 
   int id;
+  String menteeID;
 
   VideoCourseDetails(
-      {required this.id,Key? key}) : super(key: key);
+      {required this.id, required this.menteeID ,Key? key}) : super(key: key);
 
   @override
   State<VideoCourseDetails> createState() => _VideoCourseDetailsState();
@@ -131,7 +134,13 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
                                     //'Intro to UI/UX Design',
                                     style: TextStyle(fontFamily: 'Urbanist', fontSize: 28, fontWeight: FontWeight.w700,color: Colors.black),
                                   ),
-                                  Icon(Icons.bookmark,color: Colors.blueAccent)
+                                  IconButton(
+                                    onPressed: () {
+                                      Mark mark = Mark(courseId: widget.id, menteeID: widget.menteeID);
+                                      MarkService().markACourse(mark);
+                                    },
+                                    icon: Icon(Icons.bookmark_outline, color: AppColors.mainColor, size: Dimension.font10,),
+                                  )
                                 ],
                               ),
                             ),

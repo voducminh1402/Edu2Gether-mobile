@@ -21,36 +21,30 @@ class _TransactionPageState extends State<TransactionPage> {
         children: [
           //show header
           Container(
-            child: Container(
-              margin: EdgeInsets.only(top: 45, bottom: 15),
-              padding: EdgeInsets.only(left: 24, right: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      //BigText(text: "Transaction", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
-                      Text('Transaction', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
-
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
+            margin: EdgeInsets.only(top: 24, left: 24, right: 24),
+            padding: EdgeInsets.only(top: 9.5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pop(context);
+                      },
+                      child: Container(
                         width: 40,
                         height: 40,
-                        child: Icon(Icons.search, color: Colors.black, size: 30,),
+                        margin: EdgeInsets.only(right: 15),
+                        child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
                       ),
-                      Container(
-                          width: 40,
-                          height: 40,
-                          child: Icon(Icons.more_horiz_outlined, color: Colors.black, size: 30,)
-                      ),
-                    ],
-                  )
+                    ),
+                    //BigText(text: "My Bookmark", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
+                    Text('Transaction', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
 
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
           //show body
