@@ -11,6 +11,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/mark.dart';
+import '../../models/mentee.dart';
+import '../../services/auth_service.dart';
+import '../../services/mark_service.dart';
+import '../../services/mentee_service.dart';
 import '../../widgets/big_text.dart';
 
 class MostPopularCourse extends StatefulWidget {
@@ -27,6 +32,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
   late List<Subject>? _subjects = [];
   late List<Major>? _majors = [];
   var isLoaded = false;
+  Mentee? _mentee;
 
   //int id = 1;
 
@@ -40,6 +46,10 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
     _courses = (await CourseService().getCourses())!;
     _subjects = (await SubjectService().getSubject())!;
     _majors = (await MajorService().getMajors())!;
+    await AuthService().getUserLogin().then((value) async {
+      _mentee = await MenteeService().getMenteeById(value.id);
+      print(_mentee!.id);
+    });
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(_courses != null && _subjects != null && _majors != null){
       isLoaded = true;
@@ -146,7 +156,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                             itemCount: _courses!.length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
-                                onTap: () => Get.to(() => VideoCourseDetails(id: _courses![index].id)),
+                                onTap: () => Get.to(() => VideoCourseDetails(id: _courses![index].id, menteeID: _mentee!.id,),),
                                 child: Container(
                                     padding: EdgeInsets.all(20),
                                     margin: EdgeInsets.symmetric(vertical: 10),
@@ -194,7 +204,13 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
 
                                                       ),
                                                     ),
-                                                    Icon(Icons.bookmark_outline, color: AppColors.mainColor, size: Dimension.font10,)
+                                                    // IconButton(
+                                                    //   onPressed: () {
+                                                    //     Mark mark = Mark(courseId: _courses![index].id, menteeID: _mentee!.id);
+                                                    //     MarkService().markACourse(mark);
+                                                    //   },
+                                                    //   icon: Icon(Icons.bookmark_outline, color: AppColors.mainColor, size: Dimension.font10,),
+                                                    // )
                                                   ],
                                                 ),
                                                 SizedBox(
