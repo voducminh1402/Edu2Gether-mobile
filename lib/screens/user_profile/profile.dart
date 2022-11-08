@@ -85,7 +85,8 @@ class _profileState extends State<Profile>{
 
     bool _switchValue = true;
 
-    return MaterialApp(
+    return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
+      MaterialApp(
       home: Scaffold(
         //resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
@@ -121,149 +122,283 @@ class _profileState extends State<Profile>{
             ],
             elevation: 0
         ),
-        body:  isLoaded == false ? Center(child: CircularProgressIndicator(),):Visibility(
-          visible: isLoaded = true,
-          replacement: const Center(
-            child: CircularProgressIndicator(),
-          ),
-          child: Container(
-            width: 380,
-            height: 700,
-            margin: const EdgeInsets.only(left: 30, right: 24),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+        body: Container(
+          width: 380,
+          height: 700,
+          margin: const EdgeInsets.only(left: 30, right: 24),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget> [
+                  SizedBox(
+                    width: 120,
+                    height: 120,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(mentee!.image),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget> [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 24),
+                    child: Text(
+                      mentee?.fullName!! ?? '',
+                      style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget> [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8),
+                    child: Text(
+                      mentee?.university!! ?? '',
+                      style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
+                    ),
+                  ),
+                ],
+              ),
+              const Padding(
+                padding:EdgeInsets.only(top: 0, left: 24, right: 24),
+                child: Divider(
+                  thickness: 1,
+                  color: Colors.black,
+                ),
+              ),
+              GestureDetector(
+                onTap: () async{
+                  Get.to(() => ProfileEdit(id: id, user: user));
+                } ,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: const <Widget> [
-                    SizedBox(
-                      width: 120,
-                      height: 120,
-                      child: CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/avatarFBdefault.png'),
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget> [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24),
-                      child: Text(
-                        mentee?.fullName!! ?? '',
-                        style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w700, fontSize: 24),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget> [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8),
-                      child: Text(
-                        mentee?.university!! ?? '',
-                        style: const TextStyle(fontFamily: 'Urbanist', fontWeight: FontWeight.w600, fontSize: 14),
-                      ),
-                    ),
-                  ],
-                ),
-                const Padding(
-                  padding:EdgeInsets.only(top: 0, left: 24, right: 24),
-                  child: Divider(
-                    thickness: 1,
-                    color: Colors.black,
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async{
-                    Get.to(() => ProfileEdit(id: id, user: user));
-                  } ,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
+                    Expanded(
 
-                        child: SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.person_outlined,color: Colors.black,),
-                              title: Text(
-                                'Edit Profile',
-                                style: TextStyle(
-                                    fontFamily: 'Urbanist',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600
-                                ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                          ),
-                        ),
-
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child: SizedBox(
-
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
-                              title: Text(
-                                'Notification',
-                                style: TextStyle(
+                      child: SizedBox(
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: Icon(Icons.person_outlined,color: Colors.black,),
+                            title: Text(
+                              'Edit Profile',
+                              style: TextStyle(
                                   fontFamily: 'Urbanist',
                                   fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                  fontWeight: FontWeight.w600
                               ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget> [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: (){
-                            Get.toNamed(RoutesClass.getProfilePaymentRoute());
-                          },
-                          child:  const SizedBox(
-                            width: 380,
-                            height: 28,
-                            child: ListTile(
-                              leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
-                              title: Text(
-                                'Payment',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,),
                             ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                        ),
+                      ),
+
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const <Widget> [
+                    Expanded(
+                      child: SizedBox(
+
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
+                            title: Text(
+                              'Notification',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget> [
+                    Expanded(
+                      child: GestureDetector(
+                        onTap: (){
+                          Get.toNamed(RoutesClass.getProfilePaymentRoute());
+                        },
+                        child:  const SizedBox(
+                          width: 380,
+                          height: 28,
+                          child: ListTile(
+                            leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
+                            title: Text(
+                              'Payment',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Padding(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const <Widget> [
+                    Expanded(
+                      child:  SizedBox(
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
+                            title: Text(
+                              'Security',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const <Widget> [
+                    Expanded(
+                      child: SizedBox(
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: Icon(Icons.language_sharp,color: Colors.black,),
+                            title: Text(
+                              'Language',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget> [
+                    Expanded(
+                      child: SizedBox(
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: const Icon(Icons.visibility_sharp,color: Colors.black,),
+                            title: const Text(
+                              'Dark Mode',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing:
+                            CupertinoSwitch(
+                                value: true,
+                                onChanged: (value){
+                                  setState(() {
+                                    _switchValue = false;
+                                  });
+                                })
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const <Widget> [
+                    Expanded(
+                      child: SizedBox(
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: Icon(Icons.lock_outline_sharp,color: Colors.black,),
+                            title: Text(
+                              'Privacy Policy',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top:10),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const <Widget> [
+                    Expanded(
+                      child: SizedBox(
+                        width: 380,
+                        height: 28,
+                        child: ListTile(
+                            leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
+                            title: Text(
+                              'Invite Friends',
+                              style: TextStyle(
+                                fontFamily: 'Urbanist',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () => AuthService().signOut(),
+                child: Padding(
                   padding: const EdgeInsets.only(top:10),
                   child:  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -273,13 +408,14 @@ class _profileState extends State<Profile>{
                           width: 380,
                           height: 28,
                           child: ListTile(
-                              leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
+                              leading: Icon(Icons.person_outlined,color: Colors.black,),
                               title: Text(
-                                'Security',
+                                'Logout',
                                 style: TextStyle(
                                   fontFamily: 'Urbanist',
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
+                                  color: Colors.red,
                                 ),
                               ),
                               trailing: Icon(Icons.navigate_next, color: Colors.black,)
@@ -289,154 +425,12 @@ class _profileState extends State<Profile>{
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child: SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.language_sharp,color: Colors.black,),
-                              title: Text(
-                                'Language',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget> [
-                      Expanded(
-                        child: SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: const Icon(Icons.visibility_sharp,color: Colors.black,),
-                              title: const Text(
-                                'Dark Mode',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              trailing:
-                              CupertinoSwitch(
-                                  value: true,
-                                  onChanged: (value){
-                                    setState(() {
-                                      _switchValue = false;
-                                    });
-                                  })
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child: SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.lock_outline_sharp,color: Colors.black,),
-                              title: Text(
-                                'Privacy Policy',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top:10),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const <Widget> [
-                      Expanded(
-                        child: SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                              leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
-                              title: Text(
-                                'Invite Friends',
-                                style: TextStyle(
-                                  fontFamily: 'Urbanist',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () => AuthService().signOut(),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top:10),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const <Widget> [
-                        Expanded(
-                          child:  SizedBox(
-                            width: 380,
-                            height: 28,
-                            child: ListTile(
-                                leading: Icon(Icons.person_outlined,color: Colors.black,),
-                                title: Text(
-                                  'Logout',
-                                  style: TextStyle(
-                                    fontFamily: 'Urbanist',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                                trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              ),
 
-              ],
+            ],
 
-            ),
           ),
-
-        ),
+        )
       ),
     );
   }

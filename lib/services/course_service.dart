@@ -21,6 +21,20 @@ class CourseService{
     }
   }
 
+  Future<List<Course>?> getCoursesByMajorName(majorName) async {
+    try {
+      var url = Uri.parse(Path.path + "/courses/major?majorName=" + majorName.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _model = courseFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
   Future<Course?> getCoursesById(id) async {
     try {
       var url = Uri.parse(Path.path+ "/courses/" + id.toString());

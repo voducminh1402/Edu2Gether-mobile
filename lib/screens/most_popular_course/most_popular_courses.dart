@@ -55,41 +55,38 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
   Widget build(BuildContext context) {
     return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
     Scaffold(
-      body: Column(
-        //show header
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 34, left: 24, right: 24),
-            padding: EdgeInsets.only(top: Dimension.height5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Get.to(() => const MainPage());
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        margin: EdgeInsets.only(right: 10),
-                        child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
-                      ),
-                    ),
-                    //BigText(text: "Most Popular Course", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
-                    Text('Most Popular Courses', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),),
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
 
-                  ],
-                ),
-                Container(
-                    width: 40,
-                    height: 40,
-                    child: Icon(Icons.search, color: Colors.black, size: 30,)
-                ),
-              ],
+            icon: const Icon(
+
+              Icons.arrow_back,
+              color: Colors.black,
             ),
+            onPressed: () {
+              Get.to(() => const MainPage());
+            },
           ),
+          title: Text(
+            'Most Popular Courses',
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: Dimension.font8),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_outlined,
+                  color: Colors.black,
+                )),
+          ],
+          elevation: 0
+      ),
+      body: Column(
+        children: [
           //show body
           Expanded(child: SingleChildScrollView(
             child: Column(
@@ -109,29 +106,35 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                           itemCount: _majors!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              margin: EdgeInsets.only(right: Dimension.width5),
-                              child: Row(
-                                children: [
-                                  Container(
-                                      width: 133,
-                                      height: 38,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25),
-                                        border: Border.all(
-                                            color: Colors.blueAccent,
-                                            style: BorderStyle.solid,
-                                            width: 2.0
+                            return GestureDetector(
+                              onTap: () async {
+                                  _courses = await CourseService().getCoursesByMajorName(_majors![index].name);
+                                  setState(() {
+                                    if(_courses != null){
+                                      isLoaded = true;
+                                    }
+                                  });
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(right: Dimension.width5),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        width: 142,
+                                        height: 32,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(25),
+                                          border: Border.all(
+                                              color: Colors.blueAccent,
+                                              style: BorderStyle.solid,
+                                              width: 2.0
+                                          ),
+                                          color:Colors.white,
                                         ),
-                                        color:Colors.white,
-                                      ),
-                                      child:
-                                      Container(
-                                        margin: EdgeInsets.only(left: Dimension.width10, top: 7),
-                                        child: BigText(text: _majors![index].name.toString(), color: Colors.blueAccent, size: 16, fontweight: FontWeight.w600,),
-                                      )
-                                  )
-                                ],
+                                        child: Center(child: BigText(text: _majors![index].name.toString(), color: Colors.blueAccent, size: Dimension.font6, fontweight: FontWeight.w600,))
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -140,7 +143,6 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                       Container(
                         width: 380,
                         height: 688,
-                        margin: EdgeInsets.only(top: 12),
                         child: ListView.builder(
                             padding: EdgeInsets.symmetric(vertical: Dimension.height5),
                             itemCount: _courses!.length,
@@ -170,7 +172,8 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                                           // Image border
                                           child: SizedBox.fromSize(
                                             size: Size.fromRadius(62), // Image radius
-                                            child: Image.network(_courses![index].image.toString()),
+                                            child: Image.network(_courses![index].image.toString()
+                                              , fit: BoxFit.cover,),
                                           ),
                                         ),
                                         SizedBox(
@@ -194,7 +197,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
 
                                                       ),
                                                     ),
-                                                    Icon(Icons.bookmark_outline, color: AppColors.mainColor, size: Dimension.font10,)
+                                                    Icon(Icons.bookmark_border, color: AppColors.mainColor, size: Dimension.font10,)
                                                   ],
                                                 ),
                                                 SizedBox(

@@ -57,7 +57,7 @@ class _profilePaymentState extends State<ProfilePayment>{
             children: <Widget>[
               GestureDetector(
                 onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => PaypalPayment(price: 0,)));
+                  //Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => PaypalPayment(price: 0,)));
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top:0),

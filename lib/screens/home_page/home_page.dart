@@ -4,8 +4,8 @@ import 'package:edu2gether_mobile/models/mentor.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
-import 'package:edu2gether_mobile/screens/mostpopularcourse/most_popular_courses.dart';
-import 'package:edu2gether_mobile/screens/mybookmark/mybookmark.dart';
+import 'package:edu2gether_mobile/screens/most_popular_course/most_popular_courses.dart';
+import 'package:edu2gether_mobile/screens/my_book_mark/my_book_mark.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
@@ -321,7 +321,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                             // Image border
                                             child: SizedBox.fromSize(
                                               size: Size.fromRadius(62), // Image radius
-                                              child: Image.network(_courses![index].image.toString())),
+                                              child: Image.network(_courses![index].image.toString(), fit: BoxFit.cover,),),
                                             ),
 
                                           SizedBox(

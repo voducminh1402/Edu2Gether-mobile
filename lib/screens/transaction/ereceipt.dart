@@ -1,24 +1,27 @@
-import 'package:edu2gether_mobile/models/user.dart';
+import 'package:edu2gether_mobile/models/booking.dart';
+import 'package:edu2gether_mobile/models/course.dart';
+import 'package:edu2gether_mobile/models/mentee.dart';
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
+import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
+import 'package:edu2gether_mobile/services/booking_service.dart';
+import 'package:edu2gether_mobile/services/course_service.dart';
+import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/services/payment_service.dart';
-import 'package:edu2gether_mobile/services/user_service.dart';
+import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
 import '../../models/payment.dart';
-import '../../models/transaction.dart';
-import '../../services/transaction_service.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/small_text.dart';
+import 'package:intl/intl.dart';
 
 class EReceiptPage extends StatefulWidget {
-  int id;
-  int transactionId;
-  int menteeId;
-  String walletId;
-  EReceiptPage({required this.id, required this.transactionId, required this.menteeId, required this.walletId,Key? key}) : super(key: key);
-  // const EReceiptPage({Key? key}) : super(key: key);
-  // final int? paymentID;
-  // const EReceiptPage({required this.paymentID});
+  int paymentId;
+  EReceiptPage({required this.paymentId, Key? key}) : super(key: key);
 
   @override
   State<EReceiptPage> createState() => _EReceiptState();
@@ -26,47 +29,34 @@ class EReceiptPage extends StatefulWidget {
 
 class _EReceiptState extends State<EReceiptPage> {
 
-  Payment? _payment = new Payment(id: 0, bookingId: 0, totalPrice: 0, status: "status", paymentType: "paymentType", failReason: "failReason");
-  Transaction? _transaction = new Transaction(id: 0, createdTime: "createdTime", updatedTime: "updatedTime", paymentId: 0, description: "description", status: "status", amount: 0, walletId: 0);
-  User? _user = new User(id: "id", email: "email", userName: "userName", password: "password", isActived: "isActived", roleID: 1, isSystemAdmin: true);
+  Payment? _payment;
+  Booking? _booking;
+  Course? _course;
+  Mentee? _mentee;
   var isLoaded = false;
 
   @override
   void initState() {
     super.initState();
     _getData();
-    _getTransaction();
-    _getUser();
   }
 
   void _getData() async {
-    _payment = (await PaymentService.getPaymentById(widget.id))!;
+    _payment = await PaymentService().getPaymentById(widget.paymentId);
+    _booking = await BookingService().getBookingById(_payment!.bookingId);
+    _course = await CourseService().getCoursesById(_booking!.courseId);
+    _mentee = await MenteeService().getMenteeById(_booking!.menteeId);
+
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_payment != null){
+    if(_payment != null && _mentee != null && _booking != null && _course != null){
       isLoaded = true;
     }
   }
-
-  void _getTransaction() async {
-    _transaction = (await TransactionService.getTransactionByTransactionID(widget.transactionId))!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_transaction != null){
-      isLoaded = true;
-    }
-  }
-
-  void _getUser() async {
-    _user = (await UserService.getUserByWalletID(widget.walletId))!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_user != null){
-      isLoaded = true;
-    }
-  }
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
+    Scaffold(
       body: Column(
           //show header
           children: [
@@ -80,7 +70,8 @@ class _EReceiptState extends State<EReceiptPage> {
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Navigator.pop(context);
+                          Navigator.pop(context,
+                              MaterialPageRoute(builder: (context) => const TransactionPage()));
                         },
                         child: Container(
                           width: 40,
@@ -103,192 +94,198 @@ class _EReceiptState extends State<EReceiptPage> {
               ),
             ),
             //show body
-            Visibility(
-              visible: isLoaded,
-              replacement: const Center(
-                child: CircularProgressIndicator(),
-              ),
-              child: Column(
-                  children: [
-                    Container(
-                      child: Container(
-                        width: 380,
-                        height: 112,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Course", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: _transaction!.description, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Category", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: "Edu2Gether Coure Category", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+            Column(
+              children: [
+                Center(
+                  child: Container(
+                    height: Dimension.height50,
+                    width: Dimension.width150,
+                    child: SfBarcodeGenerator(
+                      value: _payment!.failReason!.substring(5),
+                      symbology: Code128C(),
+                      showValue: true,
                     ),
-                    Container(
-                      child: Container(
-                        margin: EdgeInsets.only(top: 20),
-                        width: 380,
-                        height: 112,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Username", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: _user!.userName, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            ),
-                            // Container(
-                            //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       SmallText(text: "Phone", color: Colors.black, size: 14,),
-                            //       Container(
-                            //         child: BigText(text: "+1 111 467 378 399", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                            //       )
-                            //     ],
-                            //   ),
-                            // ),
-                            Container(
-                              margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Email", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: _user!.email, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            ),
-                            // Container(
-                            //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                            //   child: Row(
-                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //     children: [
-                            //       SmallText(text: "Country", color: Colors.black, size: 14,),
-                            //       Container(
-                            //         child: BigText(text: "United States", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                            //       )
-                            //     ],
-                            //   ),
-                            // )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      child: Container(
-                        margin: EdgeInsets.only(top: 20),
-                        width: 380,
-                        height: 240,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Price", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: "\$" + _payment!.totalPrice.toString(), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Payment Methods", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: _payment!.paymentType, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Date", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: _transaction!.createdTime, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Transaction ID", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: _transaction!.id.toString(), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  SmallText(text: "Status", color: Colors.black, size: 14,),
-                                  Container(
-                                    child: BigText(text: "Paid", color: Colors.blueAccent, fontweight: FontWeight.w600, size: 16,),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-            ),
+                SizedBox(height: Dimension.height3,),
+                Container(
+                  child: Container(
+                    width: 380,
+                    height: 112,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Course", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: _course!.name, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Category", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: _course!.subject!.name, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Container(
+                    margin: EdgeInsets.only(top: Dimension.height5),
+                    width: 380,
+                    height: 112,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Username", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: _mentee!.fullName!, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        ),
+                        // Container(
+                        //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       SmallText(text: "Phone", color: Colors.black, size: 14,),
+                        //       Container(
+                        //         child: BigText(text: "+1 111 467 378 399", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Email", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: _mentee!.address, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        ),
+                        // Container(
+                        //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //     children: [
+                        //       SmallText(text: "Country", color: Colors.black, size: 14,),
+                        //       Container(
+                        //         child: BigText(text: "United States", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                        //       )
+                        //     ],
+                        //   ),
+                        // )
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Container(
+                    margin: EdgeInsets.only(top: Dimension.height5),
+                    width: 380,
+                    height: 240,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Price", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: "\$" + _payment!.totalPrice.toString(), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Payment Methods", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: _payment!.paymentType!, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Date", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: DateFormat("yyyy-MM-dd HH:mm:ss").format(_booking!.bookingTime), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Transaction ID", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: _payment!.failReason!.substring(5), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SmallText(text: "Status", color: Colors.black, size: 14,),
+                              Container(
+                                child: BigText(text: "Paid", color: Colors.blueAccent, fontweight: FontWeight.w600, size: 16,),
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            )
           ],
         ),
     );

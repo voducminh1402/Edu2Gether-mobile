@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:edu2gether_mobile/models/mentee.dart';
+import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/utilities/path.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class MenteeService {
@@ -58,6 +60,7 @@ class MenteeService {
 
       if(response.statusCode == 200){
         Mentee _menteeUpdate = Mentee.fromJson(jsonDecode(response.body));
+        Get.to(() => Profile());
         return _menteeUpdate;
       }
     }

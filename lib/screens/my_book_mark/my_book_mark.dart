@@ -1,18 +1,20 @@
-
-
-import 'package:edu2gether_mobile/screens/mybookmark/mybookmark_body.dart';
+import 'package:edu2gether_mobile/models/mark.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
+import 'package:edu2gether_mobile/services/mark_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../models/course.dart';
 import '../../services/course_service.dart';
 import '../../utilities/colors.dart';
 import '../../utilities/dimensions.dart';
 import '../../widgets/big_text.dart';
+import '../main_page/main_page.dart';
 
 class MyBookmarkPage extends StatefulWidget {
-  String id;
-  MyBookmarkPage({required this.id,Key? key}) : super(key: key);
+  String? id;
+  MyBookmarkPage({this.id,Key? key}) : super(key: key);
 
   @override
   State<MyBookmarkPage> createState() => _MyBookmarkPageState();
@@ -20,7 +22,8 @@ class MyBookmarkPage extends StatefulWidget {
 
 class _MyBookmarkPageState extends State<MyBookmarkPage> {
 
-  late List<Course>? _courses = [];
+  late List<Course>? _courses;
+  String? _menteeId;
   var isLoaded = false;
 
   @override
@@ -30,11 +33,14 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
   }
 
   void _getData() async {
-    _courses = (await CourseService().getBookmarkByUserId(widget.id))!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_courses != null ){
-      isLoaded = true;
-    }
+    await AuthService().getUserLogin().then((value) async {
+      _menteeId = value.id;
+      _courses = (await CourseService().getBookmarkByUserId(value.id))!;
+      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+      if(_courses != null ){
+        isLoaded = true;
+      }
+    });
   }
 
   @override
@@ -42,47 +48,42 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
     Scaffold(
-      body: Column(
-        //show header
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 24, bottom: 24, left: 24, right: 24),
-            padding: EdgeInsets.only(top: 9.5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        margin: EdgeInsets.only(right: 10),
-                        child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
-                      ),
-                    ),
-                    //BigText(text: "My Bookmark", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
-                    Text('My Bookmark', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
 
-                  ],
-                ),
-                Container(
-                    width: 40,
-                    height: 40,
-                    child: Icon(Icons.more_horiz_outlined, color: Colors.black, size: 30,)
-                ),
-              ],
+            icon: const Icon(
+
+              Icons.arrow_back,
+              color: Colors.black,
             ),
+            onPressed: () {
+              Get.to(() => const MainPage());
+            },
           ),
+          title: Text(
+              'My Bookmark',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: Dimension.font8),
+            ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_outlined,
+                  color: Colors.black,
+                )),
+          ],
+          elevation: 0
+      ),
+      body: Column(
+        children: [
           //show body
           Expanded(child: SingleChildScrollView(
             child: Column(
@@ -124,7 +125,8 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
                                         // Image border
                                         child: SizedBox.fromSize(
                                           size: Size.fromRadius(62), // Image radius
-                                          child: Image.network(_courses![i].image.toString()),
+                                          child: Image.network(_courses![i].image.toString(),
+                                          fit: BoxFit.cover),
                                         ),
                                       ),
                                       SizedBox(
@@ -148,7 +150,18 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
 
                                                     ),
                                                   ),
-                                                  Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,)
+                                                  GestureDetector(
+                                                    onTap: () async {
+                                                      Mark mark = Mark(courseId: _courses![i].id, menteeId: _menteeId!);
+                                                      await MarkService().unMarkCourse(mark);
+                                                      _courses = await CourseService().getBookmarkByUserId(_menteeId);
+                                                      setState(() {
+                                                        if(_courses != null){
+                                                          isLoaded = true;
+                                                        }
+                                                      });
+                                                    },
+                                                      child: Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,))
                                                 ],
                                               ),
                                               SizedBox(
