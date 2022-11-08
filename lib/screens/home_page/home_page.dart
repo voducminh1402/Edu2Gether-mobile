@@ -306,7 +306,7 @@ class _MainHomePageState extends State<MainHomePage> {
                               itemCount: _courses!.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: () => Get.to(() => VideoCourseDetails(id: _courses![index].id, menteeID: _mentee!.id,),),
+                                  onTap: () => Get.to(() => VideoCourseDetails(id: _courses![index].id),),
                                   child: Container(
                                       padding: EdgeInsets.all(20),
                                       margin: EdgeInsets.symmetric(vertical: 10),

@@ -21,10 +21,9 @@ import '../../utilities/dimensions.dart';
 class VideoCourseDetails extends StatefulWidget {
 
   int id;
-  String menteeID;
 
   VideoCourseDetails(
-      {required this.id, required this.menteeID ,Key? key}) : super(key: key);
+      {required this.id ,Key? key}) : super(key: key);
 
   @override
   State<VideoCourseDetails> createState() => _VideoCourseDetailsState();
