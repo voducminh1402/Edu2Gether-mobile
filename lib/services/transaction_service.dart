@@ -35,6 +35,29 @@ class TransactionService{
     }
   }
 
+  Future<Transaction?> createTransaction(Transaction transaction) async {
+    try{
+      var url = Uri.parse(Path.path + "/transactions");
+      var response = await http.post(url,
+          headers: {
+            "accept": "text/plain",
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(transaction)
+      );
+
+      if(response.statusCode == 201){
+        Transaction _transaction = Transaction.fromJson(jsonDecode(response.body));
+        return _transaction;
+      }
+    }
+    catch(e)
+    {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
   static Future<Transaction?> getTransactionByTransactionID(id) async {
     try {
       var url = Uri.parse(Path.path  + "/transactions/" + id.toString());

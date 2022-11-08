@@ -6,7 +6,10 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class PaypalPayment extends StatefulWidget {
   double price;
-  PaypalPayment({required this.price, Key? key}) : super(key: key);
+  String mentorId;
+  String menteeId;
+  int courseId;
+  PaypalPayment({required this.price, required this.courseId, required this.menteeId, required this.mentorId, Key? key}) : super(key: key);
 
   @override
   State<PaypalPayment> createState() => _PaypalPaymentState();
@@ -65,7 +68,7 @@ class _PaypalPaymentState extends State<PaypalPayment> {
             navigationDelegate: (NavigationRequest request) {
 
               if (request.url.contains('paypal')) {
-                captureLink = service.authorizePaymentOrder(orderId);
+                captureLink = service.authorizePaymentOrder(orderId, widget.mentorId, widget.menteeId, widget.courseId, widget.price);
               }
               return NavigationDecision.navigate;
             },

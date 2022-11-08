@@ -1,6 +1,6 @@
 // To parse this JSON data, do
 //
-//     final course = courseFromJson(jsonString);
+//     final mark = markFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -11,20 +11,19 @@ String markToJson(List<Mark> data) => json.encode(List<dynamic>.from(data.map((x
 class Mark {
   Mark({
     required this.courseId,
-    required this.menteeID,
+    required this.menteeId,
   });
 
   int courseId;
-  String menteeID;
-
+  String menteeId;
 
   factory Mark.fromJson(Map<String, dynamic> json) => Mark(
     courseId: json["courseId"],
-    menteeID: json["menteeID"],
+    menteeId: json["menteeId"],
   );
 
   Map<String, dynamic> toJson() => {
     "courseId": courseId,
-    "menteeID": menteeID,
+    "menteeId": menteeId,
   };
 }

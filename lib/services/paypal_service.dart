@@ -1,11 +1,19 @@
 import 'dart:convert';
+import 'package:edu2gether_mobile/models/booking.dart';
+import 'package:edu2gether_mobile/models/payment.dart';
+import 'package:edu2gether_mobile/models/transaction.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
+import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
+import 'package:edu2gether_mobile/services/booking_service.dart';
+import 'package:edu2gether_mobile/services/payment_service.dart';
+import 'package:edu2gether_mobile/services/transaction_service.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
 import 'package:get/get.dart';
 
 class PaypalService{
   String domain = "https://api-m.sandbox.paypal.com";
+  String? orderId;
 
   Map<String, String> headers = {
     'Content-Type': 'application/json',
@@ -30,6 +38,7 @@ class PaypalService{
             approvalUrl = item["href"];
           }
           print('order id ' + body['id']);
+          orderId = body["id"];
           return {"approvalUrl": approvalUrl, 'orderId': body["id"]};
         }
         throw Exception("0");
@@ -45,7 +54,7 @@ class PaypalService{
   }
 
 
-  Future<String> authorizePaymentOrder(orderId) async{
+  Future<String> authorizePaymentOrder(orderId, mentorId, menteeId, courseId, price) async{
     try{
       var response = await http.post(Uri.parse('$domain/v2/checkout/orders/$orderId/authorize'),
         headers: headers,
@@ -61,7 +70,7 @@ class PaypalService{
           if (item != null) {
             capture = item["href"];
           }
-          capturePayment(capture);
+          capturePayment(capture, mentorId, menteeId, courseId, price);
           return body['id'];
         }
         throw Exception("0");
@@ -72,14 +81,19 @@ class PaypalService{
     }
   }
 
-  Future<String> capturePayment(url) async{
+  Future<String> capturePayment(url, mentorId, menteeId, courseId, price) async{
     try{
       var response = await http.post(Uri.parse(url),
         headers: headers,
       );
       if (response.statusCode == 201){
         final body = convert.jsonDecode(response.body);
-        Get.to(() => MainPage());
+        Booking booking = Booking(id: 1, mentorId: mentorId, menteeId: menteeId, courseId: courseId, bookingTime: DateTime.now(), status: "Complete", coursePrice: price, slotId: 1);
+        Booking? bookingResponse = await BookingService().createBooking(booking);
+        Payment payment = Payment(paypalId: orderId!, bookingId: bookingResponse!.id, id: 1, totalPrice: price, status: "Completed", paymentType: "Paypal", failReason: "");
+        Payment? paymentResponse = await PaymentService().createPayment(payment);
+
+        Get.to(() => EReceiptPage(paymentId: paymentResponse!.id));
         return body['id'];
       }
       return response.statusCode.toString();

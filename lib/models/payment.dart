@@ -7,23 +7,26 @@ String paymentToJson(List<Payment> data) => json.encode(List<dynamic>.from(data.
 
 class Payment {
   int id;
+  String? paypalId;
   int bookingId;
-  double totalPrice;
-  String status;
-  String paymentType;
-  String failReason;
+  double? totalPrice;
+  String? status;
+  String? paymentType;
+  String? failReason;
 
   Payment({
     required this.id,
+    this.paypalId,
     required this.bookingId,
-    required this.totalPrice,
-    required this.status,
-    required this.paymentType,
-    required this.failReason,
+    this.totalPrice,
+    this.status,
+    this.paymentType,
+    this.failReason,
   });
 
   factory Payment.fromJson(Map<String, dynamic> json) => Payment(
     id: json["id"],
+    paypalId: json["paypalId"],
     bookingId: json["bookingId"],
     totalPrice: json["totalPrice"],
     status: json["status"],
@@ -33,6 +36,7 @@ class Payment {
 
   Map<String, dynamic> toJson() => {
     "id": id,
+    "paypalId": paypalId,
     "bookingId": bookingId,
     "totalPrice": totalPrice,
     "status": status,

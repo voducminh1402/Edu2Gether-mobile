@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
+
+import 'package:edu2gether_mobile/models/mark.dart';
+import 'package:edu2gether_mobile/screens/my_book_mark/my_book_mark.dart';
+import 'package:edu2gether_mobile/utilities/path.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../models/mark.dart';
-import '../utilities/path.dart';
 
 class MarkService{
-
-  Future<Mark?> markACourse(Mark mark) async{
+  Future<Mark?> markCourse(Mark mark) async {
     try{
       var url = Uri.parse(Path.path + "/marks/mark");
       var response = await http.post(url,
@@ -16,15 +18,20 @@ class MarkService{
           },
           body: jsonEncode(mark)
       );
-    }catch(e)
+
+      if(response.statusCode == 200){
+        Mark _mark = Mark.fromJson(jsonDecode(response.body));
+        Get.to(() => MyBookmarkPage());
+        return _mark;
+      }
+    }
+    catch(e)
     {
       print(e.toString());
       log(e.toString());
     }
   }
-
-
-  Future<Mark?> unMarkACourse(Mark mark) async{
+  Future<Mark?> unMarkCourse(Mark mark) async {
     try{
       var url = Uri.parse(Path.path + "/marks/un-mark");
       var response = await http.post(url,
@@ -34,11 +41,17 @@ class MarkService{
           },
           body: jsonEncode(mark)
       );
-    }catch(e)
+
+      if(response.statusCode == 200){
+        Mark _mark = Mark.fromJson(jsonDecode(response.body));
+        Get.back();
+        return _mark;
+      }
+    }
+    catch(e)
     {
       print(e.toString());
       log(e.toString());
     }
   }
-
 }
