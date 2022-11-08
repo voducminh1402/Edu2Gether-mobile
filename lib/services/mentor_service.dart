@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'dart:developer';
+import 'package:edu2gether_mobile/utilities/path.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:edu2gether_mobile/models/mentor.dart';
@@ -8,7 +9,7 @@ import 'package:edu2gether_mobile/models/mentor.dart';
 class MentorService{
   Future<List<Mentor>?> getMentor() async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentors");
+      var url = Uri.parse(Path.path  + "/mentors");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Mentor> _mentorModel = mentorFromJson(response.body);
@@ -22,8 +23,7 @@ class MentorService{
 
   Future<Mentor?> getMentorById(id) async{
     try{
-      id = 1;
-      var url = Uri.parse("http://54.255.199.121/api/v1/mentors/1");
+      var url = Uri.parse(Path.path  + "/mentors/" + id.toString());
       var response = await http.get(url);
       if(response.statusCode == 200){
         Mentor _mentor = Mentor.fromJson(jsonDecode(response.body));

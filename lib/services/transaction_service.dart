@@ -3,11 +3,13 @@ import 'dart:developer';
 import 'package:edu2gether_mobile/models/transaction.dart';
 import 'package:http/http.dart' as http;
 
+import '../utilities/path.dart';
+
 
 class TransactionService{
   Future<List<Transaction>?> getTransaction() async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/transactions");
+      var url = Uri.parse(Path.path  + "/transactions");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Transaction> _model = transactionFromJson(response.body);
@@ -21,7 +23,7 @@ class TransactionService{
 
   static Future<List<Transaction>?> getTransactionByID(id) async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/transactions/users/" + id.toString());
+      var url = Uri.parse(Path.path  + "/transactions/users/" + id.toString());
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Transaction> _model = transactionFromJson(response.body);
@@ -33,9 +35,32 @@ class TransactionService{
     }
   }
 
+  Future<Transaction?> createTransaction(Transaction transaction) async {
+    try{
+      var url = Uri.parse(Path.path + "/transactions");
+      var response = await http.post(url,
+          headers: {
+            "accept": "text/plain",
+            "Content-Type": "application/json"
+          },
+          body: jsonEncode(transaction)
+      );
+
+      if(response.statusCode == 201){
+        Transaction _transaction = Transaction.fromJson(jsonDecode(response.body));
+        return _transaction;
+      }
+    }
+    catch(e)
+    {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
   static Future<Transaction?> getTransactionByTransactionID(id) async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1/transactions/" + id.toString());
+      var url = Uri.parse(Path.path  + "/transactions/" + id.toString());
       var response = await http.get(url);
       if (response.statusCode == 200) {
         Transaction _model = Transaction.fromJson(jsonDecode(response.body));

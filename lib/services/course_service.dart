@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:edu2gether_mobile/models/mentee.dart';
+import 'package:edu2gether_mobile/utilities/path.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -8,7 +9,7 @@ import 'package:edu2gether_mobile/models/course.dart';
 class CourseService{
   Future<List<Course>?> getCourses() async {
     try {
-      var url = Uri.parse("http://54.255.199.121/api/v1" + "/courses");
+      var url = Uri.parse(Path.path + "/courses");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Course> _model = courseFromJson(response.body);
@@ -20,10 +21,38 @@ class CourseService{
     }
   }
 
+  Future<List<Course>?> getCoursesByMajorName(majorName) async {
+    try {
+      var url = Uri.parse(Path.path + "/courses/major?majorName=" + majorName.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _model = courseFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
+  Future<Course?> getCoursesById(id) async {
+    try {
+      var url = Uri.parse(Path.path+ "/courses/" + id.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        Course _course = Course.fromJson(jsonDecode(response.body));
+        return _course;
+
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
   Future<List<Course>?> getCoursesByMentorId(id) async {
     try {
-      id = 1;
-      var url = Uri.parse("http://54.255.199.121/api/v1/courses/mentors/1");
+      var url = Uri.parse(Path.path+ "/courses/mentors/" + id.toString());
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Course> _coursesByMentorId = courseFromJson(response.body);
@@ -35,4 +64,20 @@ class CourseService{
       log(e.toString());
     }
   }
+
+  Future<List<Course>?> getBookmarkByUserId(id) async {
+    try {
+      var url = Uri.parse(Path.path+ "/marks/users/" + id.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _courses = courseFromJson(response.body);
+        return _courses;
+
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
 }

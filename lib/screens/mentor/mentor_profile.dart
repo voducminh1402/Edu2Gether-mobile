@@ -1,6 +1,7 @@
 
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mentor.dart';
+import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mentor_service.dart';
 
@@ -10,6 +11,7 @@ import 'package:edu2gether_mobile/widgets/big_text.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:getwidget/components/progress_bar/gf_progress_bar.dart';
 
 class MentorProfile extends StatefulWidget {
@@ -37,29 +39,22 @@ class _MentorProfileState extends State<MentorProfile> {
   @override
   void initState(){
     super.initState();
-    _getMentorById();
-    _getCourseByMentorId();
+    _getData();
   }
 
-  _getMentorById() async{
-    _mentor = (await MentorService().getMentorById(_mentor?.id ?? 0));
+  _getData() async {
+    _mentor = (await MentorService().getMentorById(widget.id));
+    _course = (await CourseService().getCoursesByMentorId(widget.id));
     Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_mentor != null){
-      isLoaded = true;
-    }
-  }
-
-  _getCourseByMentorId() async{
-    _course = (await CourseService().getCoursesByMentorId(_mentor?.id ?? 0));
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_course != null){
+    if(_course != null && _mentor != null){
       isLoaded = true;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return !isLoaded ? Scaffold(body: const Center(child: CircularProgressIndicator(),)) :
+      DefaultTabController(
       length: 3,
       child: Scaffold(
           appBar: AppBar(
@@ -72,8 +67,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 color: Colors.black,
               ),
               onPressed: () {
-                //Get.toNamed(RoutesClass.getLoginRoute());
-                //Navigator.pop(context);
+                Get.to(() => const TopMentorPage());
               },
             ),
             elevation: 0,
@@ -82,7 +76,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   onPressed: () {},
 
                   icon: const Icon(
-                    Icons.more,
+                    Icons.more_horiz,
                     color: Colors.black,
                   )),
               const SizedBox(
@@ -101,7 +95,7 @@ class _MentorProfileState extends State<MentorProfile> {
                   child: Center(
                     child: CircleAvatar(
                       backgroundImage:
-                          const ExactAssetImage("assets/images/mentor.png"),
+                      NetworkImage(_mentor!.image),
                       foregroundColor: Colors.white,
                       radius: Dimension.width24,
                     ),
@@ -135,7 +129,7 @@ class _MentorProfileState extends State<MentorProfile> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         BigText(
-                          text: "25",
+                          text: _course!.length.toString(),
                           size: Dimension.font8,
                           fontweight: FontWeight.bold,
                         ),
@@ -198,62 +192,62 @@ class _MentorProfileState extends State<MentorProfile> {
                 SizedBox(
                   height: Dimension.height5,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        // Respond to button press
-                      },
-
-                      icon: const Icon(Icons.message),
-                      label: const Text("Message"),
-
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.radius16)),
-                          ),
-                          minimumSize: MaterialStateProperty.all(
-                            Size(MediaQuery.of(context).size.width / 2.3, 46),
-                          ),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: Dimension.font5,
-                              fontWeight: FontWeight.bold)),
-                          backgroundColor:
-                              MaterialStateProperty.all(AppColors.mainColor)),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: () {
-                        // Respond to button press
-                      },
-
-                      icon: const Icon(Icons.web),
-                      label: const Text("Website"),
-
-                      style: ButtonStyle(
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Dimension.radius16)),
-                          ),
-                          minimumSize: MaterialStateProperty.all(
-                            Size(MediaQuery.of(context).size.width / 2.3, 46),
-                          ),
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                              fontSize: Dimension.font5,
-                              fontWeight: FontWeight.bold)),
-                          side: MaterialStateProperty.all(
-                              BorderSide(color: AppColors.mainColor, width: 2)),
-                          foregroundColor:
-                              MaterialStateProperty.all(AppColors.mainColor)),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: Dimension.height3,
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     ElevatedButton.icon(
+                //       onPressed: () {
+                //         // Respond to button press
+                //       },
+                //
+                //       icon: const Icon(Icons.message),
+                //       label: const Text("Message"),
+                //
+                //       style: ButtonStyle(
+                //           shape: MaterialStateProperty.all(
+                //             RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Dimension.radius16)),
+                //           ),
+                //           minimumSize: MaterialStateProperty.all(
+                //             Size(MediaQuery.of(context).size.width / 2.3, 46),
+                //           ),
+                //           textStyle: MaterialStateProperty.all(TextStyle(
+                //               fontSize: Dimension.font5,
+                //               fontWeight: FontWeight.bold)),
+                //           backgroundColor:
+                //               MaterialStateProperty.all(AppColors.mainColor)),
+                //     ),
+                //     OutlinedButton.icon(
+                //       onPressed: () {
+                //         // Respond to button press
+                //       },
+                //
+                //       icon: const Icon(Icons.web),
+                //       label: const Text("Website"),
+                //
+                //       style: ButtonStyle(
+                //           shape: MaterialStateProperty.all(
+                //             RoundedRectangleBorder(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Dimension.radius16)),
+                //           ),
+                //           minimumSize: MaterialStateProperty.all(
+                //             Size(MediaQuery.of(context).size.width / 2.3, 46),
+                //           ),
+                //           textStyle: MaterialStateProperty.all(TextStyle(
+                //               fontSize: Dimension.font5,
+                //               fontWeight: FontWeight.bold)),
+                //           side: MaterialStateProperty.all(
+                //               BorderSide(color: AppColors.mainColor, width: 2)),
+                //           foregroundColor:
+                //               MaterialStateProperty.all(AppColors.mainColor)),
+                //     )
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: Dimension.height3,
+                // ),
 
                 const Divider(),
 
@@ -311,8 +305,7 @@ class _MentorProfileState extends State<MentorProfile> {
 
                                       size: const Size.fromRadius(48), // Image radius
 
-                                      child: Image.asset('assets/images/course.png',
-                                          fit: BoxFit.cover),
+                                      child:Image.network(_course![i].image.toString()) ,
                                     ),
                                   ),
 
