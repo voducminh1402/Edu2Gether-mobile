@@ -13,15 +13,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../models/mark.dart';
+import '../../services/mark_service.dart';
 import '../../utilities/dimensions.dart';
 
 
 class VideoCourseDetails extends StatefulWidget {
 
   int id;
+  String menteeID;
 
   VideoCourseDetails(
-      {required this.id,Key? key}) : super(key: key);
+      {required this.id, required this.menteeID ,Key? key}) : super(key: key);
 
   @override
   State<VideoCourseDetails> createState() => _VideoCourseDetailsState();
