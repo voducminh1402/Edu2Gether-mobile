@@ -2,8 +2,10 @@ import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/subject.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/major_service.dart';
+import 'package:edu2gether_mobile/services/mark_service.dart';
 import 'package:edu2gether_mobile/services/subject_service.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
@@ -22,10 +24,19 @@ class MostPopularCourse extends StatefulWidget {
 
 class _MostPopularCourseState extends State<MostPopularCourse> {
 
-
+  final List<String> _searchTerms = [
+    "Software Engineering",
+    "Graphic Design",
+    "International Business",
+  ];
   late List<Course>? _courses = [];
   late List<Subject>? _subjects = [];
-  late List<Major>? _majors = [];
+  List<Major>? _majors = [];
+  late List<String>? _majorNames = [];
+  List<bool>? _isMarks = [];
+  String? _search;
+  String? _menteeId;
+  int _majorIndex = 0;
   var isLoaded = false;
 
   //int id = 1;
@@ -37,12 +48,23 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
   }
 
   void _getData() async {
+    await AuthService().getUserLogin().then((value) async {
+      _menteeId = value.id;
+    });
     _courses = (await CourseService().getCourses())!;
     _subjects = (await SubjectService().getSubject())!;
+    _majorNames!.add("All");
     _majors = (await MajorService().getMajors())!;
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     if(_courses != null && _subjects != null && _majors != null){
       isLoaded = true;
+      for(var course in _courses!){
+        bool? isMark = await MarkService().checkMark(_menteeId, course.id);
+        _isMarks!.add(isMark!);
+      }
+      for(var major in _majors!){
+        _majorNames!.add(major.name);
+      }
+      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     }
   }
 
@@ -69,7 +91,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
             },
           ),
           title: Text(
-            'Most Popular Courses',
+            _search ?? 'Most Popular Courses',
             style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -77,7 +99,24 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
           ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  // method to show the search bar
+                  _search = await showSearch<String?>(
+                    context: context,
+                    // delegate to customize the search bar
+                    delegate: CustomSearchDelegate(),
+                  );
+                  if(_searchTerms.contains(_search)){
+                    _courses = await CourseService().getCoursesByMajorName(_search);
+                  } else {
+                    _courses = await CourseService().getCoursesByName(_search);
+                  }
+                  setState(() {
+                    if(_courses != null){
+                      isLoaded = true;
+                    }
+                  });
+                },
                 icon: const Icon(
                   Icons.search_outlined,
                   color: Colors.black,
@@ -95,7 +134,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                 Container(
                   width: 380,
                   height: 774,
-                  margin: EdgeInsets.only(left: Dimension.width3, right: Dimension.width3),
+                  margin: EdgeInsets.only(left: Dimension.width8, right: Dimension.width3),
                   padding: EdgeInsets.only(top: Dimension.height5),
                   child: Column(
                     children: [
@@ -103,12 +142,25 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                         width: 380,
                         height: 38,
                         child: ListView.builder(
-                          itemCount: _majors!.length,
+                          itemCount: _majorNames!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () async {
-                                  _courses = await CourseService().getCoursesByMajorName(_majors![index].name);
+                                if(_majorNames![index] == "All"){
+                                  _courses = (await CourseService().getCourses())!;
+                                  for(var course in _courses!){
+                                    bool? isMark = await MarkService().checkMark(_menteeId, course.id);
+                                    _isMarks!.add(isMark!);
+                                  }
+                                } else {
+                                  _courses = await CourseService().getCoursesByMajorName(_majorNames![index]);
+                                  for(var course in _courses!){
+                                    bool? isMark = await MarkService().checkMark(_menteeId, course.id);
+                                    _isMarks!.add(isMark!);
+                                  }
+                                }
+                                  _majorIndex = index;
                                   setState(() {
                                     if(_courses != null){
                                       isLoaded = true;
@@ -129,9 +181,9 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                                               style: BorderStyle.solid,
                                               width: 2.0
                                           ),
-                                          color:Colors.white,
+                                          color: _majorIndex != index ? Colors.white : Colors.blueAccent,
                                         ),
-                                        child: Center(child: BigText(text: _majors![index].name.toString(), color: Colors.blueAccent, size: Dimension.font6, fontweight: FontWeight.w600,))
+                                        child: Center(child: BigText(text: _majorNames![index], color: _majorIndex == index ? Colors.white : Colors.blueAccent, size: Dimension.font6, fontweight: FontWeight.w600,))
                                     )
                                   ],
                                 ),
@@ -197,7 +249,9 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
 
                                                       ),
                                                     ),
-                                                    Icon(Icons.bookmark_border, color: AppColors.mainColor, size: Dimension.font10,)
+
+                                                    _isMarks![index] ? Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,) : Icon(Icons.bookmark_border, color: AppColors.mainColor, size: Dimension.font10,)
+
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -259,6 +313,103 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
           ),
         ],
       ),
+    );
+  }
+}
+class CustomSearchDelegate extends SearchDelegate<String?> {
+// Demo list to show querying
+  List<String> searchTerms = [
+    "Software Engineering",
+    "Graphic Design",
+    "International Business",
+  ];
+
+// first overwrite to
+// clear the search text
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return query != "" ? [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear, color: Colors.black,),
+      ),
+    ] : [
+      IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: const Icon(Icons.clear, color: Colors.black,),
+      ),
+    ];
+  }
+
+// second overwrite to pop out of search menu
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back, color: Colors.black,),
+    );
+  }
+
+// third overwrite to show query result
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var major in searchTerms) {
+      if (major.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(major);
+      }
+    }
+    matchQuery.add(query);
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return GestureDetector(
+          onTap: (){
+            query = result;
+            close(context, result);
+          },
+          child: ListTile(
+            title: Text(result),
+          ),
+        );
+      },
+    );
+  }
+
+// last overwrite to show the
+// querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var major in searchTerms) {
+      if (major.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(major);
+      }
+    }
+    matchQuery.add(query);
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        print(query);
+        return GestureDetector(
+          onTap: (){
+            query = result;
+            print(query);
+            close(context, result);
+          },
+          child: ListTile(
+            title: Text(result),
+          ),
+        );
+      },
     );
   }
 }

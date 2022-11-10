@@ -57,42 +57,40 @@ class _EReceiptState extends State<EReceiptPage> {
   Widget build(BuildContext context) {
     return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
     Scaffold(
-      body: Column(
-          //show header
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 24, bottom: 24, left: 24, right: 24),
-              padding: EdgeInsets.only(top: 9.5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: (){
-                          Navigator.pop(context,
-                              MaterialPageRoute(builder: (context) => const TransactionPage()));
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          margin: EdgeInsets.only(right: 10),
-                          child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
-                        ),
-                      ),
-                      // BigText(text: "E-Receipt", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
-                      Text('E-Receipt', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+      appBar: AppBar(
+          backgroundColor: Colors.white,
+          leading: IconButton(
 
-                    ],
-                  ),
-                  Container(
-                      width: 40,
-                      height: 40,
-                      child: Icon(Icons.more_horiz_outlined, color: Colors.black, size: 30,)
-                  ),
-                ],
-              ),
+            icon: const Icon(
+
+              Icons.arrow_back,
+              color: Colors.black,
             ),
+            onPressed: () {
+              Get.to(() => const TransactionPage());
+              // Navigator.pop(context,
+              //     MaterialPageRoute(builder: (context) => const TransactionPage()));
+            },
+          ),
+          title: Text(
+            'E-Receipt',
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: Dimension.font8),
+          ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_outlined,
+                  color: Colors.black,
+                )),
+          ],
+          elevation: 0
+      ),
+      body: Column(
+          children: [
             //show body
             Column(
               children: [

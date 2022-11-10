@@ -110,16 +110,6 @@ class _profileState extends State<Profile>{
                   fontWeight: FontWeight.bold,
                   fontSize: Dimension.font8),
             ),
-            actions: [
-              IconButton(
-                  onPressed: () {},
-
-                  icon: const Icon(
-
-                    Icons.more_horiz_rounded,
-                    color: Colors.black,
-                  )),
-            ],
             elevation: 0
         ),
         body: Container(
@@ -228,63 +218,63 @@ class _profileState extends State<Profile>{
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget> [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: (){
-                          Get.toNamed(RoutesClass.getProfilePaymentRoute());
-                        },
-                        child:  const SizedBox(
-                          width: 380,
-                          height: 28,
-                          child: ListTile(
-                            leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
-                            title: Text(
-                              'Payment',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: Icon(Icons.navigate_next, color: Colors.black,),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget> [
-                    Expanded(
-                      child:  SizedBox(
-                        width: 380,
-                        height: 28,
-                        child: ListTile(
-                            leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
-                            title: Text(
-                              'Security',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top:10),
+              //   child:  Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: <Widget> [
+              //       Expanded(
+              //         child: GestureDetector(
+              //           onTap: (){
+              //             Get.toNamed(RoutesClass.getProfilePaymentRoute());
+              //           },
+              //           child:  const SizedBox(
+              //             width: 380,
+              //             height: 28,
+              //             child: ListTile(
+              //               leading: Icon(Icons.account_balance_wallet_sharp,color: Colors.black,),
+              //               title: Text(
+              //                 'Payment',
+              //                 style: TextStyle(
+              //                   fontFamily: 'Urbanist',
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //               trailing: Icon(Icons.navigate_next, color: Colors.black,),
+              //             ),
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top:10),
+              //   child:  Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: const <Widget> [
+              //       Expanded(
+              //         child:  SizedBox(
+              //           width: 380,
+              //           height: 28,
+              //           child: ListTile(
+              //               leading: Icon(Icons.verified_user_sharp,color: Colors.black,),
+              //               title: Text(
+              //                 'Security',
+              //                 style: TextStyle(
+              //                   fontFamily: 'Urbanist',
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(top:10),
                 child:  Row(
@@ -408,7 +398,7 @@ class _profileState extends State<Profile>{
                           width: 380,
                           height: 28,
                           child: ListTile(
-                              leading: Icon(Icons.person_outlined,color: Colors.black,),
+                              leading: Icon(Icons.logout,color: Colors.black,),
                               title: Text(
                                 'Logout',
                                 style: TextStyle(

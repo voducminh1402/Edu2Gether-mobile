@@ -9,7 +9,6 @@ import '../../models/course.dart';
 import '../../services/course_service.dart';
 import '../../utilities/colors.dart';
 import '../../utilities/dimensions.dart';
-import '../../widgets/big_text.dart';
 import '../main_page/main_page.dart';
 
 class MyBookmarkPage extends StatefulWidget {
@@ -21,9 +20,14 @@ class MyBookmarkPage extends StatefulWidget {
 }
 
 class _MyBookmarkPageState extends State<MyBookmarkPage> {
-
+  final List<String> _searchTerms = [
+    "Software Engineering",
+    "Graphic Design",
+    "International Business",
+  ];
   late List<Course>? _courses;
   String? _menteeId;
+  String? _search;
   var isLoaded = false;
 
   @override
@@ -66,7 +70,7 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
             },
           ),
           title: Text(
-              'My Bookmark',
+              _search ?? 'My Bookmark',
               style: TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -74,7 +78,24 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
             ),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  // method to show the search bar
+                  _search = await showSearch<String?>(
+                      context: context,
+                      // delegate to customize the search bar
+                      delegate: CustomSearchDelegate(),
+                  );
+                  if(_searchTerms.contains(_search)){
+                    _courses = await CourseService().getCoursesByMajorName(_search);
+                  } else {
+                    _courses = await CourseService().getCoursesByName(_search);
+                  }
+                  setState(() {
+                    if(_courses != null){
+                      isLoaded = true;
+                    }
+                  });
+                },
                 icon: const Icon(
                   Icons.search_outlined,
                   color: Colors.black,
@@ -187,15 +208,6 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.blueAccent,
                                                   ), // default text style
-                                                  // children: <TextSpan>[
-                                                  //   TextSpan(
-                                                  //     text: ' \$80',
-                                                  //     style: TextStyle(
-                                                  //       fontSize: Dimension.font5,
-                                                  //       color: Colors.black38,
-                                                  //     ),
-                                                  //   ),
-                                                  // ],
                                                 ),
                                               ),
                                               SizedBox(height: Dimension.height3,),
@@ -234,3 +246,101 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
     );
   }
 }
+class CustomSearchDelegate extends SearchDelegate<String?> {
+// Demo list to show querying
+  List<String> searchTerms = [
+    "Software Engineering",
+    "Graphic Design",
+    "International Business",
+  ];
+
+// first overwrite to
+// clear the search text
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return query != "" ? [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: const Icon(Icons.clear, color: Colors.black,),
+      ),
+    ] : [
+      IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: const Icon(Icons.clear, color: Colors.black,),
+      ),
+    ];
+  }
+
+// second overwrite to pop out of search menu
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: const Icon(Icons.arrow_back, color: Colors.black,),
+    );
+  }
+
+// third overwrite to show query result
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var major in searchTerms) {
+      if (major.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(major);
+      }
+    }
+    matchQuery.add(query);
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return GestureDetector(
+          onTap: (){
+            query = result;
+            close(context, result);
+          },
+          child: ListTile(
+            title: Text(result),
+          ),
+        );
+      },
+    );
+  }
+
+// last overwrite to show the
+// querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    for (var major in searchTerms) {
+      if (major.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(major);
+      }
+    }
+    matchQuery.add(query);
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        print(query);
+        return GestureDetector(
+          onTap: (){
+            query = result;
+            print(query);
+            close(context, result);
+          },
+          child: ListTile(
+            title: Text(result),
+          ),
+        );
+      },
+    );
+  }
+}
+
