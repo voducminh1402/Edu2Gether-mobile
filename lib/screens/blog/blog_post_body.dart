@@ -63,10 +63,10 @@ class _BlogPostBodyState extends State<BlogPostBody> {
                 width: 380,
                 height: 220,
                 decoration: BoxDecoration(
-                    color:Colors.black38,
+                    color:Colors.white10,
                     image: DecorationImage(
                         image: AssetImage(
-                            "assets/image/advancedjava.png"
+                            "assets/images/Software_developer.png"
                         )
                     )
                 ),
@@ -76,8 +76,9 @@ class _BlogPostBodyState extends State<BlogPostBody> {
                 height: 700,
                 margin: EdgeInsets.only(top: 24),
                 child: Text(
-                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. "
-                      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+                  "Software developers use their programming skills to create new software and update existing applications. If you’re a creative thinker who enjoys problem solving, a career as a software developer could be a good fit."
+
+                  "Software is essential in nearly every industry, which means you can pursue a career in a field that aligns with your passions and interests. Learn more about this rapidly growing career, discover course recommendations to build skills, and 10 tips to get a job as a software developer.",
                   maxLines: 1000,
                   softWrap: true,
                   style: TextStyle(

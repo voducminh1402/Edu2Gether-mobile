@@ -69,7 +69,7 @@ class _profileEditState extends State<ProfileEdit> {
       _phone = _mentee!.phone;
       _university = _mentee!.university;
       _image = _mentee!.image;
-      dropdownValue = _mentee!.gender;
+      _gender = _mentee!.gender;
       isLoaded = true;
     }
   }
@@ -86,7 +86,7 @@ class _profileEditState extends State<ProfileEdit> {
       child: ConstrainedBox(
         constraints: BoxConstraints(
           minHeight: MediaQuery.of(context).size.height,
-          maxHeight: MediaQuery.of(context).size.height + 300
+          maxHeight: MediaQuery.of(context).size.height + 350
         ),
         child: Scaffold(
           //resizeToAvoidBottomInset: false,
@@ -352,7 +352,6 @@ class _profileEditState extends State<ProfileEdit> {
                             );
                             return null;
                           }
-
                           final path = results.files.single.path!;
                           final fileName = results.files.single.name;
 
@@ -360,9 +359,6 @@ class _profileEditState extends State<ProfileEdit> {
                             _image = value!;
                             print(_image + "anh vui ve");
                           });} );
-
-
-
                         },
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -394,7 +390,7 @@ class _profileEditState extends State<ProfileEdit> {
               ],
             ),
               SizedBox(
-                height: Dimension.height50,
+                height: Dimension.height45,
               ),
               SizedBox(
                             height: 58,

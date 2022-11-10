@@ -5,7 +5,6 @@ import 'package:edu2gether_mobile/models/authen_response.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
-import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';

@@ -1,6 +1,7 @@
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/models/mentor.dart';
+import 'package:edu2gether_mobile/screens/blog/blog_post.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
@@ -50,6 +51,11 @@ class _MainHomePageState extends State<MainHomePage> {
     if(_courses != null && _mentors != null && _mentee != null){
       isLoaded = true;
     }
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
   @override
   Widget build(BuildContext context) {
@@ -105,7 +111,7 @@ class _MainHomePageState extends State<MainHomePage> {
                       Container(
                         width: 40,
                         height: 40,
-                        child: Icon(Icons.notifications_none, color: Colors.black, size: 30,),
+                        child: Icon(Icons.notifications_none, color: Colors.blueAccent, size: 30,),
                       ),
                       GestureDetector(
                         onTap: () async {
@@ -117,7 +123,7 @@ class _MainHomePageState extends State<MainHomePage> {
                         child: Container(
                             width: 40,
                             height: 40,
-                            child: Icon(Icons.bookmark_outline, color: Colors.black, size: 30,)
+                            child: Icon(Icons.bookmark, color: Colors.blueAccent, size: 30,)
                         ),
                       ),
                     ],
@@ -159,31 +165,39 @@ class _MainHomePageState extends State<MainHomePage> {
                               borderRadius: BorderRadius.circular(25),
                               color:Colors.black12,
                             ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 20, top: 10),
-                                  child: BigText(text: "How to be a Dev?", color: Colors.black, size: 20, fontweight: FontWeight.w600,),
-                                ),
-                                Container(
-                                  width: 380,
-                                  height: 100,
-                                  margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                                  child: Text(
-                                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. "
-                                        "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-                                    maxLines: 5,
-                                    softWrap: true,
-                                    style: TextStyle(
-                                      fontFamily: 'Urbanist',
-                                      fontSize: 16,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                            child: GestureDetector(
+                              onTap: (){
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const BlogPostPage()),
+                                );
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 20, top: 10),
+                                    child: BigText(text: "How to be a Dev?", color: Colors.black, size: 20, fontweight: FontWeight.w600,),
                                   ),
-                                )
-                              ],
+                                  Container(
+                                    width: 380,
+                                    height: 100,
+                                    margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                                    child: Text(
+                                      "Software developers use their programming skills to create new software and update existing applications. If you’re a creative thinker who enjoys problem solving, a career as a software developer could be a good fit. "
+                                          ,
+                                      maxLines: 5,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                        fontFamily: 'Urbanist',
+                                        fontSize: 16,
+                                        overflow: TextOverflow.ellipsis,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           );
                         }
@@ -297,7 +311,7 @@ class _MainHomePageState extends State<MainHomePage> {
                               itemCount: _courses!.length,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
-                                  onTap: () => Get.to(() => VideoCourseDetails(id: _courses![index].id)),
+                                  onTap: () => Get.to(() => VideoCourseDetails(id: _courses![index].id),),
                                   child: Container(
                                       padding: EdgeInsets.all(20),
                                       margin: EdgeInsets.symmetric(vertical: 10),

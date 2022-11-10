@@ -19,7 +19,7 @@ class TopMentorPage extends StatefulWidget {
 
 class _TopMentorPageState extends State<TopMentorPage> {
 
-
+  String? _search;
   List<Mentor>? mentors;
   var isLoaded = false;
 
@@ -42,47 +42,57 @@ class _TopMentorPageState extends State<TopMentorPage> {
   Widget build(BuildContext context) {
     return !isLoaded ? Scaffold(body: const Center(child: CircularProgressIndicator(),)) :
       Scaffold(
-      body: Column(
-        //show header
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 24, bottom: 24, left: 24, right: 24),
-            padding: EdgeInsets.only(top: 9.5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Get.to(() => const MainPage());
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        margin: EdgeInsets.only(right: 10),
-                        child: Icon(Icons.arrow_back, color: Colors.black, size: 30,),
-                      ),
-                    ),
-                    //BigText(text: "Top Mentor", color: Colors.black, size: 24, fontweight: FontWeight.w700,)
-                    Text('Top Mentor', style: TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),)
+        appBar: AppBar(
+            backgroundColor: Colors.white,
+            leading: IconButton(
 
-                  ],
-                ),
-                Container(
-                    width: 40,
-                    height: 40,
-                    child: Icon(Icons.search, color: Colors.black, size: 30,)
-                ),
-              ],
+              icon: const Icon(
+
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Get.to(() => const MainPage());
+              },
             ),
-          ),
+            title: Text(
+              _search ?? 'Top Mentor',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: Dimension.font8),
+            ),
+            actions: [
+              IconButton(
+                  onPressed: () async {
+                    // method to show the search bar
+                    // _search = await showSearch<String?>(
+                    //   context: context,
+                    //   // delegate to customize the search bar
+                    //   delegate: CustomSearchDelegate(),
+                    // );
+                    // _courses = await CourseService().getCoursesByMajorName(_search);
+                    // setState(() {
+                    //   if(_courses != null){
+                    //     isLoaded = true;
+                    //   }
+                    // });
+                  },
+                  icon: const Icon(
+                    Icons.search_outlined,
+                    color: Colors.black,
+                  )),
+            ],
+            elevation: 0
+        ),
+      body: Column(
+        children: [
           //show body
           Expanded(child: SingleChildScrollView(
             child: Container(
               width: 380,
               height: 700,
-              margin: EdgeInsets.only(left: 30, right: 24),
+              margin: EdgeInsets.only(left: 30, right: 24, top: Dimension.height5),
               child: ListView.builder(
                 itemCount: mentors?.length,
                 itemBuilder: (context, index){

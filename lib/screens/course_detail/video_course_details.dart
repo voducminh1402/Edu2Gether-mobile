@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 
+import '../../models/mark.dart';
+import '../../services/mark_service.dart';
 import '../../utilities/dimensions.dart';
 
 
@@ -21,7 +23,7 @@ class VideoCourseDetails extends StatefulWidget {
   int id;
 
   VideoCourseDetails(
-      {required this.id,Key? key}) : super(key: key);
+      {required this.id ,Key? key}) : super(key: key);
 
   @override
   State<VideoCourseDetails> createState() => _VideoCourseDetailsState();
@@ -42,7 +44,9 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
 
   Course? _course;
   String? _menteeId;
+  bool? _canEnroll;
   bool _isLoaded = false;
+  bool? _isMark = false;
 
   @override
   void initState() {
@@ -55,6 +59,8 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
     await AuthService().getUserLogin().then((value) async {
       _menteeId = value.id;
       _course = (await CourseService().getCoursesById(widget.id))!;
+      _isMark = await MarkService().checkMark(_menteeId, _course!.id);
+      _canEnroll = await CourseService().canEnroll(_menteeId, _course!.id);
       Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
 
       if(_course != null){
@@ -144,7 +150,7 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
                                       Mark mark = Mark(courseId: _course!.id, menteeId: _menteeId!);
                                       await MarkService().markCourse(mark);
                                     },
-                                      child: const Icon(Icons.bookmark_border,color: Colors.blueAccent))
+                                      child: _isMark ?? true ? const Icon(Icons.bookmark,color: Colors.blueAccent) : const Icon(Icons.bookmark_border,color: Colors.blueAccent))
                                 ],
                               ),
                             ),
@@ -367,9 +373,10 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
             child: SizedBox(
               width: double.infinity,
               child: FloatingActionButton.extended(
-                backgroundColor: Colors.blue,
+                backgroundColor: _canEnroll! ? Colors.blue : Colors.blueGrey,
                 foregroundColor: Colors.white,
                 onPressed: () {
+                  !_canEnroll! ? null :
                   Get.to(() => PaypalPayment(price: _course!.price, menteeId: _menteeId!, mentorId: _course!.mentorId, courseId: _course!.id,));
                 },
                 label: Text('Enroll Course ' + _course!.price.toString(), style: TextStyle(
