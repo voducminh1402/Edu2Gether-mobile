@@ -71,19 +71,6 @@ class _MentorProfileState extends State<MentorProfile> {
               },
             ),
             elevation: 0,
-            actions: [
-              IconButton(
-                  onPressed: () {},
-
-                  icon: const Icon(
-                    Icons.more_horiz,
-                    color: Colors.black,
-                  )),
-              const SizedBox(
-
-                width: 12,
-              )
-            ],
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: Dimension.width5),
@@ -97,7 +84,7 @@ class _MentorProfileState extends State<MentorProfile> {
                       backgroundImage:
                       NetworkImage(_mentor!.image),
                       foregroundColor: Colors.white,
-                      radius: Dimension.width24,
+                      radius: Dimension.width28,
                     ),
                   ),
                 ),

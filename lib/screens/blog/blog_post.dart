@@ -93,7 +93,7 @@ class _BlogPostPageState extends State<BlogPostPage> {
                             color:Colors.white10,
                             image: DecorationImage(
                                 image: AssetImage(
-                                    "assets/images/Software_developer.png"
+                                    "assets/images/software-developer.jpeg"
                                 )
                             )
                         ),

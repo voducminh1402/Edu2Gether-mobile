@@ -2,6 +2,7 @@
 
 import 'package:edu2gether_mobile/models/authen_response.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile_edit.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
 
@@ -101,7 +102,7 @@ class _profileState extends State<Profile>{
                 color: Colors.black,
               ),
               onPressed: () {
-                Get.back();
+                Get.to(() => MainPage());
               },
             ),
             title: Text(
