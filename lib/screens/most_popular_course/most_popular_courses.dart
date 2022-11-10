@@ -1,12 +1,9 @@
 import 'package:edu2gether_mobile/models/course.dart';
-import 'package:edu2gether_mobile/models/subject.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
-import 'package:edu2gether_mobile/services/major_service.dart';
 import 'package:edu2gether_mobile/services/mark_service.dart';
-import 'package:edu2gether_mobile/services/subject_service.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,10 +26,8 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
     "Graphic Design",
     "International Business",
   ];
-  late List<Course>? _courses = [];
-  late List<Subject>? _subjects = [];
-  List<Major>? _majors = [];
-  late List<String>? _majorNames = [];
+  List<Course>? _courses = [];
+  final Set<String>? _majorNames = Set();
   List<bool>? _isMarks = [];
   String? _search;
   String? _menteeId;
@@ -52,17 +47,13 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
       _menteeId = value.id;
     });
     _courses = (await CourseService().getCourses())!;
-    _subjects = (await SubjectService().getSubject())!;
     _majorNames!.add("All");
-    _majors = (await MajorService().getMajors())!;
-    if(_courses != null && _subjects != null && _majors != null){
+    if(_courses != null){
       isLoaded = true;
       for(var course in _courses!){
         bool? isMark = await MarkService().checkMark(_menteeId, course.id);
         _isMarks!.add(isMark!);
-      }
-      for(var major in _majors!){
-        _majorNames!.add(major.name);
+        _majorNames!.add(course.major!.name);
       }
       Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     }
@@ -147,14 +138,14 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () async {
-                                if(_majorNames![index] == "All"){
+                                if(_majorNames!.elementAt(index) == "All"){
                                   _courses = (await CourseService().getCourses())!;
                                   for(var course in _courses!){
                                     bool? isMark = await MarkService().checkMark(_menteeId, course.id);
                                     _isMarks!.add(isMark!);
                                   }
                                 } else {
-                                  _courses = await CourseService().getCoursesByMajorName(_majorNames![index]);
+                                  _courses = await CourseService().getCoursesByMajorName(_majorNames!.elementAt(index));
                                   for(var course in _courses!){
                                     bool? isMark = await MarkService().checkMark(_menteeId, course.id);
                                     _isMarks!.add(isMark!);
@@ -183,7 +174,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                                           ),
                                           color: _majorIndex != index ? Colors.white : Colors.blueAccent,
                                         ),
-                                        child: Center(child: BigText(text: _majorNames![index], color: _majorIndex == index ? Colors.white : Colors.blueAccent, size: Dimension.font6, fontweight: FontWeight.w600,))
+                                        child: Center(child: BigText(text: _majorNames!.elementAt(index), color: _majorIndex == index ? Colors.white : Colors.blueAccent, size: Dimension.font6, fontweight: FontWeight.w600,))
                                     )
                                   ],
                                 ),
