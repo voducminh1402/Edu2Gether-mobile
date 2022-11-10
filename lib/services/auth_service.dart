@@ -106,12 +106,9 @@ class AuthService{
             Get.to(() => ProfileEdit(id: response!.id, user: response,));
           }
           else {
-            Get.to(() => const MainPage());
+            Get.to(() => MainPage());
           }
         });
-
-
-        
       }
     });
   }

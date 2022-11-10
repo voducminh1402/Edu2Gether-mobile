@@ -1,9 +1,13 @@
+import 'package:edu2gether_mobile/models/booking.dart';
+import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/models/payment.dart';
 import 'package:edu2gether_mobile/models/transaction.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/ereceipt.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
+import 'package:edu2gether_mobile/services/booking_service.dart';
+import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/services/payment_service.dart';
 import 'package:edu2gether_mobile/services/transaction_service.dart';
@@ -28,6 +32,7 @@ class _TransactionPageState extends State<TransactionPage> {
 
 
   late List<Payment>? _payments;
+  List<Course>? _courses = [];
   var isLoaded = false;
 
   @override
@@ -39,10 +44,18 @@ class _TransactionPageState extends State<TransactionPage> {
   void _getData() async {
     await AuthService().getUserLogin().then((value) async {
       _payments = (await PaymentService().getPaymentsByUserId(value.id))!;
-      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-      if(_payments != null){
-        isLoaded = true;
+
+      for(var payment in _payments!){
+        Booking? booking = await BookingService().getBookingById(payment.bookingId);
+        Course? course = await CourseService().getCoursesById(booking!.courseId);
+        _courses!.add(course!);
       }
+
+      setState(() {
+        if(_courses != null){
+          isLoaded = true;
+        }
+      });
     });
   }
 
@@ -65,7 +78,7 @@ class _TransactionPageState extends State<TransactionPage> {
               color: Colors.black,
             ),
             onPressed: () {
-              Get.to(() => const MainPage());
+              Get.to(() => MainPage());
             },
           ),
           title: Text(
@@ -75,129 +88,89 @@ class _TransactionPageState extends State<TransactionPage> {
                 fontWeight: FontWeight.bold,
                 fontSize: Dimension.font8),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search_outlined,
-                  color: Colors.black,
-                )),
-          ],
           elevation: 0
       ),
-      body: Column(
-        children: [
-          //show body
-          Expanded(child: SingleChildScrollView(
-            child: Column(
-              children: [
-                //list transaction
-                Container(
-                  height: 700,
-                  child: ListView.builder(
-                      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
-                      itemCount: _payments?.length,
-                      itemBuilder: (context, i) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.to(() => EReceiptPage(paymentId: _payments![i].id,));
-                          },
-                          child: Container(
-                              padding: EdgeInsets.all(20),
-                              margin: EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                BorderRadius.circular(Dimension.radius12),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    spreadRadius: 2,
-                                    blurRadius: 2,
-                                    offset: Offset(0, 2), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: Row(
+      body: ListView.builder(
+          padding: EdgeInsets.symmetric(vertical: Dimension.height5, horizontal: Dimension.width10),
+              itemCount: _payments?.length,
+              itemBuilder: (context, i) {
+                return GestureDetector(
+                  onTap: () {
+                    Get.to(() => EReceiptPage(paymentId: _payments![i].id,));
+                  },
+                  child: Container(
+                      padding: EdgeInsets.all(15),
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                        BorderRadius.circular(Dimension.radius12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.1),
+                            spreadRadius: 2,
+                            blurRadius: 2,
+                            offset: Offset(0, 2), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            // Image border
+                            child: SizedBox.fromSize(
+                              size: Size.fromRadius(42), // Image radius
+                              child: Image.network(_courses![i].image!,
+                                  fit: BoxFit.cover),
+                            ),
+                          ),
+                          SizedBox(
+                            width: Dimension.width10,
+                          ),
+                          Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    // Image border
-                                    child: SizedBox.fromSize(
-                                      size: Size.fromRadius(48), // Image radius
-                                      child: Image.asset('assets/images/transaction.png',
-                                          fit: BoxFit.cover),
-                                    ),
+                                  Text(
+                                    _courses![i].name,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: Dimension.font8,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Urbanist'),
                                   ),
                                   SizedBox(
-                                    width: 15,
+                                    height: Dimension.height5,
                                   ),
-                                  Expanded(
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            _payments![i].status!,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 22,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Urbanist'),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Text(
-                                            'Paid',
-                                            style: TextStyle(
-                                                color: Colors.blueAccent,
-                                                fontSize: 18,
-                                                fontFamily: 'Urbanist'),
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),Container(
-                                            child: Row(
-                                              children: [
-                                                ElevatedButton.icon(
-                                                  onPressed: () {
-                                                    Get.to(EReceiptPage(paymentId: _payments![i].id,));
-                                                  },
-                                                  icon: Icon(Icons.monetization_on_outlined),
-                                                  label: Text("E-Receipt"),
-                                                  style: ButtonStyle(
-                                                      shape: MaterialStateProperty.all(
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                            BorderRadius.circular(Dimension.radius16)),
-                                                      ),
-                                                      minimumSize: MaterialStateProperty.all(
-                                                        Size(MediaQuery.of(context).size.width / 3.0, 30),
-                                                      ),
-                                                      textStyle: MaterialStateProperty.all(TextStyle(
-                                                          fontSize: Dimension.font8,
-                                                          fontWeight: FontWeight.bold)),
-                                                      backgroundColor:
-                                                      MaterialStateProperty.all(AppColors.mainColor)),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ))
+                                  Text(
+                                    _payments![i].totalPrice.toString() + " USD",
+                                    style: TextStyle(
+                                        color: Colors.blueAccent,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: Dimension.font6,
+                                        fontFamily: 'Urbanist'),
+                                  ),
+                                  SizedBox(
+                                    height: Dimension.height5,
+                                  ),
+                                  Text(
+                                    _payments![i].status!,
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: Dimension.font6,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Urbanist'),
+                                  ),
                                 ],
-                              )),
-                        );
-                      }),
-                )
-              ],
-            ),
-            )
-          ),
-        ],
-      ),
+                              ))
+                        ],
+                      )),
+                );
+              }),
+
     );
   }
 }

@@ -71,10 +71,11 @@ class _profileState extends State<Profile>{
       id = value.id;
       user = value;
       mentee = await MenteeService().getMenteeById(id);
-      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-      if(mentee != null){
-        isLoaded = true;
-      }
+      setState(() {
+        if(mentee != null){
+          isLoaded = true;
+        }
+      });
     });
 
   }
@@ -88,7 +89,7 @@ class _profileState extends State<Profile>{
     return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
       MaterialApp(
       home: Scaffold(
-        //resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
             backgroundColor: Colors.white,
@@ -161,7 +162,7 @@ class _profileState extends State<Profile>{
                   color: Colors.black,
                 ),
               ),
-              GestureDetector(
+              InkWell(
                 onTap: () async{
                   Get.to(() => ProfileEdit(id: id, user: user));
                 } ,
@@ -191,33 +192,33 @@ class _profileState extends State<Profile>{
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget> [
-                    Expanded(
-                      child: SizedBox(
-
-                        width: 380,
-                        height: 28,
-                        child: ListTile(
-                            leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
-                            title: Text(
-                              'Notification',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top:10),
+              //   child:  Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: const <Widget> [
+              //       Expanded(
+              //         child: SizedBox(
+              //
+              //           width: 380,
+              //           height: 28,
+              //           child: ListTile(
+              //               leading: Icon(Icons.notifications_none_sharp,color: Colors.black,),
+              //               title: Text(
+              //                 'Notification',
+              //                 style: TextStyle(
+              //                   fontFamily: 'Urbanist',
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               // Padding(
               //   padding: const EdgeInsets.only(top:10),
               //   child:  Row(
@@ -275,117 +276,117 @@ class _profileState extends State<Profile>{
               //     ],
               //   ),
               // ),
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget> [
-                    Expanded(
-                      child: SizedBox(
-                        width: 380,
-                        height: 28,
-                        child: ListTile(
-                            leading: Icon(Icons.language_sharp,color: Colors.black,),
-                            title: Text(
-                              'Language',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget> [
-                    Expanded(
-                      child: SizedBox(
-                        width: 380,
-                        height: 28,
-                        child: ListTile(
-                            leading: const Icon(Icons.visibility_sharp,color: Colors.black,),
-                            title: const Text(
-                              'Dark Mode',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing:
-                            CupertinoSwitch(
-                                value: true,
-                                onChanged: (value){
-                                  setState(() {
-                                    _switchValue = false;
-                                  });
-                                })
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget> [
-                    Expanded(
-                      child: SizedBox(
-                        width: 380,
-                        height: 28,
-                        child: ListTile(
-                            leading: Icon(Icons.lock_outline_sharp,color: Colors.black,),
-                            title: Text(
-                              'Privacy Policy',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const <Widget> [
-                    Expanded(
-                      child: SizedBox(
-                        width: 380,
-                        height: 28,
-                        child: ListTile(
-                            leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
-                            title: Text(
-                              'Invite Friends',
-                              style: TextStyle(
-                                fontFamily: 'Urbanist',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            trailing: Icon(Icons.navigate_next, color: Colors.black,)
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top:10),
+              //   child:  Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: const <Widget> [
+              //       Expanded(
+              //         child: SizedBox(
+              //           width: 380,
+              //           height: 28,
+              //           child: ListTile(
+              //               leading: Icon(Icons.language_sharp,color: Colors.black,),
+              //               title: Text(
+              //                 'Language',
+              //                 style: TextStyle(
+              //                   fontFamily: 'Urbanist',
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top:10),
+              //   child:  Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: <Widget> [
+              //       Expanded(
+              //         child: SizedBox(
+              //           width: 380,
+              //           height: 28,
+              //           child: ListTile(
+              //               leading: const Icon(Icons.visibility_sharp,color: Colors.black,),
+              //               title: const Text(
+              //                 'Dark Mode',
+              //                 style: TextStyle(
+              //                   fontFamily: 'Urbanist',
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //               trailing:
+              //               CupertinoSwitch(
+              //                   value: true,
+              //                   onChanged: (value){
+              //                     setState(() {
+              //                       _switchValue = false;
+              //                     });
+              //                   })
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top:10),
+              //   child:  Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: const <Widget> [
+              //       Expanded(
+              //         child: SizedBox(
+              //           width: 380,
+              //           height: 28,
+              //           child: ListTile(
+              //               leading: Icon(Icons.lock_outline_sharp,color: Colors.black,),
+              //               title: Text(
+              //                 'Privacy Policy',
+              //                 style: TextStyle(
+              //                   fontFamily: 'Urbanist',
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(top:10),
+              //   child:  Row(
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: const <Widget> [
+              //       Expanded(
+              //         child: SizedBox(
+              //           width: 380,
+              //           height: 28,
+              //           child: ListTile(
+              //               leading: Icon(Icons.people_outline_sharp,color: Colors.black,),
+              //               title: Text(
+              //                 'Invite Friends',
+              //                 style: TextStyle(
+              //                   fontFamily: 'Urbanist',
+              //                   fontSize: 18,
+              //                   fontWeight: FontWeight.w600,
+              //                 ),
+              //               ),
+              //               trailing: Icon(Icons.navigate_next, color: Colors.black,)
+              //           ),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               GestureDetector(
                 onTap: () => AuthService().signOut(),
                 child: Padding(

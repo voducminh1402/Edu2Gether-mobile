@@ -133,7 +133,8 @@ class Course {
     required this.approveStatus,
     this.subject,
     this.major,
-    this.mentor
+    this.mentor,
+    this.studentCount,
   });
 
   int id;
@@ -157,6 +158,7 @@ class Course {
   Subject? subject;
   Major? major;
   Mentor? mentor;
+  int? studentCount;
 
   factory Course.fromJson(Map<String, dynamic> json) => Course(
     id: json["id"],
@@ -177,9 +179,10 @@ class Course {
     isActived: json["isActived"],
     approver: json["approver"],
     approveStatus: json["approveStatus"],
-    subject:json["subject"] == null ? null : Subject.fromJson(json["subject"]),
+    subject: json["subject"] == null ? null : Subject.fromJson(json["subject"]),
     major: json["major"] == null ? null : Major.fromJson(json["major"]),
     mentor: json["mentor"] == null ? null : Mentor.fromJson(json["mentor"]),
+      studentCount: json["studentCount"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -204,6 +207,7 @@ class Course {
     "subject": subject == null ? null : subject!.toJson(),
     "major": major == null ? null : major!.toJson(),
     "mentor": mentor == null ? null : mentor!.toJson(),
+    "studentCount": studentCount
   };
 }
 

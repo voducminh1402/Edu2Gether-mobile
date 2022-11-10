@@ -21,15 +21,7 @@ class Login extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              //Navigator.pop(context);
-            },
-          ),
+
           elevation: 0,
         ),
         resizeToAvoidBottomInset: false,
@@ -68,83 +60,63 @@ class Login extends StatelessWidget {
                 "Let's you in",
               ),
               SizedBox(
-                height: Dimension.height10,
+                height: Dimension.height20,
               ),
-              GestureDetector(
-                onTap: () {
+
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
+                ),
+                onPressed: () {
                   AuthService().signInWithGoogle();
                   AuthService().checkUserState();
                 },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FaIcon(FontAwesomeIcons.google, color: Colors.red,),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      SmallText(text: "Continue with Google"),
-                    ],
-                  ),
-                ),
+                icon: FaIcon(FontAwesomeIcons.google, color: Colors.red,),
+                label: Text("Continue with Google", style: TextStyle(color: Colors.black),),
               ),
               SizedBox(
                 height: Dimension.height5,
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FaIcon(FontAwesomeIcons.facebook, color: Colors.blue,),
-
-                    SizedBox(
-                      width: 10,
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    SmallText(text: "Continue with Facebook"),
-                  ],
+                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                 ),
+                onPressed: () {
+                  AuthService().signInWithGoogle();
+                  AuthService().checkUserState();
+                },
+                icon: FaIcon(FontAwesomeIcons.facebook, color: Colors.blue,),
+                label: Text("Continue with Facebook", style: TextStyle(color: Colors.black),),
               ),
               SizedBox(
                 height: Dimension.height5,
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FaIcon(FontAwesomeIcons.apple, color: Colors.black,),
-
-                    SizedBox(
-                      width: 10,
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    SmallText(text: "Continue with Apple"),
-                  ],
+                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
                 ),
+                onPressed: () {
+                  AuthService().signInWithGoogle();
+                  AuthService().checkUserState();
+                },
+                icon: FaIcon(FontAwesomeIcons.apple, color: Colors.grey,),
+                label: Text("Continue with Apple", style: TextStyle(color: Colors.black),),
               ),
-              SizedBox(
-                height: Dimension.height10,
-              ),
-              ButtonLogin(route: RoutesClass.getLoginAccountRoute(), title: 'Sign in with password',),
               SizedBox(
                 height: Dimension.height16,
               ),
