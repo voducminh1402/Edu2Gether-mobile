@@ -1,5 +1,6 @@
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
@@ -58,7 +59,7 @@ class _MyCourseState extends State<MyCourse> {
                 color: Colors.black,
               ),
               onPressed: () {
-                Get.back();
+                Get.to(() => MainPage());
               },
             ),
             title: Text(
