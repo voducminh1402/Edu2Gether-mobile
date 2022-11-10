@@ -13,7 +13,7 @@ class Storage{
         ) async {
       File file = File(filePath);
       try{
-        var snapshot = await storage.ref('mentee/$fileName').putFile(file);
+        await storage.ref('mentee/$fileName').putFile(file);
         String downloadURL = await storage.ref('mentee/$fileName').getDownloadURL();
         return downloadURL;
       } on firebase_core.FirebaseException catch (e) {

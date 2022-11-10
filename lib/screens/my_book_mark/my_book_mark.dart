@@ -1,4 +1,5 @@
 import 'package:edu2gether_mobile/models/mark.dart';
+import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/services/mark_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,11 +21,8 @@ class MyBookmarkPage extends StatefulWidget {
 }
 
 class _MyBookmarkPageState extends State<MyBookmarkPage> {
-  final List<String> _searchTerms = [
-    "Software Engineering",
-    "Graphic Design",
-    "International Business",
-  ];
+  final Set<Major> _searchTerms = Set<Major>();
+  final Set<String> _majorNames = Set<String>();
   late List<Course>? _courses;
   String? _menteeId;
   String? _search;
@@ -40,10 +38,18 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
     await AuthService().getUserLogin().then((value) async {
       _menteeId = value.id;
       _courses = (await CourseService().getBookmarkByUserId(value.id))!;
-      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-      if(_courses != null ){
-        isLoaded = true;
+      if(_courses != null){
+        for(var course in _courses!){
+          _searchTerms.add(course.subject!.major!);
+          _majorNames.add(course.subject!.major!.name);
+        }
       }
+
+      setState(() {
+        if(_courses != null ){
+          isLoaded = true;
+        }
+      });
     });
   }
 
@@ -66,7 +72,7 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
               color: Colors.black,
             ),
             onPressed: () {
-              Get.to(() => const MainPage());
+              Get.to(() => MainPage());
             },
           ),
           title: Text(
@@ -83,12 +89,13 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
                   _search = await showSearch<String?>(
                       context: context,
                       // delegate to customize the search bar
-                      delegate: CustomSearchDelegate(),
+                      delegate: CustomSearchDelegate(_searchTerms),
                   );
-                  if(_searchTerms.contains(_search)){
-                    _courses = await CourseService().getCoursesByMajorName(_search);
+                  if(_majorNames.contains(_search)){
+                    int id = _searchTerms.firstWhere((element) => element.name == _search).id;
+                    _courses = await CourseService().getBookmarkByUserIdWithMajorId(_menteeId, id);
                   } else {
-                    _courses = await CourseService().getCoursesByName(_search);
+                    _courses = await CourseService().getBookmarkByUserIdWithSearchString(_menteeId, _search);
                   }
                   setState(() {
                     if(_courses != null){
@@ -103,156 +110,117 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
           ],
           elevation: 0
       ),
-      body: Column(
-        children: [
-          //show body
-          Expanded(child: SingleChildScrollView(
-            child: Column(
-              children: [
-                //list transaction
-                Container(
-                  width: 380,
-                  height: 774,
-                  margin: EdgeInsets.only(left: 24, right: 24),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 380,
-                        height: 774,
-                        child: ListView.builder(
-                            padding: EdgeInsets.symmetric(vertical: Dimension.height5),
-                            itemCount: _courses!.length,
-                            itemBuilder: (context, i) {
-                              return Container(
-                                  padding: EdgeInsets.all(20),
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                    BorderRadius.circular(Dimension.radius12),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.1),
-                                        spreadRadius: 2,
-                                        blurRadius: 2,
-                                        offset: Offset(0, 2), // changes position of shadow
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        // Image border
-                                        child: SizedBox.fromSize(
-                                          size: Size.fromRadius(62), // Image radius
-                                          child: Image.network(_courses![i].image.toString(),
-                                          fit: BoxFit.cover),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 15,
-                                      ),
-                                      Expanded(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text("Marked", style: TextStyle(color: Colors.white),),
-                                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                                                    decoration: BoxDecoration(
-                                                      color: AppColors.mainColor,
-                                                      border: Border.all(color: Colors.blue),
-                                                      borderRadius: BorderRadius.circular(6),
-
-                                                    ),
-                                                  ),
-                                                  GestureDetector(
-                                                    onTap: () async {
-                                                      Mark mark = Mark(courseId: _courses![i].id, menteeId: _menteeId!);
-                                                      await MarkService().unMarkCourse(mark);
-                                                      _courses = await CourseService().getBookmarkByUserId(_menteeId);
-                                                      setState(() {
-                                                        if(_courses != null){
-                                                          isLoaded = true;
-                                                        }
-                                                      });
-                                                    },
-                                                      child: Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,))
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                _courses![i].name.toString(),
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 22,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'Urbanist'),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text.rich(
-                                                TextSpan(
-                                                  text: '\$${_courses![i].price.toString()}',
-                                                  style: TextStyle(
-                                                    fontSize: Dimension.font6,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.blueAccent,
-                                                  ), // default text style
-                                                ),
-                                              ),
-                                              SizedBox(height: Dimension.height3,),
-                                              RichText(
-                                                text: TextSpan(
-                                                  children: [
-                                                    WidgetSpan(
-                                                      child: Icon(Icons.star, size: Dimension.font5),
-                                                    ),
-                                                    WidgetSpan(child: SizedBox(width: Dimension.width3,),),
-                                                    TextSpan(
-                                                        text: "4.7 | ",
-                                                        style: TextStyle(color: Colors.black38)
-                                                    ),
-                                                    TextSpan(
-                                                        text: "7,938 students", style: TextStyle(color: Colors.black38)
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ))
-                                    ],
-                                  ));
-                            }),
+      body: ListView.builder(
+          padding: EdgeInsets.symmetric(vertical: Dimension.height5),
+          itemCount: _courses!.length,
+          itemBuilder: (context, i) {
+            return InkWell(
+              onTap: () => Get.to(() =>
+                  VideoCourseDetails(
+                      id: _courses![i].id)),
+              child: Container(
+                  padding: EdgeInsets.all(Dimension.height8),
+                  margin: EdgeInsets.all(Dimension.height8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                    BorderRadius.circular(Dimension.radius12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1),
+                        spreadRadius: 2,
+                        blurRadius: 2,
+                        offset: Offset(0, 2), // changes position of shadow
                       ),
                     ],
                   ),
-                )
-              ],
-            ),
-          )
-          ),
-        ],
-      ),
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        // Image border
+                        child: SizedBox.fromSize(
+                          size: Size.fromRadius(52), // Image radius
+                          child: Image.network(_courses![i].image.toString(),
+                              fit: BoxFit.cover),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Text("Marked", style: TextStyle(color: Colors.white),),
+                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.mainColor,
+                                      border: Border.all(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(6),
+
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                      onTap: () async {
+                                        Mark mark = Mark(courseId: _courses![i].id, menteeId: _menteeId!);
+                                        await MarkService().unMarkCourse(mark);
+                                        _courses = await CourseService().getBookmarkByUserId(_menteeId);
+                                        setState(() {
+                                          if(_courses != null){
+                                            isLoaded = true;
+                                          }
+                                        });
+                                      },
+                                      child: Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,))
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                _courses![i].name.toString(),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: Dimension.font9,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Urbanist'),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text.rich(
+                                TextSpan(
+                                  text: '\$${_courses![i].price.toString()}',
+                                  style: TextStyle(
+                                    fontSize: Dimension.font6,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueAccent,
+                                  ), // default text style
+                                ),
+                              ),
+                            ],
+                          ))
+                    ],
+                  )),
+            );
+          }),
     );
   }
 }
 class CustomSearchDelegate extends SearchDelegate<String?> {
 // Demo list to show querying
-  List<String> searchTerms = [
-    "Software Engineering",
-    "Graphic Design",
-    "International Business",
-  ];
+  Set<Major>? searchTerms;
+
+  CustomSearchDelegate(Set<Major> searchTerms){
+    this.searchTerms = searchTerms;
+  }
 
 // first overwrite to
 // clear the search text
@@ -290,9 +258,9 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
   @override
   Widget buildResults(BuildContext context) {
     List<String> matchQuery = [];
-    for (var major in searchTerms) {
-      if (major.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(major);
+    for (var major in searchTerms!) {
+      if (major.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(major.name);
       }
     }
     matchQuery.add(query);
@@ -318,9 +286,9 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<String> matchQuery = [];
-    for (var major in searchTerms) {
-      if (major.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(major);
+    for (var major in searchTerms!) {
+      if (major.name.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(major.name);
       }
     }
     matchQuery.add(query);

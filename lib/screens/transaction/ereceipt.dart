@@ -47,10 +47,11 @@ class _EReceiptState extends State<EReceiptPage> {
     _course = await CourseService().getCoursesById(_booking!.courseId);
     _mentee = await MenteeService().getMenteeById(_booking!.menteeId);
 
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_payment != null && _mentee != null && _booking != null && _course != null){
-      isLoaded = true;
-    }
+    setState(() {
+      if(_payment != null && _mentee != null && _booking != null && _course != null){
+        isLoaded = true;
+      }
+    });
   }
 
   @override
@@ -67,9 +68,7 @@ class _EReceiptState extends State<EReceiptPage> {
               color: Colors.black,
             ),
             onPressed: () {
-              Get.to(() => const TransactionPage());
-              // Navigator.pop(context,
-              //     MaterialPageRoute(builder: (context) => const TransactionPage()));
+              Get.to(() => MainPage());
             },
           ),
           title: Text(
@@ -79,14 +78,6 @@ class _EReceiptState extends State<EReceiptPage> {
                 fontWeight: FontWeight.bold,
                 fontSize: Dimension.font8),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search_outlined,
-                  color: Colors.black,
-                )),
-          ],
           elevation: 0
       ),
       body: Column(

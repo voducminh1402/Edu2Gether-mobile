@@ -20,7 +20,8 @@ class Mentor {
     required this.job,
     required this.gender,
     required this.image,
-    this.websiteUrl
+    this.websiteUrl,
+    this.studentNumber
   });
 
   String id;
@@ -34,6 +35,7 @@ class Mentor {
   String gender;
   String image;
   String? websiteUrl;
+  int? studentNumber;
 
   factory Mentor.fromJson(Map<String, dynamic> json) => Mentor(
     id: json["id"],
@@ -47,6 +49,7 @@ class Mentor {
     gender: json["gender"],
     image: json["image"],
     websiteUrl: json["websiteUrl"],
+    studentNumber: json["studentNumber"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -61,5 +64,6 @@ class Mentor {
     "gender": gender,
     "image": image,
     "websiteUrl": websiteUrl,
+    "studentNumber": studentNumber,
   };
 }

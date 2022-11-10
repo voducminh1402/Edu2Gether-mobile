@@ -93,6 +93,34 @@ class CourseService{
     }
   }
 
+  Future<List<Course>?> getBookmarkByUserIdWithSearchString(userId, search) async {
+    try {
+      var url = Uri.parse(Path.path + "/marks/search/user?userId=" + userId.toString() + "&search=" + search.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _courses = courseFromJson(response.body);
+        return _courses;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
+  Future<List<Course>?> getBookmarkByUserIdWithMajorId(userId, majorId) async {
+    try {
+      var url = Uri.parse(Path.path + "/marks/search/user-major?majorId=" + majorId.toString() + "&userId=" + userId.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _courses = courseFromJson(response.body);
+        return _courses;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
   Future<List<Course>?> getOnGoingCoursesForUser(id) async {
     try {
       var url = Uri.parse(Path.path + "/courses/course/on-going/" + id.toString());

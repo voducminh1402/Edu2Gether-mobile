@@ -17,7 +17,7 @@ import '../my_course/my_course.dart';
 import '../user_profile/profile.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -32,7 +32,8 @@ class _MainPageState extends State<MainPage> {
     Profile(),
   ];
   int currentIndex = 0;
-  void onTap(int index) async{
+
+  void onTap(int index){
     setState(() {
       currentIndex = index;
     });

@@ -52,6 +52,7 @@ class Dimension {
   static double font6 = screenHeight / 147.33;
   static double font7 = screenHeight / 126;
   static double font8 = screenHeight / 110.25;
+  static double font9 = screenHeight / 98;
 
   static double font10 = screenHeight / 88.2;
   static double font12 = screenHeight / 73.5;

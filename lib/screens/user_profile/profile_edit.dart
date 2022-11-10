@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/services/storage_services.dart';
@@ -7,6 +8,7 @@ import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../models/mentee.dart';
@@ -35,6 +37,7 @@ class _profileEditState extends State<ProfileEdit> {
   Mentee? _mentee;
 
   var isLoaded = false;
+  bool isLoadedImage = true;
 
   late String? _fullName;
   late String _phone;
@@ -61,17 +64,18 @@ class _profileEditState extends State<ProfileEdit> {
       _image = widget.user!.image ?? "";
       _phone = widget.user!.phone ?? "";
     }
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_mentee != null){
-      _country = _mentee!.country;
-      _fullName = _mentee!.fullName;
-      _address = _mentee!.address;
-      _phone = _mentee!.phone;
-      _university = _mentee!.university;
-      _image = _mentee!.image;
-      _gender = _mentee!.gender;
-      isLoaded = true;
-    }
+    setState(() {
+      if(_mentee != null){
+        _country = _mentee!.country;
+        _fullName = _mentee!.fullName;
+        _address = _mentee!.address;
+        _phone = _mentee!.phone;
+        _university = _mentee!.university;
+        _image = _mentee!.image;
+        _gender = _mentee!.gender;
+        isLoaded = true;
+      }
+    });
   }
 
   String dropdownValue = 'Male';
@@ -95,8 +99,7 @@ class _profileEditState extends State<ProfileEdit> {
             leading: BackButton(
               color: Colors.black,
               onPressed: (){
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
+                Get.to(() => MainPage());
               },
             ),
             backgroundColor: Colors.white,
@@ -110,14 +113,6 @@ class _profileEditState extends State<ProfileEdit> {
             title: const Text(
               'Edit Profile',
             ),
-            actions: [
-              IconButton(
-                  onPressed: (){},
-                  icon: const Icon(
-                    Icons.more_horiz_rounded,
-                    color: Colors.black,
-                  ))
-            ],
           ),
           body: isLoaded == false ? Center(child: CircularProgressIndicator(),): Column(
             children: <Widget>[
@@ -339,6 +334,9 @@ class _profileEditState extends State<ProfileEdit> {
 
                       child: TextField(
                         onTap: () async{
+                          setState(() {
+                            isLoadedImage = false;
+                          });
                           final results = await FilePicker.platform.pickFiles(
                             allowMultiple: false,
                             type: FileType.custom,
@@ -355,8 +353,10 @@ class _profileEditState extends State<ProfileEdit> {
                           final path = results.files.single.path!;
                           final fileName = results.files.single.name;
 
-                          storage.uploadFile(fileName, path).then((value) {setState(() {
+                          storage.uploadFile(fileName, path).then((value) {
+                            setState(() {
                             _image = value!;
+                            isLoadedImage = true;
                             print(_image + "anh vui ve");
                           });} );
                         },
@@ -392,7 +392,7 @@ class _profileEditState extends State<ProfileEdit> {
               SizedBox(
                 height: Dimension.height45,
               ),
-              SizedBox(
+              isLoadedImage ? SizedBox(
                             height: 58,
                             width: 380,
                             child:  Card(
@@ -414,7 +414,7 @@ class _profileEditState extends State<ProfileEdit> {
                                 ),
                               ),
                             ),
-                          ),
+                          ) : SizedBox(),
             ],
           ),
 

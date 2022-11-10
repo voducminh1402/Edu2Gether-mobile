@@ -1,4 +1,5 @@
 import 'package:edu2gether_mobile/models/course.dart';
+import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
@@ -30,10 +31,11 @@ class _MyCourseState extends State<MyCourse> {
       _onGoingCourses = await CourseService().getOnGoingCoursesForUser(value.id);
       _completedCourses = await CourseService().getCompletedCoursesForUser(value.id);
     });
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_onGoingCourses != null && _completedCourses != null){
-      _isLoaded = true;
-    }
+    setState(() {
+      if(_onGoingCourses != null && _completedCourses != null){
+        _isLoaded = true;
+      }
+    });
   }
 
   @override
@@ -66,20 +68,6 @@ class _MyCourseState extends State<MyCourse> {
                   fontWeight: FontWeight.bold,
                   fontSize: Dimension.font8),
             ),
-            actions: [
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  )),
-              IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.more_horiz_rounded,
-                    color: Colors.black,
-                  )),
-            ],
             elevation: 0,
             bottom: TabBar(
               padding: EdgeInsets.only(
@@ -89,10 +77,10 @@ class _MyCourseState extends State<MyCourse> {
               indicatorColor: Colors.blue,
               labelColor: Colors.blue,
               labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: Dimension.font6),
+                  fontWeight: FontWeight.bold, fontSize: Dimension.font7),
               unselectedLabelColor: Colors.grey,
               unselectedLabelStyle: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: Dimension.font6),
+                  fontWeight: FontWeight.bold, fontSize: Dimension.font7),
               tabs: [
                 Tab(text: 'Ongoing'),
                 Tab(text: 'Completed'),
@@ -114,167 +102,181 @@ class _MyCourseState extends State<MyCourse> {
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
                     itemCount: _onGoingCourses!.length,
                     itemBuilder: (context, i) {
-                      return Container(
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.circular(Dimension.radius12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: Offset(0, 2), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                // Image border
-                                child: SizedBox.fromSize(
-                                  size: Size.fromRadius(48), // Image radius
-                                  child: Image.network(_onGoingCourses![i].image!,
-                                      fit: BoxFit.cover),
+                      return InkWell(
+                        onTap: () => Get.to(() => VideoCourseDetails(id: _onGoingCourses![i].id)),
+                        child: Container(
+                            padding: EdgeInsets.all(15),
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                              BorderRadius.circular(Dimension.radius12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 2,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 2), // changes position of shadow
                                 ),
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Expanded(
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  // Image border
+                                  child: SizedBox.fromSize(
+                                    size: Size.fromRadius(42), // Image radius
+                                    child: Image.network(_onGoingCourses![i].image!,
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.zero,
+                                  padding: EdgeInsets.zero,
+                                  width: 200,
                                   child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    _onGoingCourses![i].name,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Urbanist'),
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _onGoingCourses![i].name,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: Dimension.font8,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Urbanist'),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        _onGoingCourses![i].estimateHour.toString() + " hours",
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: Dimension.font6,
+                                            fontFamily: 'Urbanist'),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    _onGoingCourses![i].estimateHour.toString() + ' hours',
-                                    style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 18,
-                                        fontFamily: 'Urbanist'),
-                                  ),
-                                  // SizedBox(
-                                  //   height: 10,
-                                  // ),
-                                  // GFProgressBar(
-                                  //   percentage: 0.7,
-                                  //   lineHeight: 5,
-                                  //   alignment: MainAxisAlignment.spaceBetween,
-                                  //   trailing: const Text(
-                                  //     '70/100',
-                                  //     textAlign: TextAlign.end,
-                                  //     style: TextStyle(
-                                  //         fontSize: 14, color: Colors.grey),
-                                  //   ),
-                                  //   backgroundColor: Colors.black12,
-                                  //   progressBarColor: Colors.blue,
-                                  // )
-                                ],
-                              ))
-                            ],
-                          ));
+                                ),
+                                // Expanded(
+                                //   child: GFProgressBar(
+                                //     padding: EdgeInsets.zero,
+                                //     margin: EdgeInsets.zero,
+                                //       percentage: 0.9,
+                                //       width: 200,
+                                //       radius: 75,
+                                //       circleWidth: 8,
+                                //       lineHeight: 30,
+                                //       type: GFProgressType.circular,
+                                //       child: const Padding(
+                                //         padding: EdgeInsets.only(right: 5, left: 5),
+                                //         child: Text('90%', textAlign: TextAlign.center,
+                                //           style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                                //         ),
+                                //       ),
+                                //       backgroundColor: Colors.black26,
+                                //       progressBarColor: GFColors.DANGER),
+                                // )
+                              ],
+                            )),
+                      );
                     }),
                 ListView.builder(
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
                     itemCount: _completedCourses!.length,
                     itemBuilder: (context, i) {
-                      return Container(
-                          padding: EdgeInsets.all(20),
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.circular(Dimension.radius12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.1),
-                                spreadRadius: 2,
-                                blurRadius: 2,
-                                offset: Offset(0, 2), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                // Image border
-                                child: SizedBox.fromSize(
-                                  size: Size.fromRadius(48), // Image radius
-                                  child: Image.network(_completedCourses![i].image!,
-                                      fit: BoxFit.cover),
+                      return InkWell(
+                        onTap: () => Get.to(() => VideoCourseDetails(id: _completedCourses![i].id)),
+                        child: Container(
+                            padding: EdgeInsets.all(15),
+                            margin: EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.circular(Dimension.radius12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  spreadRadius: 2,
+                                  blurRadius: 2,
+                                  offset: Offset(0, 2), // changes position of shadow
                                 ),
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Container(
-                                margin: EdgeInsets.zero,
-                                padding: EdgeInsets.zero,
-                                width: 150,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      _completedCourses![i].name,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.bold,
-                                          fontFamily: 'Urbanist'),
-                                    ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      _completedCourses![i].estimateHour.toString() + " hours",
-                                      style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 18,
-                                          fontFamily: 'Urbanist'),
-                                    ),
-                                  ],
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  // Image border
+                                  child: SizedBox.fromSize(
+                                    size: Size.fromRadius(42), // Image radius
+                                    child: Image.network(_completedCourses![i].image!,
+                                        fit: BoxFit.cover),
+                                  ),
                                 ),
-                              ),
-                              // Expanded(
-                              //   child: GFProgressBar(
-                              //     padding: EdgeInsets.zero,
-                              //     margin: EdgeInsets.zero,
-                              //       percentage: 0.9,
-                              //       width: 200,
-                              //       radius: 75,
-                              //       circleWidth: 8,
-                              //       lineHeight: 30,
-                              //       type: GFProgressType.circular,
-                              //       child: const Padding(
-                              //         padding: EdgeInsets.only(right: 5, left: 5),
-                              //         child: Text('90%', textAlign: TextAlign.center,
-                              //           style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
-                              //         ),
-                              //       ),
-                              //       backgroundColor: Colors.black26,
-                              //       progressBarColor: GFColors.DANGER),
-                              // )
-                            ],
-                          ));
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                Container(
+                                  margin: EdgeInsets.zero,
+                                  padding: EdgeInsets.zero,
+                                  width: 200,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        _completedCourses![i].name,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: Dimension.font8,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Urbanist'),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        _completedCourses![i].estimateHour.toString() + " hours",
+                                        style: TextStyle(
+                                            color: Colors.grey,
+                                            fontSize: Dimension.font6,
+                                            fontFamily: 'Urbanist'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Expanded(
+                                //   child: GFProgressBar(
+                                //     padding: EdgeInsets.zero,
+                                //     margin: EdgeInsets.zero,
+                                //       percentage: 0.9,
+                                //       width: 200,
+                                //       radius: 75,
+                                //       circleWidth: 8,
+                                //       lineHeight: 30,
+                                //       type: GFProgressType.circular,
+                                //       child: const Padding(
+                                //         padding: EdgeInsets.only(right: 5, left: 5),
+                                //         child: Text('90%', textAlign: TextAlign.center,
+                                //           style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                                //         ),
+                                //       ),
+                                //       backgroundColor: Colors.black26,
+                                //       progressBarColor: GFColors.DANGER),
+                                // )
+                              ],
+                            )),
+                      );
                     }),
               ],
             ),

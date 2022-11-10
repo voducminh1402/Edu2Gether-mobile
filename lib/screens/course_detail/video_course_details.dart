@@ -1,5 +1,6 @@
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mark.dart';
+import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 import 'package:edu2gether_mobile/screens/most_popular_course/most_popular_courses.dart';
 import 'package:edu2gether_mobile/screens/user_profile/paypal_payment.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
@@ -61,24 +62,24 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
       _course = (await CourseService().getCoursesById(widget.id))!;
       _isMark = await MarkService().checkMark(_menteeId, _course!.id);
       _canEnroll = await CourseService().canEnroll(_menteeId, _course!.id);
-      Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+      setState(() {
+        if(_course != null){
+          _isLoaded = true;
+          _controller = VideoPlayerController.network(_course!.videoUrl ??
+              'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+            //closedCaptionFile: _loadCaptions(),
+            videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
+          );
 
-      if(_course != null){
-        _isLoaded = true;
-        _controller = VideoPlayerController.network(_course!.videoUrl ??
-            'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-          //closedCaptionFile: _loadCaptions(),
-          videoPlayerOptions: VideoPlayerOptions(mixWithOthers: true),
-        );
+          _tabController = TabController(length: 3, vsync: this);
 
-        _tabController = TabController(length: 3, vsync: this);
-
-        _controller.addListener(() {
-          setState(() {});
-        });
-        _controller.setLooping(true);
-        _controller.initialize();
-      }
+          _controller.addListener(() {
+            setState(() {});
+          });
+          _controller.setLooping(true);
+          _controller.initialize();
+        }
+      });
     });
   }
 
@@ -96,7 +97,7 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
       child: ConstrainedBox(
         constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height,
-            maxHeight: MediaQuery.of(context).size.height + 20
+            maxHeight: MediaQuery.of(context).size.height + 300
         ),
         child: Scaffold(
           backgroundColor: Colors.white,
@@ -111,261 +112,171 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
           ),
           body: Column(
             children: [
-              DefaultTabController(
-                  length: 2,
-                  child: Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 250,
-                          alignment: Alignment.topCenter,
-                          padding: const EdgeInsets.all(0),
-                          child: AspectRatio(
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: <Widget>[
-                                VideoPlayer(_controller),
-                                ClosedCaption(text: _controller.value.caption.text),
-                                _ControlsOverlay(controller: _controller),
-                                VideoProgressIndicator(_controller, allowScrubbing: true),
-                              ],
-                            ),
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      height: 250,
+                      alignment: Alignment.topCenter,
+                      padding: const EdgeInsets.all(0),
+                      child: AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: <Widget>[
+                            VideoPlayer(_controller),
+                            ClosedCaption(text: _controller.value.caption.text),
+                            _ControlsOverlay(controller: _controller),
+                            VideoProgressIndicator(_controller, allowScrubbing: true),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: Dimension.height5, left: Dimension.width10, right: Dimension.width10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                _course!.name,
+                                //'Intro to UI/UX Design',
+                                style: TextStyle(fontFamily: 'Urbanist', fontSize: 28, fontWeight: FontWeight.w700,color: Colors.black),
+                              ),
+                              GestureDetector(
+                                  onTap: () async {
+                                    Mark mark = Mark(courseId: _course!.id, menteeId: _menteeId!);
+                                    await MarkService().markCourse(mark);
+                                  },
+                                  child: _isMark ?? true ? const Icon(Icons.bookmark,color: Colors.blueAccent) : const Icon(Icons.bookmark_border,color: Colors.blueAccent))
+                            ],
                           ),
                         ),
-                        Column(
+                        Row(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(bottom: Dimension.height5, left: Dimension.width10, right: Dimension.width10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                    _course!.name,
-                                    //'Intro to UI/UX Design',
-                                    style: TextStyle(fontFamily: 'Urbanist', fontSize: 28, fontWeight: FontWeight.w700,color: Colors.black),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      Mark mark = Mark(courseId: _course!.id, menteeId: _menteeId!);
-                                      await MarkService().markCourse(mark);
-                                    },
-                                      child: _isMark ?? true ? const Icon(Icons.bookmark,color: Colors.blueAccent) : const Icon(Icons.bookmark_border,color: Colors.blueAccent))
-                                ],
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: Dimension.width10, right: Dimension.width15),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(7),
-                                    child: Text(
-                                      _course!.major!.name,
-                                      style: TextStyle(fontFamily: 'Urbanist', fontSize: 10, fontWeight: FontWeight.w700,color: Colors.blueAccent),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: const Color(0xD4F0FFFF),
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                  ),
+                              padding: EdgeInsets.only(left: Dimension.width10, right: Dimension.width15),
+                              child: Container(
+                                padding: const EdgeInsets.all(7),
+                                child: Text(
+                                  _course!.major!.name,
+                                  style: TextStyle(fontFamily: 'Urbanist', fontSize: 10, fontWeight: FontWeight.w700,color: Colors.blueAccent),
                                 ),
-                                Icon(Icons.star_half, color: Colors.amberAccent,),
-                                Text(
-                                  '4.8 (4,479 reviews)',
-                                  style: TextStyle(fontFamily: 'Urbanist', fontSize: 16, fontWeight: FontWeight.w700,color: Colors.black),
-                                )
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(top: 12,left: Dimension.width10,right: 12,bottom: 0),
-                                  child: Text(
-                                    _course!.price.toString() + " USD",
-                                    style: TextStyle(fontFamily: 'Urbanist', fontSize: 32, fontWeight: FontWeight.w700,color: Colors.blueAccent),
-                                  ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xD4F0FFFF),
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(Icons.groups,color: Colors.blueAccent,),
-                                      SizedBox(width: Dimension.width3,),
-                                      Text(
-                                        '9,839 Students',
-                                        style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font6, color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.schedule,color: Colors.blueAccent,),
-                                      SizedBox(width: Dimension.width3,),
-                                      Text(
-                                        _course!.estimateHour.toString() + ' Hours',
-                                        style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font6, color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.description,color: Colors.blueAccent,),
-                                      SizedBox(width: Dimension.width3,),
-                                      Text(
-                                        'Certificate',
-                                        style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font6, color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                ],
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: Dimension.height3,
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 12,left: Dimension.width10,right: 12,bottom: 0),
+                              child: Text(
+                                _course!.price.toString() + " USD",
+                                style: TextStyle(fontFamily: 'Urbanist', fontSize: 32, fontWeight: FontWeight.w700,color: Colors.blueAccent),
+                              ),
+                            ),
+                          ],
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: Dimension.width10, right: Dimension.width10),
-                          child: const Divider(),
-                        ),
-                        SizedBox(
-                          height: Dimension.height3,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: Dimension.width10, right: Dimension.width10),
-                          child: TabBar(
-                            indicatorColor: Colors.blue,
-                            labelColor: Colors.blue,
-                            labelStyle: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: Dimension.font6),
-                            unselectedLabelColor: Colors.grey,
-                            unselectedLabelStyle: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: Dimension.font6),
-                            tabs: [
-                              Tab(text: 'About'),
-                              Tab(text: 'Reviews'),
-                            ],
-                          ),
-                        ),
-                        Expanded(child: Padding(
-                          padding: EdgeInsets.only(left: Dimension.width10, right: Dimension.width10),
-                          child: TabBarView(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Row(
                                 children: [
-                                  SizedBox(
-                                    height: Dimension.height5,
-                                  ),
+                                  Icon(Icons.groups, color: Colors.blueAccent,),
+                                  SizedBox(width: Dimension.width3,),
                                   Text(
-                                    "Mentor",
-                                    style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font8, fontWeight: FontWeight.w700,color: Colors.black),
+                                    _course!.studentCount.toString() + ' Students',
+                                    style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font6, color: Colors.black),
                                   ),
-                                  ListTile(
-                                    title: BigText(text: _course!.mentor!.fullName, fontweight: FontWeight.bold, size: Dimension.font7,),
-                                    subtitle: BigText(text: _course!.mentor!.job, size: Dimension.font6,),
-                                    leading: CircleAvatar(
-                                      backgroundImage:
-                                      NetworkImage(_course!.mentor!.image),
-                                      radius: Dimension.height12,
-                                    ),
-                                    trailing: const Icon(Icons.more_horiz_rounded),
-                                  ),
-                                  SizedBox(
-                                    height: Dimension.height5,
-                                  ),
-                                  Text(
-                                    "About course",
-                                    style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font8, fontWeight: FontWeight.w700,color: Colors.black),
-                                  ),
-                                  SizedBox(
-                                    height: Dimension.height5,
-                                  ),
-                                  SmallText(text: _course!.detail.toString(),)
                                 ],
                               ),
-                              ListView.builder(
-                                  padding: EdgeInsets.symmetric(vertical: Dimension.height5, horizontal: Dimension.width5),
-                                  itemCount: 6,
-                                  itemBuilder: (context, i) {
-                                    return Container(
-                                      padding: EdgeInsets.only(bottom: Dimension.height5),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Expanded(child: Row(
-                                                children: [
-                                                  CircleAvatar(
-                                                    backgroundImage:
-                                                    const ExactAssetImage("assets/images/mentor.png"),
-                                                    radius: Dimension.height8,
-                                                  ),
-                                                  SizedBox(width: Dimension.width5,),
-                                                  BigText(text: "Francene Vandyne", fontweight: FontWeight.bold,),
-                                                ],
-                                              )),
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(Icons.star, size: 14, color: AppColors.mainColor,),
-                                                        SizedBox(width: Dimension.width3,),
-                                                        Text("5", style: TextStyle(color: AppColors.mainColor),),
-                                                      ],
-                                                    ),
-                                                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(color: AppColors.mainColor, width: 2),
-                                                      borderRadius: BorderRadius.circular(Dimension.radius16),
-
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: Dimension.width5,),
-                                                  Icon(Icons.more)
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(height: Dimension.height3,),
-                                          SmallText(text: "The course is very good. The explanation of the mentor is very clear and easy to understand!", size: Dimension.font5, color: Colors.black54,),
-                                          SizedBox(height: Dimension.height3,),
-                                          Row(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Icon(Icons.heart_broken, size: 20,),
-                                                  SizedBox(width: Dimension.width5,),
-                                                  SmallText(text: "369", size: Dimension.font5, color: Colors.black54, fontweight: FontWeight.bold,),
-                                                ],
-                                              ),
-                                              SizedBox(width: Dimension.width10,),
-                                              Expanded(
-                                                child: SmallText(text: "3 weeks ago", size: 14, color: Colors.black38,),
-
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }),
+                              Row(
+                                children: [
+                                  Icon(Icons.schedule,color: Colors.blueAccent,),
+                                  SizedBox(width: Dimension.width3,),
+                                  Text(
+                                    _course!.estimateHour.toString() + ' Hours',
+                                    style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font6, color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.description,color: Colors.blueAccent,),
+                                  SizedBox(width: Dimension.width3,),
+                                  Text(
+                                    'Certificate',
+                                    style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font6, color: Colors.black),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
-                        )),
+                        ),
                       ],
                     ),
-                  )
-              ),
+                    SizedBox(
+                      height: Dimension.height3,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: Dimension.width10, right: Dimension.width10),
+                      child: const Divider(),
+                    ),
+                    SizedBox(
+                      height: Dimension.height3,
+                    ),
+                    BigText(text: "About", fontweight: FontWeight.bold, size: Dimension.font10,),
+                    Expanded(child: Padding(
+                      padding: EdgeInsets.only(left: Dimension.width10, right: Dimension.width10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: Dimension.height5,
+                          ),
+                          Text(
+                            "Mentor",
+                            style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font8, fontWeight: FontWeight.w700,color: Colors.black),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Get.to(() => MentorProfile(id: _course!.mentorId));
+                            },
+                            child: ListTile(
+                              title: BigText(text: _course!.mentor!.fullName, fontweight: FontWeight.bold, size: Dimension.font7,),
+                              subtitle: BigText(text: _course!.mentor!.job, size: Dimension.font6,),
+                              leading: CircleAvatar(
+                                backgroundImage:
+                                NetworkImage(_course!.mentor!.image),
+                                radius: Dimension.height12,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: Dimension.height5,
+                          ),
+                          Text(
+                            "About course",
+                            style: TextStyle(fontFamily: 'Urbanist', fontSize: Dimension.font8, fontWeight: FontWeight.w700,color: Colors.black),
+                          ),
+                          SizedBox(
+                            height: Dimension.height5,
+                          ),
+                          SmallText(text: _course!.detail.toString(),)
+                        ],
+                      ),
+                    )),
+                  ],
+                ),
+              )
             ],
           ),
           floatingActionButton: Padding(
@@ -379,7 +290,7 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails> with TickerProv
                   !_canEnroll! ? null :
                   Get.to(() => PaypalPayment(price: _course!.price, menteeId: _menteeId!, mentorId: _course!.mentorId, courseId: _course!.id,));
                 },
-                label: Text('Enroll Course ' + _course!.price.toString(), style: TextStyle(
+                label: Text('Enroll Course ' + _course!.price.toString() + "\$", style: TextStyle(
                     fontSize: Dimension.font10
                 ),),
                 shape: RoundedRectangleBorder(
@@ -454,8 +365,8 @@ class _ControlsOverlay extends StatelessWidget {
           child: PopupMenuButton<Duration>(
             initialValue: controller.value.captionOffset,
             tooltip: 'Caption Offset',
-            onSelected: (Duration delay) {
-              controller.setCaptionOffset(delay);
+            onSelected: (Duration _menteeId) {
+              controller.setCaptionOffset(_menteeId);
             },
             itemBuilder: (BuildContext context) {
               return <PopupMenuItem<Duration>>[
