@@ -53,6 +53,11 @@ class _MainHomePageState extends State<MainHomePage> {
     }
   }
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return !isLoaded ? const Center(child: CircularProgressIndicator(),) :
     Scaffold(

@@ -1,3 +1,6 @@
+import 'package:edu2gether_mobile/models/course.dart';
+import 'package:edu2gether_mobile/services/auth_service.dart';
+import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
@@ -12,9 +15,36 @@ class MyCourse extends StatefulWidget {
 
 class _MyCourseState extends State<MyCourse> {
 
+  List<Course>? _onGoingCourses = [];
+  List<Course>? _completedCourses = [];
+  bool _isLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  void _getData() async {
+    await AuthService().getUserLogin().then((value) async {
+      _onGoingCourses = await CourseService().getOnGoingCoursesForUser(value.id);
+      _completedCourses = await CourseService().getCompletedCoursesForUser(value.id);
+    });
+    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+    if(_onGoingCourses != null && _completedCourses != null){
+      _isLoaded = true;
+    }
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return !_isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
+    MaterialApp(
       home: DefaultTabController(
         length: 2,
         child: Scaffold(
@@ -82,7 +112,7 @@ class _MyCourseState extends State<MyCourse> {
               children: [
                 ListView.builder(
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
-                    itemCount: 6,
+                    itemCount: _onGoingCourses!.length,
                     itemBuilder: (context, i) {
                       return Container(
                           padding: EdgeInsets.all(20),
@@ -107,7 +137,7 @@ class _MyCourseState extends State<MyCourse> {
                                 // Image border
                                 child: SizedBox.fromSize(
                                   size: Size.fromRadius(48), // Image radius
-                                  child: Image.asset('assets/images/course.png',
+                                  child: Image.network(_onGoingCourses![i].image!,
                                       fit: BoxFit.cover),
                                 ),
                               ),
@@ -120,7 +150,7 @@ class _MyCourseState extends State<MyCourse> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '3D Design Illustration',
+                                    _onGoingCourses![i].name,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         color: Colors.black,
@@ -132,28 +162,28 @@ class _MyCourseState extends State<MyCourse> {
                                     height: 10,
                                   ),
                                   Text(
-                                    '3 hrs 20 mins',
+                                    _onGoingCourses![i].estimateHour.toString() + ' hours',
                                     style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 18,
                                         fontFamily: 'Urbanist'),
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  GFProgressBar(
-                                    percentage: 0.7,
-                                    lineHeight: 5,
-                                    alignment: MainAxisAlignment.spaceBetween,
-                                    trailing: const Text(
-                                      '70/100',
-                                      textAlign: TextAlign.end,
-                                      style: TextStyle(
-                                          fontSize: 14, color: Colors.grey),
-                                    ),
-                                    backgroundColor: Colors.black12,
-                                    progressBarColor: Colors.blue,
-                                  )
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // ),
+                                  // GFProgressBar(
+                                  //   percentage: 0.7,
+                                  //   lineHeight: 5,
+                                  //   alignment: MainAxisAlignment.spaceBetween,
+                                  //   trailing: const Text(
+                                  //     '70/100',
+                                  //     textAlign: TextAlign.end,
+                                  //     style: TextStyle(
+                                  //         fontSize: 14, color: Colors.grey),
+                                  //   ),
+                                  //   backgroundColor: Colors.black12,
+                                  //   progressBarColor: Colors.blue,
+                                  // )
                                 ],
                               ))
                             ],
@@ -161,7 +191,7 @@ class _MyCourseState extends State<MyCourse> {
                     }),
                 ListView.builder(
                     padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
-                    itemCount: 6,
+                    itemCount: _completedCourses!.length,
                     itemBuilder: (context, i) {
                       return Container(
                           padding: EdgeInsets.all(20),
@@ -186,7 +216,7 @@ class _MyCourseState extends State<MyCourse> {
                                 // Image border
                                 child: SizedBox.fromSize(
                                   size: Size.fromRadius(48), // Image radius
-                                  child: Image.asset('assets/images/course.png',
+                                  child: Image.network(_completedCourses![i].image!,
                                       fit: BoxFit.cover),
                                 ),
                               ),
@@ -202,7 +232,7 @@ class _MyCourseState extends State<MyCourse> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '3D Design Illustration',
+                                      _completedCourses![i].name,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                       style: TextStyle(
@@ -215,7 +245,7 @@ class _MyCourseState extends State<MyCourse> {
                                       height: 10,
                                     ),
                                     Text(
-                                      '3 hrs 20 mins',
+                                      _completedCourses![i].estimateHour.toString() + " hours",
                                       style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 18,
@@ -224,25 +254,25 @@ class _MyCourseState extends State<MyCourse> {
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                child: GFProgressBar(
-                                  padding: EdgeInsets.zero,
-                                  margin: EdgeInsets.zero,
-                                    percentage: 0.9,
-                                    width: 200,
-                                    radius: 75,
-                                    circleWidth: 8,
-                                    lineHeight: 30,
-                                    type: GFProgressType.circular,
-                                    child: const Padding(
-                                      padding: EdgeInsets.only(right: 5, left: 5),
-                                      child: Text('90%', textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.black26,
-                                    progressBarColor: GFColors.DANGER),
-                              )
+                              // Expanded(
+                              //   child: GFProgressBar(
+                              //     padding: EdgeInsets.zero,
+                              //     margin: EdgeInsets.zero,
+                              //       percentage: 0.9,
+                              //       width: 200,
+                              //       radius: 75,
+                              //       circleWidth: 8,
+                              //       lineHeight: 30,
+                              //       type: GFProgressType.circular,
+                              //       child: const Padding(
+                              //         padding: EdgeInsets.only(right: 5, left: 5),
+                              //         child: Text('90%', textAlign: TextAlign.center,
+                              //           style: TextStyle(fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
+                              //         ),
+                              //       ),
+                              //       backgroundColor: Colors.black26,
+                              //       progressBarColor: GFColors.DANGER),
+                              // )
                             ],
                           ));
                     }),

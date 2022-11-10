@@ -35,6 +35,20 @@ class CourseService{
     }
   }
 
+  Future<List<Course>?> getCoursesByName(name) async {
+    try {
+      var url = Uri.parse(Path.path + "/courses/course?name=" + name.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _model = courseFromJson(response.body);
+        return _model;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
   Future<Course?> getCoursesById(id) async {
     try {
       var url = Uri.parse(Path.path+ "/courses/" + id.toString());
@@ -72,7 +86,6 @@ class CourseService{
       if (response.statusCode == 200) {
         List<Course> _courses = courseFromJson(response.body);
         return _courses;
-
       }
     } catch (e) {
       print(e.toString());
@@ -80,4 +93,51 @@ class CourseService{
     }
   }
 
+  Future<List<Course>?> getOnGoingCoursesForUser(id) async {
+    try {
+      var url = Uri.parse(Path.path + "/courses/course/on-going/" + id.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _courses = courseFromJson(response.body);
+        return _courses;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
+  Future<List<Course>?> getCompletedCoursesForUser(id) async {
+    try {
+      var url = Uri.parse(Path.path + "/courses/course/completed/" + id.toString());
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Course> _courses = courseFromJson(response.body);
+        return _courses;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
+
+  Future<bool?> canEnroll(userId, courseId) async {
+    try{
+      var url = Uri.parse(Path.path + "/courses/validate?courseId=" + courseId.toString() + "&userId=" + userId.toString());
+      var response = await http.get(url,
+          headers: {
+            "accept": "text/plain",
+          }
+      );
+      final body = jsonDecode(response.body);
+      if(response.statusCode == 200){
+        return body;
+      }
+    }
+    catch(e)
+    {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
 }

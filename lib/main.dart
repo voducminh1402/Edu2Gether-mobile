@@ -5,6 +5,7 @@ import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
 import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
+import 'package:edu2gether_mobile/screens/splash_screen/splash_screen.dart';
 
 
 import 'package:edu2gether_mobile/services/auth_service.dart';
@@ -20,7 +21,6 @@ import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 
 
 
-import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/nofitication/notification.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/payment_enroll_course.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/pin_enroll_course.dart';
@@ -73,63 +73,10 @@ class MyApp extends StatelessWidget {
       //home: MentorProfile(id: "1",),
       //home: VideoCourseDetails(id: 4),
       //home: EReceiptPage(id: "gGqJe6eNhXdxMm4ex9n5hfvVIjv1", transactionId: , walletId: ,),
-      home: Login(),
+      home: const SplashScreen(),
 
 
       getPages: RoutesClass.routes,
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  //String? user = FirebaseAuth.instance.currentUser!.email ?? FirebaseAuth.instance.currentUser!.displayName;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.white,
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            Text(
-              FirebaseAuth.instance.currentUser!.displayName!,
-              style: const TextStyle(
-                  fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black87),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              FirebaseAuth.instance.currentUser!.uid!,
-              style: const TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            MaterialButton(
-              padding: const EdgeInsets.all(10),
-              color: Colors.green,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-              child: const Text(
-                'LOG OUT',
-                style: TextStyle(color: Colors.white, fontSize: 15),
-              ),
-              onPressed: () {
-                AuthService().signOut();
-              },
-            ),
-          ],
-        ),
-      ),
-
     );
   }
 }

@@ -54,4 +54,24 @@ class MarkService{
       log(e.toString());
     }
   }
+  Future<bool?> checkMark(userId, courseId) async {
+    try{
+      var url = Uri.parse(Path.path + "/marks/check-exist?menteeId=" + userId.toString() + "&courseId=" + courseId.toString());
+      var response = await http.get(url,
+          headers: {
+            "accept": "text/plain",
+            "Content-Type": "application/json"
+          }
+      );
+      final body = jsonDecode(response.body);
+      if(response.statusCode == 200){
+        return body["message"] == "Not Exist" ? false : true;
+      }
+    }
+    catch(e)
+    {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
 }

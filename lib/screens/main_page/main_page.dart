@@ -3,12 +3,10 @@ import 'package:edu2gether_mobile/main.dart';
 import 'package:edu2gether_mobile/models/mentee.dart';
 import 'package:edu2gether_mobile/screens/home_page/home_page.dart';
 import 'package:edu2gether_mobile/screens/my_book_mark/my_book_mark.dart';
-import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 
-import 'package:edu2gether_mobile/screens/my_course/my_home_page.dart';
 import 'package:edu2gether_mobile/screens/transaction/transaction.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 
