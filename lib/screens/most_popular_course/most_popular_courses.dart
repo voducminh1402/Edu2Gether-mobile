@@ -6,7 +6,6 @@ import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mark_service.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -133,83 +132,97 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                         padding: EdgeInsets.only(top: Dimension.height5),
                         child: Column(
                           children: [
-                            _search == null ? Container(
-                              width: 380,
-                              height: 38,
-                              child: ListView.builder(
-                                physics: const ClampingScrollPhysics(),
-                                itemCount: _majorNames!.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () async {
-                                      setState(() {
-                                                isLoaded = false;
-                                              });
-                                      if (_majorNames!.elementAt(index) ==
-                                          "All") {
-                                        _courses = (await CourseService()
-                                            .getCourses())!;
-                                        for (var course in _courses!) {
-                                          bool? isMark = await MarkService()
-                                              .checkMark(_menteeId, course.id);
-                                          _isMarks!.add(isMark!);
-                                        }
-                                      } else {
-                                        _courses = await CourseService()
-                                            .getCoursesByMajorName(
-                                                _majorNames!.elementAt(index));
-                                        for (var course in _courses!) {
-                                          bool? isMark = await MarkService()
-                                              .checkMark(_menteeId, course.id);
-                                          _isMarks!.add(isMark!);
-                                        }
-                                      }
+                            _search == null
+                                ? Container(
+                                    width: 380,
+                                    height: 38,
+                                    child: ListView.builder(
+                                      physics: const ClampingScrollPhysics(),
+                                      itemCount: _majorNames!.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return GestureDetector(
+                                          onTap: () async {
+                                            setState(() {
+                                              isLoaded = false;
+                                            });
+                                            if (_majorNames!.elementAt(index) ==
+                                                "All") {
+                                              _courses = (await CourseService()
+                                                  .getCourses())!;
+                                              for (var course in _courses!) {
+                                                bool? isMark =
+                                                    await MarkService()
+                                                        .checkMark(_menteeId,
+                                                            course.id);
+                                                _isMarks!.add(isMark!);
+                                              }
+                                            } else {
+                                              _courses = await CourseService()
+                                                  .getCoursesByMajorName(
+                                                      _majorNames!
+                                                          .elementAt(index));
+                                              for (var course in _courses!) {
+                                                bool? isMark =
+                                                    await MarkService()
+                                                        .checkMark(_menteeId,
+                                                            course.id);
+                                                _isMarks!.add(isMark!);
+                                              }
+                                            }
 
-                                      _majorIndex = index;
+                                            _majorIndex = index;
 
-                                      setState(() {
-                                        if (_courses != null) {
-                                          isLoaded = true;
-                                        }
-                                      });
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          right: Dimension.width5),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                              width: 142,
-                                              height: 32,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(25),
-                                                border: Border.all(
-                                                    color: Colors.blueAccent,
-                                                    style: BorderStyle.solid,
-                                                    width: 2.0),
-                                                color: _majorIndex != index
-                                                    ? Colors.white
-                                                    : Colors.blueAccent,
-                                              ),
-                                              child: Center(
-                                                  child: BigText(
-                                                text: _majorNames!
-                                                    .elementAt(index),
-                                                color: _majorIndex == index
-                                                    ? Colors.white
-                                                    : Colors.blueAccent,
-                                                size: Dimension.font6,
-                                                fontweight: FontWeight.w600,
-                                              )))
-                                        ],
-                                      ),
+                                            setState(() {
+                                              if (_courses != null) {
+                                                isLoaded = true;
+                                              }
+                                            });
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                right: Dimension.width5),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                    width: 142,
+                                                    height: 32,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25),
+                                                      border: Border.all(
+                                                          color:
+                                                              Colors.blueAccent,
+                                                          style:
+                                                              BorderStyle.solid,
+                                                          width: 2.0),
+                                                      color: _majorIndex !=
+                                                              index
+                                                          ? Colors.white
+                                                          : Colors.blueAccent,
+                                                    ),
+                                                    child: Center(
+                                                        child: BigText(
+                                                      text: _majorNames!
+                                                          .elementAt(index),
+                                                      color: _majorIndex ==
+                                                              index
+                                                          ? Colors.white
+                                                          : Colors.blueAccent,
+                                                      size: Dimension.font6,
+                                                      fontweight:
+                                                          FontWeight.w600,
+                                                    )))
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
-                            ) : Container(),
+                                  )
+                                : Container(),
                             Container(
                               width: 380,
                               height: 601,
@@ -406,7 +419,7 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
 // Demo list to show querying
   Set<String>? searchTerms;
 
-  CustomSearchDelegate(Set<String> set){
+  CustomSearchDelegate(Set<String> set) {
     searchTerms = set;
   }
 

@@ -44,7 +44,7 @@ class _BlogPostPageState extends State<BlogPostPage> {
                 Container(
                   width: 380,
                   height: 80,
-                  margin: EdgeInsets.only(top: 10, left: 24, right: 24, bottom: 24),
+                  margin: EdgeInsets.only(top: 10, bottom: 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

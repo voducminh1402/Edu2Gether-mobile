@@ -4,7 +4,6 @@ import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 import 'package:edu2gether_mobile/services/mentor_service.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
