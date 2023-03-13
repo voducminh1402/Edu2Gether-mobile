@@ -1,9 +1,6 @@
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
-import 'package:edu2gether_mobile/screens/login/create_account.dart';
-import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
-import 'package:edu2gether_mobile/widgets/button_login.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +18,6 @@ class Login extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-
           elevation: 0,
         ),
         resizeToAvoidBottomInset: false,
@@ -38,15 +34,12 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: Dimension.height20,
               ),
-              Container(
+              SizedBox(
                 width: Dimension.width50,
                 height: Dimension.height50,
                 child: Center(
-
-                  child:Image.asset('assets/logos/Logo-edu2-fix-02.png',
+                  child: Image.asset('assets/logos/Logo-edu2-fix-02.png',
                       fit: BoxFit.cover),
-
-
                 ),
               ),
               SizedBox(
@@ -62,7 +55,6 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: Dimension.height20,
               ),
-
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -70,14 +62,20 @@ class Login extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                ),
-                onPressed: () {
-                  AuthService().signInWithGoogle();
-                  AuthService().checkUserState();
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  await AuthService().signInWithGoogle();
+                  await AuthService().checkUserState();
                 },
-                icon: FaIcon(FontAwesomeIcons.google, color: Colors.red,),
-                label: Text("Continue with Google", style: TextStyle(color: Colors.black),),
+                icon: const FaIcon(
+                  FontAwesomeIcons.google,
+                  color: Colors.red,
+                ),
+                label: const Text(
+                  "Continue with Google",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               SizedBox(
                 height: Dimension.height5,
@@ -89,14 +87,20 @@ class Login extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                ),
-                onPressed: () {
-                  AuthService().signInWithGoogle();
-                  AuthService().checkUserState();
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  await AuthService().signInWithGoogle();
+                  await AuthService().checkUserState();
                 },
-                icon: FaIcon(FontAwesomeIcons.facebook, color: Colors.blue,),
-                label: Text("Continue with Facebook", style: TextStyle(color: Colors.black),),
+                icon: const FaIcon(
+                  FontAwesomeIcons.facebook,
+                  color: Colors.blue,
+                ),
+                label: const Text(
+                  "Continue with Facebook",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               SizedBox(
                 height: Dimension.height5,
@@ -108,14 +112,20 @@ class Login extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)
-                ),
-                onPressed: () {
-                  AuthService().signInWithGoogle();
-                  AuthService().checkUserState();
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  await AuthService().signInWithGoogle();
+                  await AuthService().checkUserState();
                 },
-                icon: FaIcon(FontAwesomeIcons.apple, color: Colors.grey,),
-                label: Text("Continue with Apple", style: TextStyle(color: Colors.black),),
+                icon: const FaIcon(
+                  FontAwesomeIcons.apple,
+                  color: Colors.grey,
+                ),
+                label: const Text(
+                  "Continue with Apple",
+                  style: TextStyle(color: Colors.black),
+                ),
               ),
               SizedBox(
                 height: Dimension.height16,
@@ -127,8 +137,8 @@ class Login extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Divider(
-                          color: AppColors.mainColor,
-                        )),
+                      color: AppColors.mainColor,
+                    )),
                     SizedBox(
                       width: Dimension.width10,
                     ),
@@ -141,8 +151,8 @@ class Login extends StatelessWidget {
                     ),
                     Expanded(
                         child: Divider(
-                          color: AppColors.mainColor,
-                        )),
+                      color: AppColors.mainColor,
+                    )),
                   ],
                 ),
               ),
@@ -151,27 +161,28 @@ class Login extends StatelessWidget {
               ),
               Center(
                   child: RichText(
-                    text: new TextSpan(
-                      text: "Don't have an account?",
-                      style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
-                      children: <TextSpan>[
-                        new TextSpan(
-                          text: ' Sign up',
-                          style: new TextStyle(
-                              color: AppColors.mainColor, fontFamily: 'Urbanist'),
-                          recognizer: new TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.toNamed(RoutesClass.getCreateAccountRoute());
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => const CreateAccount()),
-                              // );
-                            },
-                        ),
-                      ],
+                text: TextSpan(
+                  text: "Don't have an account?",
+                  style: const TextStyle(
+                      fontFamily: 'Urbanist', color: Colors.black),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: ' Sign up',
+                      style: TextStyle(
+                          color: AppColors.mainColor, fontFamily: 'Urbanist'),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Get.toNamed(RoutesClass.getCreateAccountRoute());
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const CreateAccount()),
+                          // );
+                        },
                     ),
-                  ))
+                  ],
+                ),
+              ))
             ],
           ),
         ),
