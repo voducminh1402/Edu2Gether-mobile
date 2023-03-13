@@ -161,6 +161,7 @@ class CourseService{
       if(response.statusCode == 200){
         return body;
       }
+      return true;
     }
     catch(e)
     {

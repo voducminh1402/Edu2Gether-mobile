@@ -268,7 +268,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                         },
                                         child: BigText(
                                           text: "See All",
-                                          color: Colors.black,
+                                          color: Colors.blue,
                                           size: 16,
                                           fontweight: FontWeight.w600,
                                         ))
@@ -277,7 +277,7 @@ class _MainHomePageState extends State<MainHomePage> {
                               ),
                               Container(
                                 width: 380,
-                                height: 110,
+                                height: 120,
                                 child: ListView.builder(
                                   itemCount: _mentors?.length,
                                   scrollDirection: Axis.horizontal,
@@ -368,7 +368,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                         },
                                         child: BigText(
                                           text: "See All",
-                                          color: Colors.black,
+                                          color: Colors.blue,
                                           size: 16,
                                           fontweight: FontWeight.w600,
                                         ))
@@ -411,18 +411,22 @@ class _MainHomePageState extends State<MainHomePage> {
                                             ),
                                             child: Row(
                                               children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  // Image border
-                                                  child: SizedBox.fromSize(
-                                                    size: Size.fromRadius(62),
-                                                    // Image radius
-                                                    child: Image.network(
-                                                      _courses![index]
-                                                          .image
-                                                          .toString(),
-                                                      fit: BoxFit.cover,
+                                                SizedBox(
+                                                  width: 100,
+                                                  height: 110,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(20),
+                                                    // Image border
+                                                    child: SizedBox.fromSize(
+                                                      size: Size.fromRadius(62),
+                                                      // Image radius
+                                                      child: Image.network(
+                                                        _courses![index]
+                                                            .image
+                                                            .toString(),
+                                                        fit: BoxFit.cover,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

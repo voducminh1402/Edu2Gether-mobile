@@ -126,7 +126,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                       //list transaction
                       Container(
                         width: 380,
-                        height: 650,
+                        height: 700,
                         margin: EdgeInsets.only(
                             left: Dimension.width8, right: Dimension.width3),
                         padding: EdgeInsets.only(top: Dimension.height5),
@@ -134,7 +134,7 @@ class _MostPopularCourseState extends State<MostPopularCourse> {
                           children: [
                             _search == null
                                 ? Container(
-                                    width: 380,
+                                    width: 370,
                                     height: 38,
                                     child: ListView.builder(
                                       physics: const ClampingScrollPhysics(),
