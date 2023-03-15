@@ -1,7 +1,10 @@
 
+import 'dart:convert';
+
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mentor.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
+import 'package:edu2gether_mobile/screens/mentor/mentor_detail.dart';
 import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 import 'package:edu2gether_mobile/services/course_service.dart';
 import 'package:edu2gether_mobile/services/mentor_service.dart';
@@ -13,6 +16,7 @@ import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:getwidget/components/progress_bar/gf_progress_bar.dart';
 
 class MentorProfile extends StatefulWidget {
@@ -35,6 +39,9 @@ class _MentorProfileState extends State<MentorProfile> {
 
   Mentor? _mentor;
 
+  List<dynamic>? _date;
+  List<String> _dateOfWeek = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+
   var isLoaded = false;
 
   @override
@@ -48,6 +55,7 @@ class _MentorProfileState extends State<MentorProfile> {
     _course = (await CourseService().getCoursesByMentorId(widget.id));
     setState(() {
       if(_course != null && _mentor != null){
+       _date  = json.decode(_mentor!.schedule!.replaceAll("'", "\""));
         isLoaded = true;
       }
     });
@@ -107,6 +115,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 SizedBox(
                   height: Dimension.height5,
                 ),
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -116,12 +125,12 @@ class _MentorProfileState extends State<MentorProfile> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         BigText(
-                          text: _course!.length.toString(),
+                          text: "150.000₫",
                           size: Dimension.font8,
                           fontweight: FontWeight.bold,
                         ),
                         SmallText(
-                          text: "Courses",
+                          text: "Buổi/Offline",
                           size: Dimension.font5,
                         ),
                       ],
@@ -140,12 +149,12 @@ class _MentorProfileState extends State<MentorProfile> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         BigText(
-                          text: _mentor!.studentNumber == null ? "0" : _mentor!.studentNumber.toString(),
+                          text: "100.000₫",
                           size: Dimension.font8,
                           fontweight: FontWeight.bold,
                         ),
                         SmallText(
-                          text: "Students",
+                          text: "Buổi/Online",
                           size: Dimension.font5,
                         ),
                       ],
@@ -161,11 +170,74 @@ class _MentorProfileState extends State<MentorProfile> {
                 SizedBox(
                   height: Dimension.height3,
                 ),
-                BigText(text: "Course", fontweight: FontWeight.bold, size: Dimension.font8,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    
+    ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          minimumSize: Size(380, 54),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+            side: BorderSide(color: AppColors.mainColor)
+          ),
+          textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,fontFamily: 'Urbanist')
+      ),
+      onPressed: () {
+        Get.to(() => MentorDetail(id: widget.id));
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(Icons.navigate_next_rounded, color: AppColors.mainColor,),
+          Text(
+            "Xem chi tiết",
+            style: TextStyle(color: AppColors.mainColor),
+          ),
+        ],
+      ),
+    ),
+                  ],
+                ),
                 SizedBox(
                   height: Dimension.height3,
                 ),
                 const Divider(),
+                SizedBox(
+                  height: Dimension.height3,
+                ),
+                Row(
+                  children: [
+                    BigText(text: "Schedule", fontweight: FontWeight.bold, size: Dimension.font8,),
+                  ],
+                ),
+                SizedBox(
+                  height: Dimension.height3,
+                ),
+                SizedBox(
+                  //width: 3000,
+                  height: 80,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    
+                    itemCount: _dateOfWeek.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        margin: const EdgeInsets.only(right: 12),
+                        height: 72,
+                        width: 60,
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),color: _date![index]["isActive"] ? AppColors.mainColor : Colors.white, border: Border.all(color: Colors.black12)),
+                        
+                        child: Center(child: Text(_dateOfWeek[index], style: TextStyle(fontWeight: FontWeight.bold, color:_date![index]["isActive"] ?  Colors.white: AppColors.mainColor, fontSize: Dimension.font10),)),
+                      );
+                    }
+                  ),
+                ),
+                
+                
                 Expanded(
                     child: ListView.builder(
                         padding:const  EdgeInsets.symmetric(vertical: 0, horizontal: 3),

@@ -29,7 +29,7 @@ class _MyCourseState extends State<MyCourse> {
 
   void _getData() async {
     await AuthService().getUserLogin().then((value) async {
-      _onGoingCourses = await CourseService().getOnGoingCoursesForUser(value.id);
+      _onGoingCourses = await CourseService().getOnGoingCoursesForUser();
       _completedCourses = await CourseService().getCompletedCoursesForUser(value.id);
     });
     setState(() {

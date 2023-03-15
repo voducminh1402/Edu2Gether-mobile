@@ -39,12 +39,8 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
       _menteeId = value.id;
       _courses = (await CourseService().getBookmarkByUserId(value.id))!;
       if(_courses != null){
-        for(var course in _courses!){
-          _searchTerms.add(course.subject!.major!);
-          _majorNames.add(course.subject!.major!.name);
-        }
+        return _courses;
       }
-
       setState(() {
         if(_courses != null ){
           isLoaded = true;

@@ -173,10 +173,10 @@ packages:
     dependency: "direct main"
     description:
       name: file_picker
-      sha256: d090ae03df98b0247b82e5928f44d1b959867049d18d73635e2e0bc3f49542b9
+      sha256: d8e9ca7e5d1983365c277f12c21b4362df6cf659c99af146ad4d04eb33033013
       url: "https://pub.dev"
     source: hosted
-    version: "5.2.5"
+    version: "5.2.6"
   firebase_auth:
     dependency: "direct main"
     description:
@@ -649,18 +649,18 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_barcodes
-      sha256: f993b95350e305f934435c1881182ff69e4e2bcab9726a2895567f6fae36fae5
+      sha256: "4257ac0bc89476f75e8463841bfd3226dfef7d8e89af1d3fe8ad875df3fc67f0"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.53"
+    version: "20.4.54"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: ab3eac31638e80663eae19c71e362012e1e2f67dfd527dc5c07d9397cd4238f2
+      sha256: "3979f0b1c5a97422cadae52d476c21fa3e0fb671ef51de6cae1d646d8b99fe1f"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.53"
+    version: "20.4.54"
   term_glyph:
     dependency: transitive
     description:
@@ -705,10 +705,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "86d9d56ffe760a1e3b4855ea94bac6c944e99b9050946464857b3e2818e1662b"
+      sha256: dc31c60ae591aa3ccb2d460c3690ceceb86cbb826e73428d817a37650dc4e229
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   video_player_avfoundation:
     dependency: transitive
     description:
@@ -798,5 +798,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.18.0 <4.0.0"
+  dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.3.0"

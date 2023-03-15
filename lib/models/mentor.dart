@@ -21,7 +21,8 @@ class Mentor {
     required this.gender,
     required this.image,
     this.websiteUrl,
-    this.studentNumber
+    this.studentNumber,
+    this.schedule
   });
 
   String id;
@@ -34,6 +35,7 @@ class Mentor {
   String job;
   String gender;
   String image;
+  String? schedule;
   String? websiteUrl;
   int? studentNumber;
 
@@ -50,6 +52,7 @@ class Mentor {
     image: json["image"],
     websiteUrl: json["websiteUrl"],
     studentNumber: json["studentNumber"],
+    schedule: json["schedule"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -65,5 +68,6 @@ class Mentor {
     "image": image,
     "websiteUrl": websiteUrl,
     "studentNumber": studentNumber,
+    "schedule": schedule
   };
 }
