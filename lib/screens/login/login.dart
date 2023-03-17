@@ -1,9 +1,6 @@
 import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/services/auth_service.dart';
-import 'package:edu2gether_mobile/screens/login/create_account.dart';
-import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
-import 'package:edu2gether_mobile/widgets/button_login.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,15 +18,6 @@ class Login extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              //Navigator.pop(context);
-            },
-          ),
           elevation: 0,
         ),
         resizeToAvoidBottomInset: false,
@@ -46,15 +34,12 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: Dimension.height20,
               ),
-              Container(
-                width: Dimension.width50,
+              SizedBox(
+                width: Dimension.width100,
                 height: Dimension.height50,
                 child: Center(
-
-                  child:Image.asset('assets/logos/Logo-edu2-fix-02.png',
-                      fit: BoxFit.cover),
-
-
+                  child: Image.asset('assets/logos/Logo-edu2-fix-02.png',
+                      fit: BoxFit.contain),
                 ),
               ),
               SizedBox(
@@ -68,83 +53,80 @@ class Login extends StatelessWidget {
                 "Let's you in",
               ),
               SizedBox(
-                height: Dimension.height10,
+                height: Dimension.height20,
               ),
-              GestureDetector(
-                onTap: () {
-                  AuthService().signInWithGoogle();
-                  AuthService().checkUserState();
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  await AuthService().signInWithGoogle();
+                  await AuthService().checkUserState();
                 },
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: Colors.black,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      FaIcon(FontAwesomeIcons.google, color: Colors.red,),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      SmallText(text: "Continue with Google"),
-                    ],
-                  ),
+                icon: const FaIcon(
+                  FontAwesomeIcons.google,
+                  color: Colors.red,
+                ),
+                label: const Text(
+                  "Continue with Google",
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
               SizedBox(
                 height: Dimension.height5,
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FaIcon(FontAwesomeIcons.facebook, color: Colors.blue,),
-
-                    SizedBox(
-                      width: 10,
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    SmallText(text: "Continue with Facebook"),
-                  ],
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  await AuthService().signInWithGoogle();
+                  await AuthService().checkUserState();
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.facebook,
+                  color: Colors.blue,
+                ),
+                label: const Text(
+                  "Continue with Facebook",
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
               SizedBox(
                 height: Dimension.height5,
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.black,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    FaIcon(FontAwesomeIcons.apple, color: Colors.black,),
-
-                    SizedBox(
-                      width: 10,
+              ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
-                    SmallText(text: "Continue with Apple"),
-                  ],
+                    textStyle: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                onPressed: () async {
+                  await AuthService().signInWithGoogle();
+                  await AuthService().checkUserState();
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.apple,
+                  color: Colors.grey,
+                ),
+                label: const Text(
+                  "Continue with Apple",
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
-              SizedBox(
-                height: Dimension.height10,
-              ),
-              ButtonLogin(route: RoutesClass.getLoginAccountRoute(), title: 'Sign in with password',),
               SizedBox(
                 height: Dimension.height16,
               ),
@@ -155,8 +137,8 @@ class Login extends StatelessWidget {
                   children: [
                     Expanded(
                         child: Divider(
-                          color: AppColors.mainColor,
-                        )),
+                      color: AppColors.mainColor,
+                    )),
                     SizedBox(
                       width: Dimension.width10,
                     ),
@@ -169,8 +151,8 @@ class Login extends StatelessWidget {
                     ),
                     Expanded(
                         child: Divider(
-                          color: AppColors.mainColor,
-                        )),
+                      color: AppColors.mainColor,
+                    )),
                   ],
                 ),
               ),
@@ -179,27 +161,28 @@ class Login extends StatelessWidget {
               ),
               Center(
                   child: RichText(
-                    text: new TextSpan(
-                      text: "Don't have an account?",
-                      style: TextStyle(fontFamily: 'Urbanist', color: Colors.black),
-                      children: <TextSpan>[
-                        new TextSpan(
-                          text: ' Sign up',
-                          style: new TextStyle(
-                              color: AppColors.mainColor, fontFamily: 'Urbanist'),
-                          recognizer: new TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.toNamed(RoutesClass.getCreateAccountRoute());
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => const CreateAccount()),
-                              // );
-                            },
-                        ),
-                      ],
+                text: TextSpan(
+                  text: "Don't have an account?",
+                  style: const TextStyle(
+                      fontFamily: 'Urbanist', color: Colors.black),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: ' Sign up',
+                      style: TextStyle(
+                          color: AppColors.mainColor, fontFamily: 'Urbanist'),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          Get.toNamed(RoutesClass.getCreateAccountRoute());
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => const CreateAccount()),
+                          // );
+                        },
                     ),
-                  ))
+                  ],
+                ),
+              ))
             ],
           ),
         ),

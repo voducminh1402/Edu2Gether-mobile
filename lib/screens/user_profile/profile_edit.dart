@@ -1,3 +1,4 @@
+import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/services/storage_services.dart';
@@ -7,34 +8,29 @@ import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../models/mentee.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:edu2gether_mobile/models/authen_response.dart';
 
-
-
-
-class ProfileEdit extends StatefulWidget{
-
+class ProfileEdit extends StatefulWidget {
   String id;
   AuthenResponse user;
 
-
-  ProfileEdit({required this.id, required this.user, Key? key}) : super(key: key);
-
+  ProfileEdit({required this.id, required this.user, Key? key})
+      : super(key: key);
 
   @override
   State<ProfileEdit> createState() => _profileEditState();
-
 }
 
 class _profileEditState extends State<ProfileEdit> {
-
   Mentee? _mentee;
 
   var isLoaded = false;
+  bool isLoadedImage = true;
 
   late String? _fullName;
   late String _phone;
@@ -45,58 +41,54 @@ class _profileEditState extends State<ProfileEdit> {
   late String _image;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _getMentee();
   }
 
-
-  _getMentee() async{
-    if(widget.user!.isConfirmedInfo){
+  _getMentee() async {
+    if (widget.user!.isConfirmedInfo) {
       _mentee = (await MenteeService().getMenteeById(widget.id));
-    }
-    else {
+    } else {
       isLoaded = true;
       _fullName = widget.user!.name;
       _image = widget.user!.image ?? "";
       _phone = widget.user!.phone ?? "";
     }
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_mentee != null){
-      _country = _mentee!.country;
-      _fullName = _mentee!.fullName;
-      _address = _mentee!.address;
-      _phone = _mentee!.phone;
-      _university = _mentee!.university;
-      _image = _mentee!.image;
-      _gender = _mentee!.gender;
-      isLoaded = true;
-    }
+    setState(() {
+      if (_mentee != null) {
+        _country = _mentee!.country!;
+        _fullName = _mentee!.fullName;
+        _address = _mentee!.address!;
+        _phone = _mentee!.phone!;
+        _university = _mentee!.university!;
+        _image = _mentee!.image!;
+        _gender = _mentee!.gender!;
+        isLoaded = true;
+      }
+    });
   }
 
   String dropdownValue = 'Male';
 
   @override
   Widget build(BuildContext context) {
-
     final Storage storage = Storage();
 
     return SingleChildScrollView(
       physics: ScrollPhysics(),
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          minHeight: MediaQuery.of(context).size.height,
-          maxHeight: MediaQuery.of(context).size.height + 350
-        ),
+            minHeight: MediaQuery.of(context).size.height,
+            maxHeight: MediaQuery.of(context).size.height + 350),
         child: Scaffold(
           //resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: AppBar(
             leading: BackButton(
               color: Colors.black,
-              onPressed: (){
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (context) => Profile()));
+              onPressed: () {
+                Get.to(() => MainPage());
               },
             ),
             backgroundColor: Colors.white,
@@ -106,323 +98,352 @@ class _profileEditState extends State<ProfileEdit> {
               fontFamily: 'Urbanist',
               fontSize: 20,
               fontWeight: FontWeight.bold,
-            ) ,
+            ),
             title: const Text(
               'Edit Profile',
             ),
-            actions: [
-              IconButton(
-                  onPressed: (){},
-                  icon: const Icon(
-                    Icons.more_horiz_rounded,
-                    color: Colors.black,
-                  ))
-            ],
           ),
-          body: isLoaded == false ? Center(child: CircularProgressIndicator(),): Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top:0),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget> [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24,top: 5),
-                        child: SizedBox(
-                          width: 380,
-                          height: 56,
-
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(12)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: AppColors.mainColor),
-                                  borderRadius: BorderRadius.circular(12)),
-                              labelText: 'Full Name',
-                              hintText: _mentee?.fullName ?? widget.user!.name,
-                              floatingLabelBehavior: FloatingLabelBehavior.always,
-                              fillColor: AppColors.inputColor,
-                              filled: true,
-                            ),
-                            style: const TextStyle(
-
-                              color: Colors.black,
-                              fontFamily: 'Urbanist',
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            onChanged: (value){
-                              setState(() {
-                                _fullName = value.trim();
-                              });
-
-                            },
-                          ),
-
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                      child: SizedBox(
-                        width: 380,
-                        height: 56,
-
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.mainColor),
-                                borderRadius: BorderRadius.circular(12)),
-                            labelText: 'University',
-                            hintText:  _mentee?.university,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            fillColor: AppColors.inputColor,
-                            filled: true,
-                          ),
-                          style: const TextStyle(
-
-                            color: Colors.black,
-                            fontFamily: 'Urbanist',
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          onChanged: (value){
-                            _university = value.trim();
-                          },
-                        ),
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                      child: SizedBox(
-                        width: 380,
-                        height: 56,
-
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(12)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: AppColors.mainColor),
-                                borderRadius: BorderRadius.circular(12)),
-                            labelText: 'Address',
-                            hintText: _mentee?.address,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            fillColor: AppColors.inputColor,
-                            filled: true,
-                          ),
-                          style: const TextStyle(
-
-                            fontFamily: 'Urbanist',
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          onChanged: (value){
-                            _address = value.trim();
-                          },
-                        ),
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                      child: SizedBox(
-                        width: 380,
-                        height: 80,
-                        child: IntlPhoneField(
-                          decoration: InputDecoration(
-                            labelText: 'Phone',
-                            hintText: _mentee?.phone ?? widget.user?.phone,
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                            border: const OutlineInputBorder(
-                              borderSide: BorderSide(),
-                            ),
-                          ),
-                          initialCountryCode: 'VN',
-                          onChanged: (phone) {
-                            _phone = phone.completeNumber.toString().trim();
-                          },
-                          onCountryChanged: (country) {
-                            _country = country.name.toString().trim();
-                          },
-                        ),
-
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                      child: SizedBox(
-                        width: 380,
-                        height: 56,
-                        child: DropdownButtonFormField(
-                          decoration: const InputDecoration(
-
-                            enabledBorder: OutlineInputBorder( //<-- SEE HERE
-                              borderSide: BorderSide(color: Colors.white24, width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder( //<-- SEE HERE
-                              borderSide: BorderSide(color: Colors.white24, width: 2),
-                            ),
-                            filled: true,
-                            fillColor: Colors.white12,
-                          ),
-                          dropdownColor: Colors.white,
-                          value: _gender,
-
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                              _gender = dropdownValue.trim();
-                            });
-                          },
-                          items: <String>['Male', 'Female', 'LGBT', 'Hide'].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: const TextStyle(fontSize: 14,fontFamily: 'Urbanist', fontWeight: FontWeight.w600),
-
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 24, top: 20),
-                    child: SizedBox(
-                      width: 380,
-                      height: 56,
-
-                      child: TextField(
-                        onTap: () async{
-                          final results = await FilePicker.platform.pickFiles(
-                            allowMultiple: false,
-                            type: FileType.custom,
-                            allowedExtensions: ['png','jpg','jpeg'],
-                          );
-                          if(results == null){
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('No file selected'),
-                              ),
-                            );
-                            return null;
-                          }
-                          final path = results.files.single.path!;
-                          final fileName = results.files.single.name;
-
-                          storage.uploadFile(fileName, path).then((value) {setState(() {
-                            _image = value!;
-                            print(_image + "anh vui ve");
-                          });} );
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide.none,
-                              borderRadius: BorderRadius.circular(12)),
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: AppColors.mainColor),
-                              borderRadius: BorderRadius.circular(12)),
-                          labelText: 'Image Link',
-                          hintText: _image,
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          fillColor: AppColors.inputColor,
-                          filled: true,
-                          suffixIcon: const Icon(Icons.upload_file_outlined),
-                        ),
-                        style: const TextStyle(
-
-                          fontFamily: 'Urbanist',
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        onChanged: (value){
-                          _image = value.trim();
-                        },
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-              SizedBox(
-                height: Dimension.height45,
-              ),
-              SizedBox(
-                            height: 58,
-                            width: 380,
-                            child:  Card(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blue,
-                                    minimumSize: Size(MediaQuery.of(context).size.width, 54),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                    ),
-                                    textStyle:
-                                    TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                                onPressed: () {
-                                  Mentee mentee = Mentee(id: widget.id, fullName: _fullName, phone: _phone, address: _address, university: _university, country: _country, gender: _gender, image: _image);
-                                  MenteeService().editMentee(mentee, !widget.user!.isConfirmedInfo);
-                                },
-                                child: Text(
-                                    'Update'
+          body: isLoaded == false
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 24, right: 24, top: 5),
+                              child: SizedBox(
+                                width: 380,
+                                height: 56,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: AppColors.mainColor),
+                                        borderRadius:
+                                            BorderRadius.circular(12)),
+                                    labelText: 'Full Name',
+                                    hintText:
+                                        _mentee?.fullName ?? widget.user!.name,
+                                    floatingLabelBehavior:
+                                        FloatingLabelBehavior.always,
+                                    fillColor: AppColors.inputColor,
+                                    filled: true,
+                                  ),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Urbanist',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _fullName = value.trim();
+                                    });
+                                  },
                                 ),
                               ),
                             ),
                           ),
-            ],
-          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 24, right: 24, top: 20),
+                            child: SizedBox(
+                              width: 380,
+                              height: 56,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.mainColor),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  labelText: 'University',
+                                  hintText: _mentee?.university,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  fillColor: AppColors.inputColor,
+                                  filled: true,
+                                ),
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  _university = value.trim();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 24, right: 24, top: 20),
+                            child: SizedBox(
+                              width: 380,
+                              height: 56,
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.mainColor),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  labelText: 'Address',
+                                  hintText: _mentee?.address,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  fillColor: AppColors.inputColor,
+                                  filled: true,
+                                ),
+                                style: const TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  _address = value.trim();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 24, right: 24, top: 20),
+                            child: SizedBox(
+                              width: 380,
+                              height: 80,
+                              child: IntlPhoneField(
+                                decoration: InputDecoration(
+                                  labelText: 'Phone',
+                                  hintText:
+                                      _mentee?.phone ?? widget.user?.phone,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(),
+                                  ),
+                                ),
+                                initialCountryCode: 'VN',
+                                onChanged: (phone) {
+                                  _phone =
+                                      phone.completeNumber.toString().trim();
+                                },
+                                onCountryChanged: (country) {
+                                  _country = country.name.toString().trim();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 24, right: 24, top: 20),
+                            child: SizedBox(
+                              width: 380,
+                              height: 56,
+                              child: DropdownButtonFormField(
+                                decoration: const InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    //<-- SEE HERE
+                                    borderSide: BorderSide(
+                                        color: Colors.white24, width: 2),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    //<-- SEE HERE
+                                    borderSide: BorderSide(
+                                        color: Colors.white24, width: 2),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white12,
+                                ),
+                                dropdownColor: Colors.white,
+                                value: _gender,
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue!;
+                                    _gender = dropdownValue.trim();
+                                  });
+                                },
+                                items: <String>[
+                                  'Male',
+                                  'Female',
+                                  'LGBT',
+                                  'Hide'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: const TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Urbanist',
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 24, right: 24, top: 20),
+                            child: SizedBox(
+                              width: 380,
+                              height: 56,
+                              child: TextField(
+                                onTap: () async {
+                                  setState(() {
+                                    isLoadedImage = false;
+                                  });
+                                  final results =
+                                      await FilePicker.platform.pickFiles(
+                                    allowMultiple: false,
+                                    type: FileType.custom,
+                                    allowedExtensions: ['png', 'jpg', 'jpeg'],
+                                  );
+                                  if (results == null) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text('No file selected'),
+                                      ),
+                                    );
+                                    return null;
+                                  }
+                                  final path = results.files.single.path!;
+                                  final fileName = results.files.single.name;
 
+                                  storage
+                                      .uploadFile(fileName, path)
+                                      .then((value) {
+                                    setState(() {
+                                      _image = value!;
+                                      isLoadedImage = true;
+                                      print(_image + "anh vui ve");
+                                    });
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: AppColors.mainColor),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  labelText: 'Image Link',
+                                  hintText: _image,
+                                  floatingLabelBehavior:
+                                      FloatingLabelBehavior.always,
+                                  fillColor: AppColors.inputColor,
+                                  filled: true,
+                                  suffixIcon:
+                                      const Icon(Icons.upload_file_outlined),
+                                ),
+                                style: const TextStyle(
+                                  fontFamily: 'Urbanist',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                onChanged: (value) {
+                                  _image = value.trim();
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: Dimension.height45,
+                    ),
+                    isLoadedImage
+                        ? SizedBox(
+                            height: 58,
+                            width: 380,
+                            child: Card(
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    minimumSize: Size(
+                                        MediaQuery.of(context).size.width, 54),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    textStyle: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () {
+                                  Mentee mentee = Mentee(
+                                      id: widget.id,
+                                      fullName: _fullName,
+                                      phone: _phone,
+                                      address: _address,
+                                      university: _university,
+                                      country: _country,
+                                      gender: _gender,
+                                      image: _image);
+                                  MenteeService().editMentee(
+                                      mentee, !widget.user!.isConfirmedInfo);
+                                },
+                                child: Text('Update'),
+                              ),
+                            ),
+                          )
+                        : SizedBox(),
+                  ],
+                ),
         ),
       ),
     );
-
-
   }
-
 }

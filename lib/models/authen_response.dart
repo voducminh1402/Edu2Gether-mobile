@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-AuthenResponse AuthenResponseFromJson(String str) => AuthenResponse.fromJson(json.decode(str));
+AuthenResponse AuthenResponseFromJson(String str) =>
+    AuthenResponse.fromJson(json.decode(str));
 
 String AuthenResponseToJson(AuthenResponse data) => json.encode(data.toJson());
 
@@ -32,26 +33,26 @@ class AuthenResponse {
   String role;
 
   factory AuthenResponse.fromJson(Map<String, dynamic> json) => AuthenResponse(
-    accessToken: json["accessToken"],
-    id: json["id"],
-    isFirstLogin: json["isFirstLogin"],
-    isConfirmedInfo: json["isConfirmedInfo"],
-    phone: json["phone"],
-    image: json["image"],
-    name: json["name"],
-    email: json["email"],
-    role: json["role"],
-  );
+        accessToken: json["accessToken"],
+        id: json["id"],
+        isFirstLogin: json["isFirstLogin"],
+        isConfirmedInfo: json["isConfirmedInfo"],
+        phone: json["phone"],
+        image: json["image"],
+        name: json["name"],
+        email: json["email"],
+        role: json["role"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "accessToken": accessToken,
-    "id": id,
-    "isFirstLogin": isFirstLogin,
-    "isConfirmedInfo": isConfirmedInfo,
-    "phone": phone,
-    "image": image,
-    "name": name,
-    "email": email,
-    "role": role,
-  };
+        "accessToken": accessToken,
+        "id": id,
+        "isFirstLogin": isFirstLogin,
+        "isConfirmedInfo": isConfirmedInfo,
+        "phone": phone,
+        "image": image,
+        "name": name,
+        "email": email,
+        "role": role,
+      };
 }

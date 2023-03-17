@@ -4,6 +4,7 @@ import 'package:edu2gether_mobile/routes/routes.dart';
 import 'package:edu2gether_mobile/screens/blog/blog.dart';
 import 'package:edu2gether_mobile/screens/booking/booking_slot.dart';
 import 'package:edu2gether_mobile/screens/course_detail/video_course_details.dart';
+import 'package:edu2gether_mobile/screens/mentor/mentor_detail.dart';
 import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 import 'package:edu2gether_mobile/screens/splash_screen/splash_screen.dart';
 
@@ -74,7 +75,8 @@ class MyApp extends StatelessWidget {
       //home: VideoCourseDetails(id: 4),
       //home: EReceiptPage(id: "gGqJe6eNhXdxMm4ex9n5hfvVIjv1", transactionId: , walletId: ,),
       home: const SplashScreen(),
-
+// home: MentorProfile(id: "1",),
+//  home: MentorDetail(id: "1"),
 
       getPages: RoutesClass.routes,
     );

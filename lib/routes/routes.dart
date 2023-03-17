@@ -47,7 +47,7 @@ class RoutesClass{
 
 
   static List<GetPage> routes = [
-    GetPage(name: home, page: () => const MainPage()),
+    GetPage(name: home, page: () => MainPage()),
     GetPage(name: loginAccount, page: () => const LoginAccount()),
     GetPage(name: createAccount, page: () => const CreateAccount()),
     GetPage(name: login, page: () => const Login()),

@@ -28,7 +28,6 @@ class EReceiptPage extends StatefulWidget {
 }
 
 class _EReceiptState extends State<EReceiptPage> {
-
   Payment? _payment;
   Booking? _booking;
   Course? _course;
@@ -47,245 +46,342 @@ class _EReceiptState extends State<EReceiptPage> {
     _course = await CourseService().getCoursesById(_booking!.courseId);
     _mentee = await MenteeService().getMenteeById(_booking!.menteeId);
 
-    Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
-    if(_payment != null && _mentee != null && _booking != null && _course != null){
-      isLoaded = true;
-    }
+    setState(() {
+      if (_payment != null &&
+          _mentee != null &&
+          _booking != null &&
+          _course != null) {
+        isLoaded = true;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
-    Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-
-            icon: const Icon(
-
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Get.to(() => const TransactionPage());
-              // Navigator.pop(context,
-              //     MaterialPageRoute(builder: (context) => const TransactionPage()));
-            },
-          ),
-          title: Text(
-            'E-Receipt',
-            style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: Dimension.font8),
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.search_outlined,
-                  color: Colors.black,
-                )),
-          ],
-          elevation: 0
-      ),
-      body: Column(
-          children: [
-            //show body
-            Column(
+    return !isLoaded
+        ? const Scaffold(
+            body: Center(
+            child: CircularProgressIndicator(),
+          ))
+        : Scaffold(
+            appBar: AppBar(
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Get.to(() => MainPage());
+                  },
+                ),
+                title: Text(
+                  'E-Receipt',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: Dimension.font8),
+                ),
+                elevation: 0),
+            body: Column(
               children: [
-                Center(
-                  child: Container(
-                    height: Dimension.height50,
-                    width: Dimension.width150,
-                    child: SfBarcodeGenerator(
-                      value: _payment!.failReason!.substring(5),
-                      symbology: Code128C(),
-                      showValue: true,
-                    ),
-                  ),
-                ),
-                SizedBox(height: Dimension.height3,),
-                Container(
-                  child: Container(
-                    width: 380,
-                    height: 112,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Course", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: _course!.name, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
+                //show body
+                Column(
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        height: Dimension.height50,
+                        width: Dimension.width150,
+                        child: SfBarcodeGenerator(
+                          value: _payment!.failReason!.substring(5),
+                          symbology: Code128C(),
+                          showValue: true,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Category", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: _course!.subject!.name, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  child: Container(
-                    margin: EdgeInsets.only(top: Dimension.height5),
-                    width: 380,
-                    height: 112,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
+                    SizedBox(
+                      height: Dimension.height3,
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Username", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: _mentee!.fullName!, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
+                    Container(
+                      child: Container(
+                        width: 380,
+                        height: 112,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
                         ),
-                        // Container(
-                        //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       SmallText(text: "Phone", color: Colors.black, size: 14,),
-                        //       Container(
-                        //         child: BigText(text: "+1 111 467 378 399", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                        Container(
-                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Email", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: _mentee!.address, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: 24, left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Course",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: _course!.name,
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Category",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: _course!.subject!.name,
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        // Container(
-                        //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       SmallText(text: "Country", color: Colors.black, size: 14,),
-                        //       Container(
-                        //         child: BigText(text: "United States", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                        //       )
-                        //     ],
-                        //   ),
-                        // )
-                      ],
+                      ),
                     ),
-                  ),
-                ),
-                Container(
-                  child: Container(
-                    margin: EdgeInsets.only(top: Dimension.height5),
-                    width: 380,
-                    height: 240,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
+                    Container(
+                      child: Container(
+                        margin: EdgeInsets.only(top: Dimension.height5),
+                        width: 380,
+                        height: 112,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: 24, left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Username",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: _mentee!.fullName!,
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            // Container(
+                            //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //     children: [
+                            //       SmallText(text: "Phone", color: Colors.black, size: 14,),
+                            //       Container(
+                            //         child: BigText(text: "+1 111 467 378 399", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Email",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: _mentee!.address!,
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            // Container(
+                            //   margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
+                            //   child: Row(
+                            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //     children: [
+                            //       SmallText(text: "Country", color: Colors.black, size: 14,),
+                            //       Container(
+                            //         child: BigText(text: "United States", color: Colors.black, fontweight: FontWeight.w600, size: 16,),
+                            //       )
+                            //     ],
+                            //   ),
+                            // )
+                          ],
+                        ),
+                      ),
                     ),
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(top: 24, left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Price", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: "\$" + _payment!.totalPrice.toString(), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
+                    Container(
+                      child: Container(
+                        margin: EdgeInsets.only(top: Dimension.height5),
+                        width: 380,
+                        height: 240,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.white,
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Payment Methods", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: _payment!.paymentType!, color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  top: 24, left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Price",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: "\$${_payment!.totalPrice}",
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Payment Methods",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: _payment!.paymentType!,
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Date",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: DateFormat("yyyy-MM-dd HH:mm:ss")
+                                          .format(_booking!.bookingTime),
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Transaction ID",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: _payment!.failReason!.substring(5),
+                                      color: Colors.black,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.only(
+                                  left: 24, right: 24, bottom: 24),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SmallText(
+                                    text: "Status",
+                                    color: Colors.black,
+                                    size: 14,
+                                  ),
+                                  Container(
+                                    child: BigText(
+                                      text: "Paid",
+                                      color: Colors.blueAccent,
+                                      fontweight: FontWeight.w600,
+                                      size: 16,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        Container(
-                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Date", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: DateFormat("yyyy-MM-dd HH:mm:ss").format(_booking!.bookingTime), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Transaction ID", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: _payment!.failReason!.substring(5), color: Colors.black, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(left: 24, right: 24, bottom: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SmallText(text: "Status", color: Colors.black, size: 14,),
-                              Container(
-                                child: BigText(text: "Paid", color: Colors.blueAccent, fontweight: FontWeight.w600, size: 16,),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                      ),
+                    )
+                  ],
                 )
               ],
-            )
-          ],
-        ),
-    );
+            ),
+          );
   }
 }
