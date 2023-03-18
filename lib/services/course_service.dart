@@ -140,7 +140,7 @@ class CourseService{
 
   Future<List<Course>?> getCompletedCoursesForUser(id) async {
     try {
-      var url = Uri.parse(Path.path + "/courses/course/completed/" + id.toString());
+      var url = Uri.parse(Path.path + "/courses/course/completed");
       var response = await http.get(url);
       if (response.statusCode == 200) {
         List<Course> _courses = courseFromJson(response.body);

@@ -108,7 +108,7 @@ class _MentorProfileState extends State<MentorProfile> {
                 ),
                 SmallText(
 
-                  text: _mentor?.job ?? '',
+                  text: "Tutor",
 
                   size: Dimension.font6,
                 ),

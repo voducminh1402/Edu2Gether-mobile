@@ -34,4 +34,18 @@ class MentorService{
       log(e.toString());
     }
   }
+
+  Future<List<Mentor>?> getMentorsBySubjectName(String name) async {
+    try {
+      var url = Uri.parse(Path.path  + "/mentors/subjects/$name");
+      var response = await http.get(url);
+      if (response.statusCode == 200) {
+        List<Mentor> _mentorModel = mentorFromJson(response.body);
+        return _mentorModel;
+      }
+    } catch (e) {
+      print(e.toString());
+      log(e.toString());
+    }
+  }
 }

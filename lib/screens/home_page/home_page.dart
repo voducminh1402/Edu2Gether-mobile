@@ -252,7 +252,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     BigText(
-                                      text: "Top Mentor",
+                                      text: "Top Tutor",
                                       color: Colors.black,
                                       size: 16,
                                       fontweight: FontWeight.w600,

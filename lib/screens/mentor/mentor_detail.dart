@@ -146,7 +146,7 @@ class _MentorDetailState extends State<MentorDetail> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigText(text: "Toán, Văn, Anh",  size: Dimension.font8, fontweight: FontWeight.bold,),
+                    BigText(text: _mentor!.subjects == "" ? "Toán, Văn, Anh" :_mentor!.subjects.toString(),  size: Dimension.font8, fontweight: FontWeight.bold,),
                 ]),
               ),
             ),

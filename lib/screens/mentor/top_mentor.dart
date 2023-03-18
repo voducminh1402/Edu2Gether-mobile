@@ -1,7 +1,9 @@
+import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mentor.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 import 'package:edu2gether_mobile/services/mentor_service.dart';
+import 'package:edu2gether_mobile/services/subject_service.dart';
 import 'package:edu2gether_mobile/utilities/dimensions.dart';
 import 'package:edu2gether_mobile/widgets/small_text.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +21,11 @@ class TopMentorPage extends StatefulWidget {
 class _TopMentorPageState extends State<TopMentorPage> {
   String? _search;
   bool isSearching = false;
+    final Set<String> _majorNames = Set();
   List<Mentor>? mentors = [];
   List<Mentor>? searchMentors = [];
   var isLoaded = false;
+    int _majorIndex = 0;
 
   @override
   void initState() {
@@ -31,12 +35,18 @@ class _TopMentorPageState extends State<TopMentorPage> {
 
   getData() async {
     mentors = (await MentorService().getMentor())!;
+    List<Subject>? subjects = await SubjectService().getSubject();
     searchMentors = mentors;
-    setState(() {
-      if (mentors != null) {
-        isLoaded = true;
+    _majorNames.add("All");
+    if(subjects != null && mentors != null){
+      for (var element in subjects) {
+        _majorNames.add(element.name);
       }
-    });
+      setState(() {
+        isLoaded = true;
+      });
+    }
+    
   }
 
   void _searchByName(value) {
@@ -120,40 +130,124 @@ class _TopMentorPageState extends State<TopMentorPage> {
                         )
                 ],
                 elevation: 0),
-            body: ListView.builder(
-              itemCount: searchMentors?.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () =>
-                      Get.to(() => MentorProfile(id: searchMentors![index].id)),
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                        top: Dimension.height3,
-                        right: Dimension.width5,
-                        left: Dimension.width5),
-                    child: ListTile(
-                      title: Padding(
-                        padding: const EdgeInsets.only(bottom: 5),
-                        child: BigText(
-                          text: searchMentors![index].fullName,
-                          fontweight: FontWeight.bold,
-                          size: Dimension.font8,
+            body: ListView(
+              children: [
+                SizedBox(
+                                    width: 370,
+                                    height: 38,
+                                    child: ListView.builder(
+                                      physics: const ClampingScrollPhysics(),
+                                      itemCount: _majorNames.length,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return GestureDetector(
+                                          onTap: () async {
+                                            setState(() {
+                                              isLoaded = false;
+                                            });
+                                            if (_majorNames.elementAt(index) ==
+                                                "All") {
+                                              mentors = (await MentorService()
+                                                  .getMentor())!;
+                                              
+                                            } else {
+                                             mentors = await MentorService()
+                                                  .getMentorsBySubjectName(
+                                                      _majorNames
+                                                          .elementAt(index));
+                                              
+                                            }
+
+                                            _majorIndex = index;
+searchMentors = mentors;
+                                            setState(() {
+                                              if (mentors != null) {
+                                                isLoaded = true;
+                                              }
+                                            });
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                right: Dimension.width5),
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                    width: 142,
+                                                    height: 32,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              25),
+                                                      border: Border.all(
+                                                          color:
+                                                              Colors.blueAccent,
+                                                          style:
+                                                              BorderStyle.solid,
+                                                          width: 2.0),
+                                                      color: _majorIndex !=
+                                                              index
+                                                          ? Colors.white
+                                                          : Colors.blueAccent,
+                                                    ),
+                                                    child: Center(
+                                                        child: BigText(
+                                                      text: _majorNames!
+                                                          .elementAt(index),
+                                                      color: _majorIndex ==
+                                                              index
+                                                          ? Colors.white
+                                                          : Colors.blueAccent,
+                                                      size: Dimension.font6,
+                                                      fontweight:
+                                                          FontWeight.w600,
+                                                    )))
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                SizedBox(
+                  height: 800,
+                  child: ListView.builder(
+                    itemCount: searchMentors?.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () =>
+                            Get.to(() => MentorProfile(id: searchMentors![index].id)),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: Dimension.height3,
+                              right: Dimension.width5,
+                              left: Dimension.width5),
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.only(bottom: 5),
+                              child: BigText(
+                                text: searchMentors![index].fullName,
+                                fontweight: FontWeight.bold,
+                                size: Dimension.font8,
+                              ),
+                            ),
+                            subtitle: SmallText(
+                              text: "Tutor",
+                              size: Dimension.font6,
+                              color: Colors.black38,
+                            ),
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(searchMentors![index].image),
+                              radius: Dimension.width13,
+                            ),
+                          ),
                         ),
-                      ),
-                      subtitle: SmallText(
-                        text: searchMentors![index].job,
-                        size: Dimension.font6,
-                        color: Colors.black38,
-                      ),
-                      leading: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage(searchMentors![index].image),
-                        radius: Dimension.width13,
-                      ),
-                    ),
+                      );
+                    },
                   ),
-                );
-              },
+                ),
+              ],
             ),
           );
   }

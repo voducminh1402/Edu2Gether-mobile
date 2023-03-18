@@ -1,5 +1,7 @@
 import 'package:edu2gether_mobile/models/course.dart';
 import 'package:edu2gether_mobile/models/mark.dart';
+import 'package:edu2gether_mobile/screens/checkout/choose_type_checkout.dart';
+import 'package:edu2gether_mobile/screens/home_page/home_page.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
 import 'package:edu2gether_mobile/screens/most_popular_course/most_popular_courses.dart';
 import 'package:edu2gether_mobile/screens/user_profile/paypal_payment.dart';
@@ -106,7 +108,7 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails>
                   leading: BackButton(
                     color: Colors.black,
                     onPressed: () {
-                      Navigator.pop(context);
+                      Get.to(() => MainHomePage());
                     },
                   ),
                   backgroundColor: Colors.white,
@@ -378,12 +380,13 @@ class _VideoCourseDetailsState extends State<VideoCourseDetails>
                       onPressed: () {
                         !_canEnroll!
                             ? null
-                            : Get.to(() => PaypalPayment(
-                                  price: _course!.price,
-                                  menteeId: _menteeId!,
-                                  mentorId: _course!.mentorId,
-                                  courseId: _course!.id,
-                                ));
+                            : Get.to(() => ChooseTypeCheckout(id: widget.id));
+                            // Get.to(() => PaypalPayment(
+                            //       price: _course!.price,
+                            //       menteeId: _menteeId!,
+                            //       mentorId: _course!.mentorId,
+                            //       courseId: _course!.id,
+                            //     ));
                       },
                       label: Text(
                         'Enroll Course ' + _course!.price.toString() + "\$",
