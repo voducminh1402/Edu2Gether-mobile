@@ -1,5 +1,4 @@
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
-import 'package:edu2gether_mobile/screens/user_profile/profile.dart';
 import 'package:edu2gether_mobile/services/mentee_service.dart';
 import 'package:edu2gether_mobile/services/storage_services.dart';
 import 'package:edu2gether_mobile/utilities/colors.dart';
@@ -7,7 +6,6 @@ import 'package:edu2gether_mobile/utilities/dimensions.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -47,13 +45,13 @@ class _profileEditState extends State<ProfileEdit> {
   }
 
   _getMentee() async {
-    if (widget.user!.isConfirmedInfo) {
+    if (widget.user.isConfirmedInfo) {
       _mentee = (await MenteeService().getMenteeById(widget.id));
     } else {
       isLoaded = true;
-      _fullName = widget.user!.name;
-      _image = widget.user!.image ?? "";
-      _phone = widget.user!.phone ?? "";
+      _fullName = widget.user.name;
+      _image = widget.user.image ?? "";
+      _phone = widget.user.phone ?? "";
     }
     setState(() {
       if (_mentee != null) {
@@ -76,7 +74,7 @@ class _profileEditState extends State<ProfileEdit> {
     final Storage storage = Storage();
 
     return SingleChildScrollView(
-      physics: ScrollPhysics(),
+      physics: const ScrollPhysics(),
       child: ConstrainedBox(
         constraints: BoxConstraints(
             minHeight: MediaQuery.of(context).size.height,
@@ -104,7 +102,7 @@ class _profileEditState extends State<ProfileEdit> {
             ),
           ),
           body: isLoaded == false
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
               : Column(
@@ -134,7 +132,7 @@ class _profileEditState extends State<ProfileEdit> {
                                             BorderRadius.circular(12)),
                                     labelText: 'Full Name',
                                     hintText:
-                                        _mentee?.fullName ?? widget.user!.name,
+                                        _mentee?.fullName ?? widget.user.name,
                                     floatingLabelBehavior:
                                         FloatingLabelBehavior.always,
                                     fillColor: AppColors.inputColor,
@@ -252,8 +250,7 @@ class _profileEditState extends State<ProfileEdit> {
                               child: IntlPhoneField(
                                 decoration: InputDecoration(
                                   labelText: 'Phone',
-                                  hintText:
-                                      _mentee?.phone ?? widget.user?.phone,
+                                  hintText: _mentee?.phone ?? widget.user.phone,
                                   floatingLabelBehavior:
                                       FloatingLabelBehavior.always,
                                   border: const OutlineInputBorder(
@@ -300,7 +297,7 @@ class _profileEditState extends State<ProfileEdit> {
                                   fillColor: Colors.white12,
                                 ),
                                 dropdownColor: Colors.white,
-                                value: _gender,
+                                value: dropdownValue,
                                 onChanged: (String? newValue) {
                                   setState(() {
                                     dropdownValue = newValue!;
@@ -357,7 +354,7 @@ class _profileEditState extends State<ProfileEdit> {
                                         content: Text('No file selected'),
                                       ),
                                     );
-                                    return null;
+                                    return;
                                   }
                                   final path = results.files.single.path!;
                                   final fileName = results.files.single.name;
@@ -368,7 +365,7 @@ class _profileEditState extends State<ProfileEdit> {
                                     setState(() {
                                       _image = value!;
                                       isLoadedImage = true;
-                                      print(_image + "anh vui ve");
+                                      print("${_image}anh vui ve");
                                     });
                                   });
                                 },
@@ -419,7 +416,7 @@ class _profileEditState extends State<ProfileEdit> {
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30),
                                     ),
-                                    textStyle: TextStyle(
+                                    textStyle: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.bold)),
                                 onPressed: () {
@@ -433,13 +430,13 @@ class _profileEditState extends State<ProfileEdit> {
                                       gender: _gender,
                                       image: _image);
                                   MenteeService().editMentee(
-                                      mentee, !widget.user!.isConfirmedInfo);
+                                      mentee, !widget.user.isConfirmedInfo);
                                 },
-                                child: Text('Update'),
+                                child: const Text('Update'),
                               ),
                             ),
                           )
-                        : SizedBox(),
+                        : const SizedBox(),
                   ],
                 ),
         ),

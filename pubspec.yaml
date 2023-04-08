@@ -20,7 +20,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0 <3.0.0'
+  sdk: '>=2.19.0-424.0.dev <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,8 +34,8 @@ dependencies:
   intl_phone_field: ^3.1.0
   video_player: ^2.4.7
 
-  firebase_auth: 3.11.2
-  firebase_core: ^1.10.0
+  firebase_auth: ^4.3.0
+  firebase_core: ^2.8.0
   google_sign_in: ^5.4.2
   font_awesome_flutter: ^10.2.1
   get: ^4.6.5
@@ -54,15 +54,12 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_storage: ^10.3.11
+  firebase_storage: ^11.0.16
 flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/logos/Logo-edu2-fix-02.png"
   min_sdk_android: 21
-
-dependency_overrides:
-  firebase_core_platform_interface: 4.5.1
 
 dev_dependencies:
   flutter_test:

@@ -14,15 +14,15 @@ import '../main_page/main_page.dart';
 
 class MyBookmarkPage extends StatefulWidget {
   String? id;
-  MyBookmarkPage({this.id,Key? key}) : super(key: key);
+  MyBookmarkPage({this.id, Key? key}) : super(key: key);
 
   @override
   State<MyBookmarkPage> createState() => _MyBookmarkPageState();
 }
 
 class _MyBookmarkPageState extends State<MyBookmarkPage> {
-  final Set<Major> _searchTerms = Set<Major>();
-  final Set<String> _majorNames = Set<String>();
+  final Set<Major> _searchTerms = <Major>{};
+  final Set<String> _majorNames = <String>{};
   late List<Course>? _courses;
   String? _menteeId;
   String? _search;
@@ -38,11 +38,8 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
     await AuthService().getUserLogin().then((value) async {
       _menteeId = value.id;
       _courses = (await CourseService().getBookmarkByUserId(value.id))!;
-      if(_courses != null){
-        return _courses;
-      }
       setState(() {
-        if(_courses != null ){
+        if (_courses != null) {
           isLoaded = true;
         }
       });
@@ -50,171 +47,191 @@ class _MyBookmarkPageState extends State<MyBookmarkPage> {
   }
 
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return !isLoaded ? const Scaffold(body: Center(child: CircularProgressIndicator(),)) :
-    Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.white,
-          leading: IconButton(
-
-            icon: const Icon(
-
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Get.to(() => MainPage());
-            },
-          ),
-          title: Text(
-              _search ?? 'My Bookmark',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: Dimension.font8),
-            ),
-          actions: [
-            IconButton(
-                onPressed: () async {
-                  // method to show the search bar
-                  _search = await showSearch<String?>(
-                      context: context,
-                      // delegate to customize the search bar
-                      delegate: CustomSearchDelegate(_searchTerms),
-                  );
-                  if(_majorNames.contains(_search)){
-                    int id = _searchTerms.firstWhere((element) => element.name == _search).id;
-                    _courses = await CourseService().getBookmarkByUserIdWithMajorId(_menteeId, id);
-                  } else {
-                    _courses = await CourseService().getBookmarkByUserIdWithSearchString(_menteeId, _search);
-                  }
-                  setState(() {
-                    if(_courses != null){
-                      isLoaded = true;
-                    }
-                  });
-                },
-                icon: const Icon(
-                  Icons.search_outlined,
-                  color: Colors.black,
-                )),
-          ],
-          elevation: 0
-      ),
-      body: ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: Dimension.height5),
-          itemCount: _courses!.length,
-          itemBuilder: (context, i) {
-            return InkWell(
-              onTap: () => Get.to(() =>
-                  VideoCourseDetails(
-                      id: _courses![i].id)),
-              child: Container(
-                  padding: EdgeInsets.all(Dimension.height8),
-                  margin: EdgeInsets.all(Dimension.height8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                    BorderRadius.circular(Dimension.radius12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.1),
-                        spreadRadius: 2,
-                        blurRadius: 2,
-                        offset: Offset(0, 2), // changes position of shadow
-                      ),
-                    ],
+    return !isLoaded
+        ? const Scaffold(
+            body: Center(
+            child: CircularProgressIndicator(),
+          ))
+        : Scaffold(
+            appBar: AppBar(
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back,
+                    color: Colors.black,
                   ),
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        // Image border
-                        child: SizedBox.fromSize(
-                          size: Size.fromRadius(52), // Image radius
-                          child: Image.network(_courses![i].image.toString(),
-                              fit: BoxFit.cover),
+                  onPressed: () {
+                    Get.to(() => MainPage());
+                  },
+                ),
+                title: Text(
+                  _search ?? 'My Bookmark',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: Dimension.font8),
+                ),
+                actions: [
+                  IconButton(
+                      onPressed: () async {
+                        // method to show the search bar
+                        _search = await showSearch<String?>(
+                          context: context,
+                          // delegate to customize the search bar
+                          delegate: CustomSearchDelegate(_searchTerms),
+                        );
+                        if (_majorNames.contains(_search)) {
+                          int id = _searchTerms
+                              .firstWhere((element) => element.name == _search)
+                              .id;
+                          _courses = await CourseService()
+                              .getBookmarkByUserIdWithMajorId(_menteeId, id);
+                        } else {
+                          _courses = await CourseService()
+                              .getBookmarkByUserIdWithSearchString(
+                                  _menteeId, _search);
+                        }
+                        setState(() {
+                          if (_courses != null) {
+                            isLoaded = true;
+                          }
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.search_outlined,
+                        color: Colors.black,
+                      )),
+                ],
+                elevation: 0),
+            body: ListView.builder(
+                padding: EdgeInsets.symmetric(vertical: Dimension.height5),
+                itemCount: _courses!.length,
+                itemBuilder: (context, i) {
+                  return InkWell(
+                    onTap: () =>
+                        Get.to(() => VideoCourseDetails(id: _courses![i].id)),
+                    child: Container(
+                        padding: EdgeInsets.all(Dimension.height8),
+                        margin: EdgeInsets.all(Dimension.height8),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.circular(Dimension.radius12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(
+                                  0, 2), // changes position of shadow
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        width: 15,
-                      ),
-                      Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    child: Text("Marked", style: TextStyle(color: Colors.white),),
-                                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.mainColor,
-                                      border: Border.all(color: Colors.blue),
-                                      borderRadius: BorderRadius.circular(6),
-
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              // Image border
+                              child: SizedBox.fromSize(
+                                size: const Size.fromRadius(52), // Image radius
+                                child: Image.network(
+                                    _courses![i].image.toString(),
+                                    fit: BoxFit.cover),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Expanded(
+                                child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 6, vertical: 3),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.mainColor,
+                                        border: Border.all(color: Colors.blue),
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                      child: Text(
+                                        "Marked",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
-                                  ),
-                                  GestureDetector(
-                                      onTap: () async {
-                                        Mark mark = Mark(courseId: _courses![i].id, menteeId: _menteeId!);
-                                        await MarkService().unMarkCourse(mark);
-                                        _courses = await CourseService().getBookmarkByUserId(_menteeId);
-                                        setState(() {
-                                          if(_courses != null){
-                                            isLoaded = true;
-                                          }
-                                        });
-                                      },
-                                      child: Icon(Icons.bookmark, color: AppColors.mainColor, size: Dimension.font10,))
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text(
-                                _courses![i].name.toString(),
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: Dimension.font9,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Urbanist'),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              Text.rich(
-                                TextSpan(
-                                  text: '\$${_courses![i].price.toString()}',
-                                  style: TextStyle(
-                                    fontSize: Dimension.font6,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blueAccent,
-                                  ), // default text style
+                                    GestureDetector(
+                                        onTap: () async {
+                                          Mark mark = Mark(
+                                              courseId: _courses![i].id,
+                                              menteeId: _menteeId!);
+                                          await MarkService()
+                                              .unMarkCourse(mark);
+                                          _courses = await CourseService()
+                                              .getBookmarkByUserId(_menteeId);
+                                          setState(() {
+                                            if (_courses != null) {
+                                              isLoaded = true;
+                                            }
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.bookmark,
+                                          color: AppColors.mainColor,
+                                          size: Dimension.font10,
+                                        ))
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ))
-                    ],
-                  )),
-            );
-          }),
-    );
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  _courses![i].name.toString(),
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: Dimension.font9,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Urbanist'),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text.rich(
+                                  TextSpan(
+                                    text: '\$${_courses![i].price.toString()}',
+                                    style: TextStyle(
+                                      fontSize: Dimension.font6,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blueAccent,
+                                    ), // default text style
+                                  ),
+                                ),
+                              ],
+                            ))
+                          ],
+                        )),
+                  );
+                }),
+          );
   }
 }
+
 class CustomSearchDelegate extends SearchDelegate<String?> {
 // Demo list to show querying
   Set<Major>? searchTerms;
 
-  CustomSearchDelegate(Set<Major> searchTerms){
+  CustomSearchDelegate(Set<Major> searchTerms) {
     this.searchTerms = searchTerms;
   }
 
@@ -222,21 +239,29 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
 // clear the search text
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return query != "" ? [
-      IconButton(
-        onPressed: () {
-          query = '';
-        },
-        icon: const Icon(Icons.clear, color: Colors.black,),
-      ),
-    ] : [
-      IconButton(
-        onPressed: () {
-          close(context, null);
-        },
-        icon: const Icon(Icons.clear, color: Colors.black,),
-      ),
-    ];
+    return query != ""
+        ? [
+            IconButton(
+              onPressed: () {
+                query = '';
+              },
+              icon: const Icon(
+                Icons.clear,
+                color: Colors.black,
+              ),
+            ),
+          ]
+        : [
+            IconButton(
+              onPressed: () {
+                close(context, null);
+              },
+              icon: const Icon(
+                Icons.clear,
+                color: Colors.black,
+              ),
+            ),
+          ];
   }
 
 // second overwrite to pop out of search menu
@@ -246,7 +271,10 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
       onPressed: () {
         close(context, null);
       },
-      icon: const Icon(Icons.arrow_back, color: Colors.black,),
+      icon: const Icon(
+        Icons.arrow_back,
+        color: Colors.black,
+      ),
     );
   }
 
@@ -265,7 +293,7 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return GestureDetector(
-          onTap: (){
+          onTap: () {
             query = result;
             close(context, result);
           },
@@ -294,7 +322,7 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
         var result = matchQuery[index];
         print(query);
         return GestureDetector(
-          onTap: (){
+          onTap: () {
             query = result;
             print(query);
             close(context, result);
@@ -307,4 +335,3 @@ class CustomSearchDelegate extends SearchDelegate<String?> {
     );
   }
 }
-

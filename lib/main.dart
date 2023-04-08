@@ -10,9 +10,7 @@ import 'package:edu2gether_mobile/screens/mentor/top_mentor.dart';
 import 'package:edu2gether_mobile/screens/most_popular_course/most_popular_courses.dart';
 import 'package:edu2gether_mobile/screens/splash_screen/splash_screen.dart';
 
-
 import 'package:edu2gether_mobile/services/auth_service.dart';
-
 
 import 'package:edu2gether_mobile/services/auth_service.dart';
 
@@ -21,8 +19,6 @@ import 'package:edu2gether_mobile/screens/login/login.dart';
 import 'package:edu2gether_mobile/screens/login/login_account.dart';
 import 'package:edu2gether_mobile/screens/main_page/main_page.dart';
 import 'package:edu2gether_mobile/screens/mentor/mentor_profile.dart';
-
-
 
 import 'package:edu2gether_mobile/screens/nofitication/notification.dart';
 import 'package:edu2gether_mobile/screens/payment_enroll/payment_enroll_course.dart';
@@ -39,13 +35,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:edu2gether_mobile/screens/my_course/my_course.dart';
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
+
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,7 +57,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       //highContrastDarkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
@@ -70,13 +67,12 @@ class MyApp extends StatelessWidget {
       //initialRoute: RoutesClass.getLoginRoute(),
       //home: AuthService().handleAuthState(),
 
-
       // home: AuthService().handleAuthState(),
 
       //home: MentorProfile(id: "1",),
       //home: VideoCourseDetails(id: 4),
       //home: EReceiptPage(id: "gGqJe6eNhXdxMm4ex9n5hfvVIjv1", transactionId: , walletId: ,),
-      home: MainHomePage(),
+      home: const SplashScreen(),
 // home: MentorProfile(id: "1",),
 //  home: MentorDetail(id: "1"),
 
